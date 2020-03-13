@@ -19,3 +19,5 @@ Aplicativo que conecta, em tempo real, mecânicos a motoristas que precisam de u
 ### Sprint Planning
 
 ### Arquitetura
+- Diagrama de Pacotes
+![alt text](https://uploaddeimagens.com.br/images/002/536/543/full/DiagramadePacotesArquitetura.png)
