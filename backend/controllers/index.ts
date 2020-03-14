@@ -11,4 +11,8 @@ router.use('/', HomeController);
 import LoginController from './LoginController';
 router.use('/login', LoginController);
 
+// Controller de motorista
+import DriverController from './DriverController';
+router.use('/api/driver', DriverController);
+
 export default router;
