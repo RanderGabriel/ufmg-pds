@@ -34,7 +34,7 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 2.4. Criar rota POST de login para motoristas (AP)<br>
 2.5. Criar tela de login (AP) <br> 
 
-3. Como um motorista, eu quero recuperar meus dados de cadastro caso eu esqueça. (EO)<br>
+3. Como um motorista, eu quero recuperar meus dados de cadastro caso eu esqueça. <br>
 3.1. Criar rota de envio de e-mail de recuperação de senha para motoristas (EO)<br>
 3.2. Adicionar link para redefinir senha na tela de login (EO)<br>
 3.3. Criar tela de redefinir senha para o motorista (EO)<br>
