@@ -2,7 +2,7 @@ import { Express } from 'express';
 import express = require('express');
 
 import controllers from './controllers';
-// import middlewares from './middlewares';
+import middlewares from './middlewares';
 
 class App {
     
@@ -11,8 +11,8 @@ class App {
     constructor() {
         this.app = express();
 
+        this.useMiddlewares(middlewares);
         this.useControllers(controllers);
-        // this.useMiddlewares(middlewares);
 
         this.start(5000);
     }
