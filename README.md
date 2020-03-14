@@ -1,11 +1,11 @@
 # Encontre um Mecânico
 
 #### Membros da equipe:
-- Augusto Polizer
-- Brian Aikau
-- Eduardo Oliveira
-- Marlon Alves
-- Rander Gabriel
+- Augusto Polizer (AP)
+- Brian Aikau (BA)
+- Eduardo Oliveira (EO)
+- Marlon Alves (MA)
+- Rander Gabriel (RG)
 
 #### Funcionalidades do sistema:
 Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um atendimento rápido e seguro de manutenção ou reparo de veículos automotivos. O sistema terá um cadastro de mecânicos, que podem ter uma loja física e informar sua disponibilidade para deslocamento até o veículo com defeito; além de um cadastro de motoristas e informações dos seus respectivos veículos. Demais funcionalidades referem-se a pesquisar, avaliar e exibir perfil do mecânico, calcular deslocamento, tempo de chegada e confirmar solicitação de atendimento.
@@ -43,11 +43,11 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 3.6. Criar método na camada de acesso a dados para atualização da senha do motorista (EO)<br>
 
 4. Como um motorista, eu quero cadastrar os meus veículos para que o mecânico possa ver informações do meu veículo com defeito antes de iniciar o atendimento.<br>
-4.1. Criar modelo no backend para cadastro de veículos para motoristas  <br>
-4.2. Criar entidade no banco de dados para veículos de motoristas<br>
-4.3. Criar método na camada de acesso à dados para criação de veículo de motorista<br>
-4.4. Criar rota POST para criação de veículo de motorista<br>
-4.5. Criar tela de cadastro para veículos de motorista <br>
+4.1. Criar modelo no backend para cadastro de veículos para motoristas (BA)<br>
+4.2. Criar entidade no banco de dados para veículos de motoristas (BA) <br>
+4.3. Criar método na camada de acesso à dados para criação de veículo de motorista (BA) <br>
+4.4. Criar rota POST para criação de veículo de motorista (BA) <br>
+4.5. Criar tela de cadastro para veículos de motorista (BA) <br>
 
 5. Como um mecânico, eu quero cadastrar meu perfil para ter acesso ao sistema e estar apto a realizar atendimentos.<br>
 5.1. Definir entidades no Backend (RG) <br>
@@ -75,20 +75,20 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 7.8. Criar método na camada de acesso a dados para atualização da senha do mecânico (EO) <br>
 
 8. Como um mecânico, eu quero indicar o endereço da minha oficina mecânica e minha disponibilidade para deslocamento, para que o motorista saiba se pode ou não contar com os meus serviços, dependendo da sua localização.<br>
-8.1. Criar modelos no backend para oficinas<br>
-8.2. Criar entidades no banco de dados para oficinas <br>
-8.3. Criar migração no banco de dados para oficinas<br>
-8.4. Criar método na camada de acesso à dados para criação de oficinas<br>
-8.5. Criar tela de cadastro de oficina<br>
-8.6. Criar rota POST para criação de oficinas<br>
+8.1. Criar modelos no backend para oficinas (MA)<br>
+8.2. Criar entidades no banco de dados para oficinas  (MA)<br>
+8.3. Criar migração no banco de dados para oficinas  (MA)<br>
+8.4. Criar método na camada de acesso à dados para criação de oficinas  (MA)<br>
+8.5. Criar tela de cadastro de oficina  (MA)<br>
+8.6. Criar rota POST para criação de oficinas  (MA)<br>
 
-9. Como um mecânico, eu quero cadastrar os meus veículos de trabalho, para que o motorista saiba que em qual veículo estou me deslocando para atendê-lo, quando for o caso.<br>
-9.1. Criar modelos no backend para veículos de trabalho <br>
-9.2. Criar entidades no banco de dados para veículos de trabalho<br>
-9.3. Criar migração no banco de dados para veículos de trabalho<br>
-9.4. Criar método de criação de veículos de trabalho na camada de acesso à dados <br>
-9.5. Criar rota POST para criação de veículos de trabalho <br>
-9.6. Criar tela de cadastro de veículos<br>
+9. Como um mecânico, eu quero cadastrar os meus veículos de trabalho, para que o motorista saiba que em qual veículo estou me deslocando para atendê-lo, quando for o caso. <br>
+9.1. Criar modelos no backend para veículos de trabalho (BA) <br>
+9.2. Criar entidades no banco de dados para veículos de trabalho (BA) <br>
+9.3. Criar migração no banco de dados para veículos de trabalho (BA) <br>
+9.4. Criar método de criação de veículos de trabalho na camada de acesso à dados (BA) <br>
+9.5. Criar rota POST para criação de veículos de trabalho (BA) <br>
+9.6. Criar tela de cadastro de veículos (BA)<br>
 
 ### Arquitetura
 - Diagrama de Pacotes
