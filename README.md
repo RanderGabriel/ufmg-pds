@@ -19,13 +19,12 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 ### Sprint Planning
 
 1. Como um motorista, eu quero cadastrar meu perfil para ter acesso ao sistema e realizar solicitações de atendimento.<br>
-1.1. Definir entidades no backend<br>
-1.2. Criar migração no banco de dados<br>
-1.3. Criar camada de acesso a dados no backend<br>
-1.4. Criar método de inserção de motorista na camada de acesso a dados<br>
-1.5. Criar controller de usuário/motorista<br>
-1.6. Criar rota (POST) para criação do usuário motorista <br>
-1.7. Criar tela de cadastro de motorista <br>
+1.1. Criar migração no banco de dados<br>
+1.2. Criar camada de acesso a dados no backend<br>
+1.3. Criar método de inserção de motorista na camada de acesso a dados<br>
+1.4. Criar controller de usuário/motorista<br>
+1.5. Criar rota (POST) para criação do usuário motorista <br>
+1.6. Criar tela de cadastro de motorista <br>
 
 2. Como um motorista, eu quero acessar meu perfil usando as credenciais que defini no cadastro.<br>
 2.1. Criar método de autenticação de motorista<br>
@@ -50,18 +49,18 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 4.5. Criar tela de cadastro para veículos de motorista <br>
 
 5. Como um mecânico, eu quero cadastrar meu perfil para ter acesso ao sistema e estar apto a realizar atendimentos.<br>
-5.1. Definir entidades no Backend<br>
-5.2. Criar migração no banco de dados <br>
-5.3. Criar método de inserção de mecânico na camada de acesso a dados<br>
-5.4. Criar controller de usuário/mecânico<br>
-5.5. Criar rota (POST) para criação do usuário motorista <br>
+5.1. Definir entidades no Backend<br> - Responsável: Rander Gabriel
+5.2. Criar migração no banco de dados <br> - Responsável: Rander Gabriel
+5.3. Criar método de inserção de mecânico na camada de acesso a dados<br> - Responsável: Rander Gabriel
+5.4. Criar controller de usuário/mecânico<br> - Responsável: Rander Gabriel
+5.5. Criar rota (POST) para criação do usuário motorista <br> - Responsável: Rander Gabriel
 5.6. Criar tela de cadastro de mecânico  <br>
 
 6. Como um mecânico, eu quero acessar meu perfil usando as credenciais que defini no cadastro. <br>
-6.1. Criar método de autenticação de mecânico <br>
-6.2. Ajustar modelos no backend para suportar autenticação de mecânico<br>
-6.3. Criar migração no banco de dados<br>
-6.4. Criar rota de login para mecânicos (POST)<br>
+6.1. Criar método de autenticação de mecânico <br> - Responsável: Rander Gabriel
+6.2. Ajustar modelos no backend para suportar autenticação de mecânico<br> - Responsável: Rander Gabriel
+6.3. Criar migração no banco de dados<br> - Responsável: Rander Gabriel
+6.4. Criar rota de login para mecânicos (POST)<br> - Responsável: Rander Gabriel
 6.5. Criar tela de login <br>
 
 7. Como um mecânico, eu quero recuperar meus dados de cadastro caso eu esqueça.<br>
