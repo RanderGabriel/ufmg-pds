@@ -19,7 +19,7 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 ### Sprint Planning
 
 1. Como um motorista, eu quero cadastrar meu perfil para ter acesso ao sistema e realizar solicitações de atendimento.<br>
-1.1. Definir entidades no backend
+1.1. Definir entidades no backend<br>
 1.2. Criar migração no banco de dados<br>
 1.3. Criar camada de acesso a dados no backend<br>
 1.4. Criar método de inserção de motorista na camada de acesso a dados<br>
