@@ -19,20 +19,20 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 ### Sprint Planning
 
 1. Como um motorista, eu quero cadastrar meu perfil para ter acesso ao sistema e realizar solicitações de atendimento.<br>
-1.1. Definir entidades no backend<br>
-1.2. Criar migração no banco de dados<br>
-1.3. Criar camada de acesso a dados no backend<br>
-1.4. Criar método de inserção de motorista na camada de acesso a dados<br>
-1.5. Criar controller de usuário/motorista<br>
-1.6. Criar rota POST para criação do usuário motorista <br>
-1.7. Criar tela de cadastro de motorista <br>
+1.1. Definir entidades no backend<br> (AP)
+1.2. Criar migração no banco de dados<br> (AP)
+1.3. Criar camada de acesso a dados no backend<br> (AP)
+1.4. Criar método de inserção de motorista na camada de acesso a dados<br> (AP)
+1.5. Criar controller de usuário/motorista<br> (AP)
+1.6. Criar rota POST para criação do usuário motorista <br> (AP)
+1.7. Criar tela de cadastro de motorista <br> (AP)
 
 2. Como um motorista, eu quero acessar meu perfil usando as credenciais que defini no cadastro.<br>
-2.1. Criar método de autenticação de motorista<br>
-2.2. Ajustar modelos no backend para suportar autenticação de motorista<br>
-2.3. Criar migração no banco de dados<br>
-2.4. Criar rota POST de login para motoristas <br>
-2.5. Criar tela de login <br>
+2.1. Criar método de autenticação de motorista<br> (AP)
+2.2. Ajustar modelos no backend para suportar autenticação de motorista<br> (AP)
+2.3. Criar migração no banco de dados<br> (AP)
+2.4. Criar rota POST de login para motoristas <br> (AP)
+2.5. Criar tela de login <br> (AP)
 
 3. Como um motorista, eu quero recuperar meus dados de cadastro caso eu esqueça.<br>
 3.1. Criar rota de envio de e-mail de recuperação de senha para motoristas<br>
