@@ -55,14 +55,14 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 5.3. Criar método de inserção de mecânico na camada de acesso a dados (RG) <br>
 5.4. Criar controller de usuário/mecânico (RG) <br>
 5.5. Criar rota POST para criação do usuário motorista (RG) <br>
-5.6. Criar tela de cadastro de mecânico  <br>
+5.6. Criar tela de cadastro de mecânico (RG)<br>
 
 6. Como um mecânico, eu quero acessar meu perfil usando as credenciais que defini no cadastro. <br>
 6.1. Criar método de autenticação de mecânico (RG) <br>
 6.2. Ajustar modelos no backend para suportar autenticação de mecânico (RG) <br>
 6.3. Criar migração no banco de dados (RG) <br>
 6.4. Criar rota POST de login para mecânicos (RG) <br>
-6.5. Criar tela de login <br>
+6.5. Criar tela de login (RG)<br>
 
 7. Como um mecânico, eu quero recuperar meus dados de cadastro caso eu esqueça. (EO)<br>
 7.1. Criar rota de envio de e-mail de recuperação de senha para mecânicos (EO)<br>
@@ -71,16 +71,16 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 7.4. Adicionar link para redefinir senha na tela de login (EO)<br>
 7.5. Criar tela para redefinição de senha para o mecânico (EO)<br>
 7.6. Criar template de e-mail dinamicamente com o link para a rota de recuperação (EO)<br>
-7.7. Criar rota para recuperação de senha que deve passar um token temporário na query string, por isso um GET (EO)<br>
+7.7. Criar rota GET para recuperação de senha que deve passar um token temporário na query string (EO)<br>
 7.8. Criar método na camada de acesso a dados para atualização da senha do mecânico (EO) <br>
 
 8. Como um mecânico, eu quero indicar o endereço da minha oficina mecânica e minha disponibilidade para deslocamento, para que o motorista saiba se pode ou não contar com os meus serviços, dependendo da sua localização.<br>
 8.1. Criar modelos no backend para oficinas (MA)<br>
-8.2. Criar entidades no banco de dados para oficinas  (MA)<br>
-8.3. Criar migração no banco de dados para oficinas  (MA)<br>
+8.2. Criar entidades no banco de dados para oficinas (MA)<br>
+8.3. Criar migração no banco de dados para oficinas (MA)<br>
 8.4. Criar método na camada de acesso à dados para criação de oficinas  (MA)<br>
 8.5. Criar tela de cadastro de oficina  (MA)<br>
-8.6. Criar rota POST para criação de oficinas  (MA)<br>
+8.6. Criar rota POST para criação de oficinas (MA)<br>
 
 9. Como um mecânico, eu quero cadastrar os meus veículos de trabalho, para que o motorista saiba que em qual veículo estou me deslocando para atendê-lo, quando for o caso. <br>
 9.1. Criar modelos no backend para veículos de trabalho (BA) <br>
