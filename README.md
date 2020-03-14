@@ -34,13 +34,13 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 2.4. Criar rota POST de login para motoristas (AP)<br>
 2.5. Criar tela de login (AP) <br> 
 
-3. Como um motorista, eu quero recuperar meus dados de cadastro caso eu esqueça.<br>
-3.1. Criar rota de envio de e-mail de recuperação de senha para motoristas<br>
-3.2. Adicionar link para redefinir senha na tela de login<br>
-3.3. Criar tela de redefinir senha para o motorista<br>
-3.4. Criar template de e-mail dinamicamente (com o link para a rota de recuperação)<br>
-3.5. Criar rota GET para recuperação de senha <br>
-3.6. Criar método na camada de acesso a dados para atualização da senha do motorista <br>
+3. Como um motorista, eu quero recuperar meus dados de cadastro caso eu esqueça. (EO)<br>
+3.1. Criar rota de envio de e-mail de recuperação de senha para motoristas (EO)<br>
+3.2. Adicionar link para redefinir senha na tela de login (EO)<br>
+3.3. Criar tela de redefinir senha para o motorista (EO)<br>
+3.4. Criar template de e-mail dinamicamente (com o link para a rota de recuperação) (EO)<br>
+3.5. Criar rota GET para recuperação de senha (EO)<br>
+3.6. Criar método na camada de acesso a dados para atualização da senha do motorista (EO)<br>
 
 4. Como um motorista, eu quero cadastrar os meus veículos para que o mecânico possa ver informações do meu veículo com defeito antes de iniciar o atendimento.<br>
 4.1. Criar modelo no backend para cadastro de veículos para motoristas  <br>
@@ -64,15 +64,15 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 6.4. Criar rota POST de login para mecânicos (RG) <br>
 6.5. Criar tela de login <br>
 
-7. Como um mecânico, eu quero recuperar meus dados de cadastro caso eu esqueça.<br>
-7.1. Criar rota de envio de e-mail de recuperação de senha para mecânicos<br>
-7.2. Criar serviço de disparo de e-mail<br>
-7.3. Criar método de envio de e-mail no serviço de e-mail <br>
-7.4. Adicionar link para redefinir senha na tela de login <br>
-7.5. Criar tela para redefinição de senha para o mecânico<br>
-7.6. Criar template de e-mail dinamicamente com o link para a rota de recuperação <br>
-7.7. Criar rota para recuperação de senha que deve passar um token temporário na query string, por isso um GET <br>
-7.8. Criar método na camada de acesso a dados para atualização da senha do mecânico <br>
+7. Como um mecânico, eu quero recuperar meus dados de cadastro caso eu esqueça. (EO)<br>
+7.1. Criar rota de envio de e-mail de recuperação de senha para mecânicos (EO)<br>
+7.2. Criar serviço de disparo de e-mail (EO)<br>
+7.3. Criar método de envio de e-mail no serviço de e-mail (EO)<br>
+7.4. Adicionar link para redefinir senha na tela de login (EO)<br>
+7.5. Criar tela para redefinição de senha para o mecânico (EO)<br>
+7.6. Criar template de e-mail dinamicamente com o link para a rota de recuperação (EO)<br>
+7.7. Criar rota para recuperação de senha que deve passar um token temporário na query string, por isso um GET (EO)<br>
+7.8. Criar método na camada de acesso a dados para atualização da senha do mecânico (EO) <br>
 
 8. Como um mecânico, eu quero indicar o endereço da minha oficina mecânica e minha disponibilidade para deslocamento, para que o motorista saiba se pode ou não contar com os meus serviços, dependendo da sua localização.<br>
 8.1. Criar modelos no backend para oficinas<br>
