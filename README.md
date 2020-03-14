@@ -54,7 +54,7 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 5.2. Criar migração no banco de dados (RG) <br>
 5.3. Criar método de inserção de mecânico na camada de acesso a dados (RG) <br>
 5.4. Criar controller de usuário/mecânico (RG) <br>
-5.5. Criar rota POST para criação do usuário motorista (RG) <br>
+5.5. Criar rota POST para criação do usuário mecânico (RG) <br>
 5.6. Criar tela de cadastro de mecânico (RG)<br>
 
 6. Como um mecânico, eu quero acessar meu perfil usando as credenciais que defini no cadastro. <br>
