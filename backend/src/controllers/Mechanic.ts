@@ -1,9 +1,8 @@
-import { DatabaseLayer } from "../db/db";
+import {createConnection} from "typeorm";
 import { Mechanic } from "../types";
 import { generateSaltedPassword } from "../utils";
 import express = require('express');
 import { Controller } from './controller'
-const db = new DatabaseLayer();
 
 
 export class mechanicController implements Controller {
@@ -15,11 +14,17 @@ export class mechanicController implements Controller {
                 passwordHash: await generateSaltedPassword(req.body.password),
                 profile: "MECHANIC"
             };
-            await db.createMechanic(mechanic);
+            
+            createConnection()
+            .then(connection => {
+                connection.manager
+                    .save(mechanic)
+                    .then(_ => res.send({ success: true, mechanic}))
+            })
+            .catch(err => res.status(500).send({ success: false, err }))
+            
         } catch (err) {
-            res.status(500).send({ success: false });
-            return;
+            res.status(500).send({ success: false, err });
         }
-        res.send({ success: true });
     }
 }
