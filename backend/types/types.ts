@@ -8,3 +8,7 @@ export interface User {
 export interface Mechanic extends User {
     profile: "MECHANIC";
 };
+
+export interface MechanicModel {
+    userEmail: string;
+};
