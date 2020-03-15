@@ -12,7 +12,7 @@ import LoginController from './LoginController';
 router.use('/login', LoginController);
 
 // Controller de motorista
-import DriverController from './DriverController';
-router.use('/api/driver', DriverController);
+import MechanicController from './MechanicController';
+router.use('/api/mechanic', MechanicController);
 
 export default router;

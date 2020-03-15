@@ -5,6 +5,6 @@ export interface User {
     profile: string;
 }
 
-export interface Driver extends User {
-    profile: "DRIVER";
+export interface Mechanic extends User {
+    profile: "MECHANIC";
 };

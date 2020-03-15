@@ -1,5 +1,5 @@
 import { Connection, createConnection, MysqlError, FieldInfo } from "mysql";
-import { Driver } from "../types";
+import { Mechanic, User } from "../types";
 
 export class DatabaseLayer {
     connection: Connection;
@@ -13,14 +13,17 @@ export class DatabaseLayer {
         });
     }
 
-    async createDriver(driver: Driver) : Promise<string> {
+    async createUser(user: User) : Promise<string> {
         return new Promise((resolve, reject) => {
-            const query = this.connection.query('INSERT INTO User SET ?', driver,
+            const query = this.connection.query('INSERT INTO User SET ?', user,
                 (err: MysqlError | null, results?: any, fields?: FieldInfo[]) : void => {
                     if(err) reject(err);
                     else resolve(String(results.insertId));
                 });
             });
-                
+    }
+
+    async createMechanic(mechanic: Mechanic) : Promise<string> {
+        return this.createUser(mechanic as User); 
     }
 }

@@ -1,6 +1,6 @@
 import express = require('express');
 import { DatabaseLayer } from '../db/db';
-import { Driver } from '../types';
+import { Mechanic } from '../types';
 const bcrypt = require('bcrypt');
 
 var router = express.Router();
@@ -9,12 +9,12 @@ const db = new DatabaseLayer();
 router.post('/', async (req, res) => {
     console.log(req.body);
     try {
-        const driver : Driver = {
+        const mechanic : Mechanic = {
             email: req.body.email,
             passwordHash: bcrypt.hashSync(req.body.password, 10),
-            profile: "DRIVER"
+            profile: "MECHANIC"
         }
-        await db.createDriver(driver);
+        await db.createMechanic(mechanic);
     } catch (err) {
         res.status(500).send({ success: false });
         return;
