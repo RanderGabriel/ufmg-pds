@@ -2,11 +2,11 @@
     "type": "mysql",
     "host": "localhost",
     "port": 3306,
-    "username": "test",
-    "password": "test",
-    "database": "test",
+    "username": "root",
+    "password": "mysql123",
+    "database": "app_test",
     "synchronize": true,
-    "logging": false,
+    "logging": true,
     "entities": [
        "src/entity/**/*.ts"
     ],

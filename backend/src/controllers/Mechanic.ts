@@ -8,23 +8,23 @@ import { Controller } from './controller'
 export class mechanicController implements Controller {
 
     async insert(req: express.Request, res: express.Response) {
-        try {
-            const mechanic: Mechanic = {
-                email: req.body.email,
-                passwordHash: await generateSaltedPassword(req.body.password),
-                profile: "MECHANIC"
-            };
+        
+        const mechanic = {
+            email: req.body.email,
+            passwordHash: await generateSaltedPassword(req.body.password)
+                .catch(err => res.status(500).send({ success: false, err })),
+            profile: "MECHANIC"
+        };
+    
+        createConnection()
+        .then(connection => {
+            console.log('asdashusahu')
+            connection.manager
+                .save(mechanic)
+                .then( _ => res.send({ success: true, mechanic}))
+        })
+        .catch(err => res.status(500).send({ success: false, err}))
             
-            createConnection()
-            .then(connection => {
-                connection.manager
-                    .save(mechanic)
-                    .then(_ => res.send({ success: true, mechanic}))
-            })
-            .catch(err => res.status(500).send({ success: false, err }))
-            
-        } catch (err) {
-            res.status(500).send({ success: false, err });
-        }
+        
     }
 }
