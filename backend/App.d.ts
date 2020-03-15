@@ -1,1 +1,0 @@
-declare type Middleware = (req: Express.Request, res: Express.Response, next: () => void) => () => void;

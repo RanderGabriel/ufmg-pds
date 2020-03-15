@@ -2,9 +2,9 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "App.js",
+  "main": "src/App.js",
   "scripts": {
-    "serve": "tsc App.ts && node App.js",
+    "serve": "tsc src/App.ts && node src/App.js",
     "test": "jest"
   },
   "author": "",
