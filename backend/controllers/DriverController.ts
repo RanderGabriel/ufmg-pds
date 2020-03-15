@@ -1,5 +1,6 @@
 import express = require('express');
-import { DatabaseLayer, Driver } from '../db/db';
+import { DatabaseLayer } from '../db/db';
+import { Driver } from '../types';
 const bcrypt = require('bcrypt');
 
 var router = express.Router();

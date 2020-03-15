@@ -1,4 +1,5 @@
 import { Connection, createConnection, MysqlError, FieldInfo } from "mysql";
+import { Driver } from "../types";
 
 export class DatabaseLayer {
     connection: Connection;
