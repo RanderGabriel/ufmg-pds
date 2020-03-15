@@ -1,32 +1,30 @@
-import {createConnection} from "typeorm";
+import { createConnection } from "typeorm";
 import "reflect-metadata";
-import { Mechanic } from "../types";
 import { generateSaltedPassword } from "../utils";
-import express = require('express');
-import { Controller } from './controller'
+import express = require("express");
+import { Controller } from "./controller";
+import { Mechanic } from "../entity/Mechanic";
+import { User } from "../entity/User";
 
 export class mechanicController implements Controller {
+  async insert(req: express.Request, res: express.Response) {
+    try {
+      const user = new User();
+      user.email = req.body.email;
+      user.passwordHash = await generateSaltedPassword(req.body.password);
+      user.profile = { name: "MECHANIC" };
 
-    async insert(req: express.Request, res: express.Response) {
-        
-        const mechanic = {
-            email: req.body.email,
-            passwordHash: await generateSaltedPassword(req.body.password)
-                .catch(err => res.status(500).send({ success: false, err })),
-            profile: "MECHANIC"
-        };
-    
-        createConnection()
-        .then(  connection => {
-            connection.manager
-                .save(mechanic)
-                .then( _ => res.send({ success: true, mechanic}))
-        })
-        .catch(err => {
-            console.log(err)
-            res.status(500).send({ success: false, err})
-        })
-            
-        
+      const mechanic = new Mechanic();
+      mechanic.user = user;
+      mechanic.userEmail = user.email;
+
+      const connection = await createConnection();
+      await connection.manager.save<User>(user);
+      await connection.manager.save<Mechanic>(mechanic);
+      res.send({ success: true, user });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send({ success: false, err });
     }
+  }
 }

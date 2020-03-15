@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/App.js",
   "scripts": {
-    "serve": "tsc src/App.ts && node src/App.js",
+    "serve": "tsc --experimentalDecorators --emitDecoratorMetadata src/App.ts && node src/App.js",
     "test": "jest",
     "lint": "tslint -c tslint.json 'src/**/*.ts'"
   },
