@@ -2,9 +2,9 @@ import express = require('express');
 import {mechanicController}  from '../controllers/Mechanic';
 
 const router = express.Router();
-const controller = new mechanicController()
+const controller = new mechanicController();
 
-router.post('/', async (req :express.Request, res:express.Response) => {
+router.post('/api/mechanic', async (req :express.Request, res:express.Response) => {
     controller.insert(req, res);
 });
 
