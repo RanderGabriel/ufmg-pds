@@ -6,7 +6,7 @@
     "password": "mysql123",
     "database": "app_test",
     "synchronize": true,
-    "logging": true,
+    "logging": false,
     "entities": [
        "src/entity/**/*.ts"
     ],

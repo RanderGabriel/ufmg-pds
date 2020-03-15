@@ -4,6 +4,7 @@ import {User} from './User';
 @Entity()
 export class Mechanic {
 
+    @PrimaryColumn()
     @OneToOne(type => User)
     @JoinColumn()
     userEmail: User
