@@ -21,6 +21,7 @@ export class mechanicController implements Controller {
       const connection = await createConnection();
       await connection.manager.save<User>(user);
       await connection.manager.save<Mechanic>(mechanic);
+      connection.close();
       res.send({ success: true, user });
     } catch (err) {
       console.log(err);
