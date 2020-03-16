@@ -1,6 +1,10 @@
 {
   "type": "mysql",
+  "host": "localhost",
   "port": 3306,
+  "username": "root",
+  "password": "mysql123",
+  "database": "app_test",
   "synchronize": true,
   "logging": false,
   "entities": ["src/entity/**/*.js"],
