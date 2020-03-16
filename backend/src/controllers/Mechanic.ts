@@ -2,11 +2,11 @@ import { createConnection } from "typeorm";
 import "reflect-metadata";
 import { generateSaltedPassword } from "../utils";
 import express = require("express");
-import { Controller } from "./controller";
+import { CrudController } from "./Controller";
 import { Mechanic } from "../entity/Mechanic";
 import { User } from "../entity/User";
 
-export class mechanicController implements Controller {
+export class mechanicController implements CrudController {
   async insert(req: express.Request, res: express.Response) {
     try {
       const user = new User();

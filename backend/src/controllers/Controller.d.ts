@@ -1,5 +1,5 @@
 import express = require('express');
 
-export interface Controller{
+export interface CrudController{
     insert(req :express.Request, res: express.Response) : any;
 }

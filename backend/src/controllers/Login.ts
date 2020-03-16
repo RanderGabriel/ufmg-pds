@@ -1,7 +1,6 @@
 import express = require('express');
-import {Controller} from './controller';
 
-export class loginController implements Controller {
+export class loginController{
     
     async insert(req :express.Request, res: express.Response) {
         res.send(200).send({
