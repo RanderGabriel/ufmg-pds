@@ -19,17 +19,21 @@ export class DriverController implements CrudController {
             const user = new User();
             user.email = req.body.email;
             user.passwordHash = await generateSaltedPassword(req.body.password);
-            if(profile !== undefined)
+            if(profile === undefined){
+                res.status(500).send({ success: false, err: 'Profile não definido' });
+                connection.close();
+            }
+            else{
                 user.profile = profile;
-            
-            const driver = new Driver();
-            driver.userEmail = req.body.email;
-            
-            await userRepository.save(user);
-            await driverRepository.save(driver);
-            
-            connection.close();
-            res.status(200).send({success: true, user})
+                const driver = new Driver();
+                driver.userEmail = req.body.email;
+                
+                await userRepository.save(user);
+                await driverRepository.save(driver);
+                
+                connection.close();
+                res.status(200).send({success: true, user})
+            }
         })
         .catch(err => {
             console.log(err);
