@@ -1,31 +1,39 @@
 import { createConnection } from "typeorm";
-import "reflect-metadata";
 import { generateSaltedPassword } from "../utils";
 import express = require("express");
 import { CrudController } from "./Controller";
 import { Mechanic } from "../entity/Mechanic";
 import { User } from "../entity/User";
+import { Profile } from "../entity/Profile";
 
-export class mechanicController implements CrudController {
-  async insert(req: express.Request, res: express.Response) {
-    try {
-      const user = new User();
-      user.email = req.body.email;
-      user.passwordHash = await generateSaltedPassword(req.body.password);
-      user.profile = { name: "MECHANIC" };
+export class MechanicController implements CrudController {
+    async insert(req: express.Request, res: express.Response) {
+        createConnection().then(async connection => {
 
-      const mechanic = new Mechanic();
-      mechanic.user = user;
-      mechanic.userEmail = user.email;
+            const profileRepository = connection.getRepository(Profile);
+            const userRepository = connection.getRepository(User);
+            const mechanicRepository = connection.getRepository(Mechanic);
 
-      const connection = await createConnection();
-      await connection.manager.save<User>(user);
-      await connection.manager.save<Mechanic>(mechanic);
-      connection.close();
-      res.send({ success: true, user });
-    } catch (err) {
-      console.log(err);
-      res.status(500).send({ success: false, err });
+            const profile = await profileRepository.findOne({ name: "MECHANIC" });
+
+            const user = new User();
+            user.email = req.body.email;
+            user.passwordHash = await generateSaltedPassword(req.body.password);
+            if (profile !== undefined)
+                user.profile = profile;
+
+            const mechanic = new Mechanic();
+            mechanic.userEmail = req.body.email;
+
+            await userRepository.save(user);
+            await mechanicRepository.save(mechanic);
+
+            connection.close();
+            res.status(200).send({success: true, user})
+        })
+        .catch(err => {
+                console.log(err);
+                res.status(500).send({ success: false, err });
+        })
     }
-  }
 }

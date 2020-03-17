@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryColumn, JoinColumn, OneToOne} from "typeorm";
+import {Entity, PrimaryColumn, Column, ManyToOne} from "typeorm";
 import {Profile} from "./Profile"
 
 @Entity()
@@ -10,7 +10,6 @@ export class User {
     @Column()
     passwordHash: string;
 
-    @OneToOne(type => Profile)
-    @JoinColumn()
+    @ManyToOne(type => Profile, profile => profile.users)
     profile: Profile;
 }

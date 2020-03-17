@@ -1,8 +1,8 @@
 import express = require('express');
-import { loginController } from '../controllers/Login';
+import { LoginController } from '../controllers/Login';
 
 const  router = express.Router();
-const controller = new loginController();
+const controller = new LoginController();
 
 router.post('/login', async (req :express.Request, res: express.Response) => {
     controller.insert(req, res);
