@@ -5,20 +5,15 @@ import "reflect-metadata";
 import { createConnection } from "typeorm";
 import {Profile} from './entity/Profile';
 
+
 class App {
     
-    private app: Express;
+    public app: Express;
 
     constructor() {
         this.initDb();
-        
         this.app = express();
         this.useMiddlewares(middlewares);
-        this.start(5000);
-    }
-
-    public static main() {
-        const app = new App();
     }
 
     private useMiddlewares(middlewares: express.Router) {
@@ -45,7 +40,7 @@ class App {
         }).catch(err => console.log(err))
     }
 
-    private start(port: number = 5000) {
+    public start(port: number = 5000) {
         this.app.listen(port, () => {
             console.log(`Servidor funcionando na porta :${port}`);
         });
@@ -53,4 +48,6 @@ class App {
 
 }
 
-App.main();
+const application = new App();
+
+export default application;

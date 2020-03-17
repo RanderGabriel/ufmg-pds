@@ -15,8 +15,8 @@ export class DriverController implements CrudController {
             const profile = await ProfileDatabase.getProfile(connection, "DRIVER");
 
             if(profile === undefined){
-                res.status(500).send({ success: false, err: 'Profile não definido' });
                 connection.close();
+                res.status(500).send({ success: false, err: 'Profile não definido' });
             }
             else{
                 const user = await UserDatabase.createUser(connection, request, profile);
