@@ -16,6 +16,7 @@ export class MechanicController implements CrudController {
             if(profile === undefined){
                 res.status(500).send({ success: false, err: 'Profile não definido' });
                 connection.close();
+                return;
             }
             const user = await UserDatabase.createUser(connection, request, profile!!);
             await MechanicDatabase.createMechanic(request, connection);
