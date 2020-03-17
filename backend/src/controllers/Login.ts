@@ -7,6 +7,12 @@ export class LoginController{
             token: 'abc123',
         });
     }
+
+    async reset(req :express.Request, res: express.Response) {
+        res.send(200).send({
+            token: 'abc123',
+        });
+    }
     
 }
 
