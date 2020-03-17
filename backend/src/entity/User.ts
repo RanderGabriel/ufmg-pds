@@ -3,12 +3,18 @@ import {Profile} from "./Profile"
 
 @Entity()
 export class User {
-
+    
     @PrimaryColumn()
     email: string;
 
     @Column()
     passwordHash: string;
+
+    @Column({nullable:true})
+    passwordResetToken: string;
+
+    @Column({nullable:true})
+    passwordResetExpires: Date;
 
     @ManyToOne(type => Profile, profile => profile.users)
     profile: Profile;

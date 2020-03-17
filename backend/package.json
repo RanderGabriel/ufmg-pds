@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^4.0.1",
+    "crypto": "^1.0.1",
     "express": "^4.17.1",
     "mysql": "^2.18.1",
     "nodemailer": "^6.4.5",
