@@ -25,6 +25,8 @@ export class MechanicController implements CrudController {
                 res.status(500).send({ success: false, err: 'Profile não definido' });
             }
             else{
+                user.profile = profile;
+                
                 const mechanic = new Mechanic();
                 mechanic.userEmail = req.body.email;
 

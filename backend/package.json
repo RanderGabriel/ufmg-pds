@@ -2,9 +2,9 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "src/App.js",
+  "main": "src/index.js",
   "scripts": {
-    "serve": "tsc --experimentalDecorators --emitDecoratorMetadata src/App.ts && node src/App.js",
+    "serve": "tsc --experimentalDecorators --emitDecoratorMetadata src/index.ts && node src/index.js",
     "test": "jest",
     "lint": "tslint -c tslint.json 'src/**/*.ts'"
   },
@@ -30,7 +30,9 @@
     "@types/mysql": "^2.15.9",
     "@types/node": "^13.9.1",
     "babel-jest": "^25.1.0",
+    "babel-preset-env": "^1.7.0",
     "jest": "^25.1.0",
+    "supertest": "^4.0.2",
     "tslint": "^6.1.0",
     "typescript": "^3.8.3"
   }
