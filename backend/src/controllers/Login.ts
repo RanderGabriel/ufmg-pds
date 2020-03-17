@@ -13,13 +13,13 @@ export class LoginController{
 
     async reset(req :express.Request, res: express.Response) {
         createConnection().then(async connection => {
-            const { email } = req.body.email;
+            const { email } = req.body;
             const userRepository = connection.getRepository(User);
             
             const user = await userRepository.findOne({ email });
             if(!user)
                 res.status(400).send({ error: 'Usuário não encontrado, tente novamente.' });
-           
+                
             const token = crypto.randomBytes(20).toString('hex');
 
             const now: Date = new Date();
