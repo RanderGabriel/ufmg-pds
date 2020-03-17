@@ -14,22 +14,26 @@ export class MechanicController implements CrudController {
             const userRepository = connection.getRepository(User);
             const mechanicRepository = connection.getRepository(Mechanic);
 
-            const profile = await profileRepository.findOne({ name: "MECHANIC" });
+            const profile = await profileRepository.findOne( { name: "MECHANIC" });
 
             const user = new User();
             user.email = req.body.email;
             user.passwordHash = await generateSaltedPassword(req.body.password);
-            if (profile !== undefined)
-                user.profile = profile;
+            
+            if (profile === undefined){
+                connection.close();
+                res.status(500).send({ success: false, err: 'Profile não definido' });
+            }
+            else{
+                const mechanic = new Mechanic();
+                mechanic.userEmail = req.body.email;
 
-            const mechanic = new Mechanic();
-            mechanic.userEmail = req.body.email;
+                await userRepository.save(user);
+                await mechanicRepository.save(mechanic);
 
-            await userRepository.save(user);
-            await mechanicRepository.save(mechanic);
-
-            connection.close();
-            res.status(200).send({success: true, user})
+                connection.close();
+                res.status(200).send({success: true, user})
+            }
         })
         .catch(err => {
                 console.log(err);
