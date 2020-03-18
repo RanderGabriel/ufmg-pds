@@ -50,8 +50,7 @@ export class LoginController{
 
             connection.close();
             res.status(200).send({success: true, user});
-        }    
-        connection.close();
+        }
     }
 }
 
