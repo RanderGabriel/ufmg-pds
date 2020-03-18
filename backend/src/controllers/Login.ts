@@ -15,7 +15,7 @@ export class LoginController{
         const connection = await createConnection();
         const user = await UserDatabase.getUser(connection, data.email);
         if(!user) {
-            res.send({ success: false, message: "Usuário não encontrado" });
+            res.status(500).send({ success: false, message: "Usuário não encontrado" });
             connection.close();
             return;
         }
