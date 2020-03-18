@@ -27,6 +27,17 @@ describe('Test mechanic login', () => {
         expect(response.status).toBe(200);
     });
 
+    
+    test('POST /api/mechanic error', async () =>{;
+        const response = await request(application.server)
+            .post('/api/mechanic')
+            .send({
+                email: "test@test.com",
+                password: '123',
+            });
+        expect(response.status).toBe(500);
+    });
+
     test('POST /api/login success', async () => {
         const response = await request(application.server)
             .post('/api/login')
