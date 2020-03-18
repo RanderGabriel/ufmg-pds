@@ -6,6 +6,7 @@ import { generateSaltedPassword } from "../utils";
 import { UserDatabase } from "../database";
 import * as bcrypt from 'bcrypt';
 import { Access } from "../entity/Access";
+import * as nodemailer from 'nodemailer'; 
 
 export class LoginController{
 
@@ -47,6 +48,29 @@ export class LoginController{
             user.passwordResetToken = token;
             user.passwordResetExpires = now;
             await userRepository.save(user);
+
+            //Refatorar o envio de e-mail posteriormente (Extract Method)
+            const transport = nodemailer.createTransport({
+            host: "smtp.mailtrap.io",
+            port: 2525,
+            auth: {
+                user: "dde70d2c456687",
+                pass: "54936f07fd5612"
+            }
+            });
+           
+            const mailOptions = { 
+                from : "no-reply@findamechanic", 
+                to : email, 
+                subject : "Recuperação de acesso", 
+                text: "Use este token ("+token+") para redefinir sua senha em até 1h."
+            }; 
+        
+            transport.sendMail( mailOptions, (error, info) => { 
+                if (error)
+                    res.status(500).send({ success: false, message: "Erro ao enviar Token para o e-mail "+email+"." });
+            }); 
+            //Fim do envio de e-mail
 
             connection.close();
             res.status(200).send({success: true, user});
