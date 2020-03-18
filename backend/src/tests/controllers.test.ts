@@ -1,6 +1,10 @@
 const request = require("supertest");
 const application =  require('../App').default;
 
+afterAll(() => {
+    application.server.close();
+});
+
 test('Post /api/driver', async () =>{;
     const response = await request(application.server)
         .post('/api/driver')
