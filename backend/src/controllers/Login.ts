@@ -31,7 +31,7 @@ export class LoginController{
         connection.close();
     }
 
-    async reset(req :express.Request, res: express.Response) {
+    async forgot(req :express.Request, res: express.Response) {
         const { email } = req.body;
         const connection = await createConnection();
         const userRepository = connection.getRepository(User);
@@ -49,7 +49,7 @@ export class LoginController{
             user.passwordResetExpires = now;
             await userRepository.save(user);
 
-            //Refatorar o envio de e-mail posteriormente (Extract Method)
+            //Refatorar o envio de e-mail posteriormente (Extract Class)
             const transport = nodemailer.createTransport({
             host: "smtp.mailtrap.io",
             port: 2525,
@@ -69,12 +69,47 @@ export class LoginController{
             transport.sendMail( mailOptions, (error, info) => { 
                 if (error)
                     res.status(500).send({ success: false, message: "Erro ao enviar Token para o e-mail "+email+"." });
+                else
+                    console.log("E-mail enviado com sucesso.");
             }); 
             //Fim do envio de e-mail
 
             connection.close();
             res.status(200).send({success: true, user});
         }
+    }
+
+    async reset(req: express.Request, res: express.Response) {
+        const data = { email: req.body.email as string,
+        password: req.body.password as string,
+        passwordResetToken: req.body.token as string };
+        const connection = await createConnection();
+        const userRepository = connection.getRepository(User);
+        const user = await userRepository.findOne(data.email);
+        if(!user) {
+            res.status(500).send({ success: false, message: "Usuário não encontrado." });
+            connection.close();
+            return;
+        }
+        
+        if(data.passwordResetToken != user.passwordResetToken) {
+            res.status(500).send({ success: false, message: "Token inválido." });
+            connection.close();
+            return;
+        }
+
+        const now: Date = new Date();
+        if(now > user.passwordResetExpires){
+            res.status(500).send({ success: false, message: "Token expirado, gere um novo." });
+            connection.close();
+            return;
+        }
+
+        user.passwordHash = await generateSaltedPassword(data.password);
+        await userRepository.save(user);
+
+        connection.close();
+        res.status(200).send({success: true, user});
     }
 }
 
