@@ -8,12 +8,12 @@ export const UserDatabase = {
         email: string;
         passwordHash: string;
     }, profile: Profile) {
+        
         const userRepository = connection.getRepository(User);
         const user = new User();
         user.email = data.email;
         user.passwordHash = data.passwordHash;
-        if (profile !== undefined)
-            user.profile = profile;
+        user.profile = profile;
         await userRepository.save(user);
         return user;
     },
