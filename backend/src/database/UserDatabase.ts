@@ -14,7 +14,7 @@ export const UserDatabase = {
         user.email = data.email;
         user.passwordHash = data.passwordHash;
         user.profile = profile;
-        await userRepository.save(user);
+        await userRepository.insert(user);
         return user;
     },
 
