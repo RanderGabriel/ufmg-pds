@@ -14,3 +14,14 @@ test('Post /api/driver', async () =>{;
         });
     expect(response.status).toBe(200);
 });
+
+
+test('POST /api/mechanic', async () =>{;
+    const response = await request(application.server)
+        .post('/api/mechanic')
+        .send({
+            email: "test@test.com",
+            password: '123',
+        });
+    expect(response.status).toBe(200);
+});
