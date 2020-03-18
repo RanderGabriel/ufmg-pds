@@ -5,12 +5,13 @@
   "main": "src/index.js",
   "scripts": {
     "serve": "tsc --experimentalDecorators --emitDecoratorMetadata src/index.ts && node src/index.js",
-    "test": "jest",
+    "test": "tsc --experimentalDecorators --emitDecoratorMetadata src/index.ts && jest --testTimeout=10000",
     "lint": "tslint -c tslint.json 'src/**/*.ts'"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/supertest": "^2.0.8",
     "bcrypt": "^4.0.1",
     "crypto": "^1.0.1",
     "express": "^4.17.1",

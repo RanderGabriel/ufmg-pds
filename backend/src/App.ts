@@ -4,16 +4,20 @@ import middlewares from './middlewares';
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import {Profile} from './entity/Profile';
+import { Server } from 'http';
 
 
 class App {
     
     public app: Express;
-
+    public server: Server;
     constructor() {
         this.initDb();
         this.app = express();
         this.useMiddlewares(middlewares);
+        this.server = this.app.listen(5000, () => {
+            //console.log(`Servidor funcionando na porta :${port}`);
+        });
     }
 
     private useMiddlewares(middlewares: express.Router) {
@@ -41,9 +45,7 @@ class App {
     }
 
     public start(port: number = 5000) {
-        this.app.listen(port, () => {
-            console.log(`Servidor funcionando na porta :${port}`);
-        });
+        
     }
 
 }

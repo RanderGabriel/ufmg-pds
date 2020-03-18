@@ -1,12 +1,12 @@
 const request = require("supertest");
-const application =  require('../App');
+const application =  require('../App').default;
 
-test('Post /api/driver', async done =>{
-    const response = await request(application.app)
+test('Post /api/driver', async () =>{;
+    const response = await request(application.server)
         .post('/api/driver')
         .send({
             email: "test@test.com.br",
             password: '123',
-        })
-    expect(response.statusCode).toBe(200);
+        });
+    expect(response.status).toBe(200);
 });
