@@ -15,13 +15,45 @@ test('Post /api/driver', async () =>{;
     expect(response.status).toBe(200);
 });
 
+describe('Test mechanic login', () => {
 
-test('POST /api/mechanic', async () =>{;
-    const response = await request(application.server)
-        .post('/api/mechanic')
-        .send({
-            email: "test@test.com",
-            password: '123',
-        });
-    expect(response.status).toBe(200);
-});
+    test('POST /api/mechanic success', async () =>{;
+        const response = await request(application.server)
+            .post('/api/mechanic')
+            .send({
+                email: "test@test.com",
+                password: '123',
+            });
+        expect(response.status).toBe(200);
+    });
+
+    test('POST /api/login success', async () => {
+        const response = await request(application.server)
+            .post('/api/login')
+            .send({
+                email: "test@test.com",
+                password: '123',
+            });
+        expect(response.status).toBe(200);
+    });
+
+    test('POST /api/login invalid password', async () => {
+        const response = await request(application.server)
+            .post('/api/login')
+            .send({
+                email: "test@test.com",
+                password: '12',
+            });
+        expect(response.status).toBe(500);
+    });
+
+    test('POST /api/login unknown user', async () => {
+        const response = await request(application.server)
+            .post('/api/login')
+            .send({
+                email: "test@test.co",
+                password: '123',
+            });
+        expect(response.status).toBe(500);
+    })
+})
