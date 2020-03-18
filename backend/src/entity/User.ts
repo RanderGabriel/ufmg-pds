@@ -1,5 +1,6 @@
-import {Entity, PrimaryColumn, Column, ManyToOne} from "typeorm";
+import {Entity, PrimaryColumn, Column, ManyToOne, OneToMany} from "typeorm";
 import {Profile} from "./Profile"
+import { Access } from "./Access";
 
 @Entity()
 export class User {
@@ -18,4 +19,7 @@ export class User {
 
     @ManyToOne(type => Profile, profile => profile.users)
     profile: Profile;
+
+    @OneToMany(type => Access, access => access.user)
+    accesses: Access[];
 }

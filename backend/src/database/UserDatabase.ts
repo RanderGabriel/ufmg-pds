@@ -1,4 +1,4 @@
-import { Connection } from "typeorm";
+import { Connection, getCustomRepository } from "typeorm";
 import { generateSaltedPassword } from "../utils";
 import { User } from "../entity/User";
 import { Profile } from "../entity/Profile";
@@ -16,5 +16,10 @@ export const UserDatabase = {
             user.profile = profile;
         await userRepository.save(user);
         return user;
+    },
+
+    async getUser(connection: Connection, email : string) : Promise<User | undefined> {
+        const userRepository = connection.getRepository(User);
+        return await userRepository.findOne({ email });
     }
 };
