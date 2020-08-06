@@ -1,17 +1,17 @@
 {
   "type": "mysql",
-  "host": "localhost",
+  "host": "127.0.0.1",
   "port": 3306,
   "username": "root",
-  "password": "mysql123",
+  "password": "password",
   "database": "app_test",
   "synchronize": true,
   "logging": false,
-  "entities": ["src/entity/**/*.js"],
-  "migrations": ["src/migration/**/*.ts"],
+  "entities": ["build/entity/**/*.js"],
+  "migrations": ["src/migration/**/*.js"],
   "subscribers": ["src/subscriber/**/*.ts"],
   "cli": {
-    "entitiesDir": "src/entity",
+    "entitiesDir": "build/entity",
     "migrationsDir": "src/migration",
     "subscribersDir": "src/subscriber"
   }

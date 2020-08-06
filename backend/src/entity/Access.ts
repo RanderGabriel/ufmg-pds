@@ -1,11 +1,17 @@
-import { Entity, PrimaryColumn, OneToOne, JoinColumn, OneToMany, ManyToOne } from "typeorm";
+import { Entity, ManyToOne, PrimaryGeneratedColumn, Column, JoinColumn } from "typeorm";
 import { User } from "./User";
 
 @Entity()
 export class Access {
-    @PrimaryColumn()
+
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column()
     userToken: string;
 
-    @ManyToOne(type => User, user => user.accesses)
+    @ManyToOne(type => User)
+    @JoinColumn()
     user: User;
+    
 }

@@ -7,7 +7,7 @@ export const MechanicDatabase = {
         passwordHash: string;
     }, connection: Connection) {
         const mechanic = new Mechanic();
-        mechanic.userEmail = data.email;
+        mechanic.user.email = data.email;
         const mechanicRepository = connection.getRepository(Mechanic);
         await mechanicRepository.save(mechanic);
     }

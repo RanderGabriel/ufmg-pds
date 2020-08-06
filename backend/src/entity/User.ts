@@ -1,11 +1,13 @@
-import {Entity, PrimaryColumn, Column, ManyToOne, OneToMany} from "typeorm";
-import {Profile} from "./Profile"
-import { Access } from "./Access";
+import {Entity, Column, ManyToOne, PrimaryGeneratedColumn, JoinColumn} from "typeorm";
+import { Profile } from "./Profile"
 
 @Entity()
 export class User {
+
+    @PrimaryGeneratedColumn()
+    id: number | null;
     
-    @PrimaryColumn()
+    @Column()
     email: string;
 
     @Column()
@@ -17,9 +19,8 @@ export class User {
     @Column({nullable:true})
     passwordResetExpires: Date;
 
-    @ManyToOne(type => Profile, profile => profile.users)
+    @ManyToOne(type => Profile)
+    @JoinColumn()
     profile: Profile;
 
-    @OneToMany(type => Access, access => access.user)
-    accesses: Access[];
 }

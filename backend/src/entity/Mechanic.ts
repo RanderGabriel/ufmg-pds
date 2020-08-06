@@ -1,8 +1,14 @@
-import { Entity, PrimaryColumn, OneToOne, JoinColumn } from "typeorm";
+import { Entity, OneToOne, PrimaryGeneratedColumn, JoinColumn } from "typeorm";
 import { User } from "./User";
 
 @Entity()
 export class Mechanic {
-    @PrimaryColumn()
-    userEmail: string;
+
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @OneToOne(type => User)
+    @JoinColumn()
+    user: User;
+
 }

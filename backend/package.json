@@ -4,9 +4,11 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "serve": "tsc --experimentalDecorators --emitDecoratorMetadata src/index.ts && node src/index.js",
+    "serve": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts && node build/index.js",
     "test": "tsc --experimentalDecorators --emitDecoratorMetadata src/index.ts && jest --testTimeout=10000",
-    "lint": "tslint -c tslint.json 'src/**/*.ts'"
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "migrate": "ts-node ./node_modules/typeorm/cli.js migration:run",
+    "rollback": "ts-node ./node_modules/typeorm/cli.js migration:revert"
   },
   "author": "",
   "license": "ISC",
@@ -34,6 +36,7 @@
     "jest": "^25.1.0",
     "supertest": "^4.0.2",
     "tslint": "^6.1.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "ts-node": "^8.10.2"
   }
 }
