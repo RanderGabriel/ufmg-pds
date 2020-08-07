@@ -11,7 +11,6 @@ export class MechanicController implements CrudController {
                 email: req.body.email,
                 passwordHash: await generateSaltedPassword(req.body.password)
             };
-
             const profile = await ProfileDatabase.getProfile(connection, "MECHANIC");
             if(profile === undefined){
                 res.status(500).send({ success: false, err: 'Profile não definido' });
@@ -20,7 +19,6 @@ export class MechanicController implements CrudController {
             }
             const user = await UserDatabase.createUser(connection, request, profile!!);
             await MechanicDatabase.createMechanic(request, connection);
-
             connection.close();
             res.status(200).send({success: true, user})
         })

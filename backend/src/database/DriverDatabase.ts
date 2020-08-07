@@ -5,7 +5,7 @@ export const DriverDatabase = {
     async createDriver(connection: Connection, email: string) {
         const driverRepository = connection.getRepository(Driver);
         const driver = new Driver();
-        driver.userEmail = email;
+        driver.user.email = email;
         await driverRepository.save(driver);
     }
 };
