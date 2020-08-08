@@ -8,6 +8,7 @@ import Form from '@/components/form/Form.vue';
 
 import VehicleForm from '@/components/forms/VehicleForm.vue';
 import SignupForm from '@/components/forms/SingupForm.vue';
+import LoginForm from '@/components/forms/LoginForm.vue';
 
 import ServicesPlugin from '@/services';
 
@@ -27,6 +28,7 @@ export default class VueConfig {
         Vue.component('custom-form', Form);
         Vue.component('custom-form', Form);
         Vue.component('signup-form', SignupForm);
+        Vue.component('login-form', LoginForm);
     }
 
     private static registerPlugins(Vue: VueConstructor<Vue>) {

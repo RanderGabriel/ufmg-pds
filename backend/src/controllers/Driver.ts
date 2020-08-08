@@ -3,6 +3,7 @@ import { generateSaltedPassword } from "../utils";
 import express = require("express");
 import { CrudController } from "./Controller";
 import { ProfileDatabase, UserDatabase, DriverDatabase } from "../database";
+import { User } from "../entity/User";
 
 export class DriverController implements CrudController {
     async insert(req: express.Request, res: express.Response) {
@@ -18,10 +19,17 @@ export class DriverController implements CrudController {
                 connection.close();
                 res.status(500).send({ success: false, err: 'Profile não definido' });
             }
-            else{
-                const user = await UserDatabase.createUser(connection, request, profile);
-                await DriverDatabase.createDriver(connection, request.email);
-                connection.close();
+            else {
+                let user: User = null;
+                try {
+                    user = await UserDatabase.createUser(connection, request, profile);
+                    await DriverDatabase.createDriver(connection, user);
+                } catch (err) {
+                    res.status(500).send({success: false, err });
+                    return;
+                } finally {
+                    connection.close();
+                }
                 res.status(200).send({success: true, user})
             }
         })

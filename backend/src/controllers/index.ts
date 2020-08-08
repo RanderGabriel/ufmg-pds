@@ -13,6 +13,9 @@ apiRouter.use("/mechanic", MechanicRouter);
 import DriverRouter from "../routers/Driver";
 apiRouter.use("/driver", DriverRouter);
 
+import LoginRouter from "../routers/Login";
+apiRouter.use("/login", LoginRouter);
+
 router.use('/api', apiRouter);
 
 export default router;
