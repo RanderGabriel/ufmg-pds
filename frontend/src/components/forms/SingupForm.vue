@@ -66,8 +66,8 @@ export default class SignupForm extends Vue implements IForm<User>  {
         try {
             this.isSending = true;
             const user = await this.$services.userService.create(this.entity);
-            this.$emit('finished', vehicle);
-
+            await this.$services.userService.login(this.entity);
+            this.$router.push('/profile');
         } catch (error) {
         } finally {
             this.isSending = false;
