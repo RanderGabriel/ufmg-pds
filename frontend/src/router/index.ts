@@ -6,6 +6,7 @@ import Login from '@/views/Login.vue';
 
 import Profile from '@/views/profile/Profile.vue';
 import ProfileVehicles from '@/views/profile/ProfileVehicles.vue';
+import { userService } from '@/services/UserService';
 
 Vue.use(VueRouter);
 
@@ -42,7 +43,7 @@ const publicRoutes = [
 ];
 
 const isAuthenticated = () => {
-    return !!localStorage.getItem('authToken');
+    return !!userService.getCurrentUser();
 };
 
 router.beforeEach((to, from, next) => {

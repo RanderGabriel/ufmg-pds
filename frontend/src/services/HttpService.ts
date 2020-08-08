@@ -2,6 +2,11 @@ import axios from 'axios';
 
 export default class HttpService {
 
+    public setAuthToken(token: string) {
+        axios.defaults.withCredentials = true;
+        axios.defaults.headers.common["X-Authorization"] = token;
+    }
+
     public async get(url: string, params: any = null) {
         try {
             const response = await axios.get(url, {

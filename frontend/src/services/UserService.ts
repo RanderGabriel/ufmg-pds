@@ -18,13 +18,32 @@ export default class UserService {
         }
     }
 
-    public async login(data: User): Promise<string> {
+    public async login(data: User): Promise<User> {
         try {
             const response = await httpService.post<User>('/api/login', data);
-            return response.token as string;
+            httpService.setAuthToken(response.token);
+            const user = new User(response);
+            this.saveUser(user);
+            return user;
         } catch (error) {
             throw error;
         }
+    }
+
+    public saveUser(user: User) {
+        localStorage.setItem('userInfo', JSON.stringify(user));
+    }
+
+    public getCurrentUser() : User | null {
+        const raw = localStorage.getItem('userInfo');
+        if (!raw) return null;
+        return new User(JSON.parse(raw));
+    }
+
+    public init() {
+        const user = this.getCurrentUser();
+        if(user && user.token)
+            httpService.setAuthToken(user.token);
     }
 }
 

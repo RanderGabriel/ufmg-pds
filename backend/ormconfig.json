@@ -8,11 +8,11 @@
   "synchronize": true,
   "logging": false,
   "entities": ["build/entity/*.js"],
-  "migrations": ["src/migration/**/*.js"],
-  "subscribers": ["src/subscriber/**/*.ts"],
+  "migrations": ["build/migration/**/*.js"],
+  "subscribers": ["build/subscriber/**/*.ts"],
   "cli": {
     "entitiesDir": "build/entity",
-    "migrationsDir": "src/migration",
-    "subscribersDir": "src/subscriber"
+    "migrationsDir": "build/migration",
+    "subscribersDir": "build/subscriber"
   }
 }

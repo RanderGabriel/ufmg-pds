@@ -24,7 +24,7 @@ export class LoginController{
         if(await bcrypt.compare(data.password, user.passwordHash)) {
             const token = crypto.randomBytes(20).toString('hex');;
             const response = await AccessDatabase.createAccess(connection, user, token);
-            res.send({success: true, token});
+            res.send({success: true, token, email: user.email, id: user.id });
         } else {
             res.status(500).send({ success: false, message: "Senha inválida" });
         }

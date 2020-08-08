@@ -13,6 +13,10 @@ export default class App extends Vue {
 
     public variable: any = 'avc';
 
+    private created() {
+        this.$services.userService.init();
+    }
+
 }
 </script>
 

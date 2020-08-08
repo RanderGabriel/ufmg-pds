@@ -6,6 +6,7 @@
         </aside>
         <div class="profile-content">
             <router-view></router-view>
+            <profile-info></profile-info>
         </div>
     </div>
 </template>
@@ -15,8 +16,6 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
 @Component
 export default class Profile extends Vue {
-
-
 }
 
 </script>

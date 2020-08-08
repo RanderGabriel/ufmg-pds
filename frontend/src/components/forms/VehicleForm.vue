@@ -45,7 +45,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import { Vehicle } from '../../models/bussiness';
+import { Vehicle, User } from '../../models/bussiness';
 import IForm from './IForm';
 
 @Component
@@ -54,11 +54,12 @@ export default class VehicleForm extends Vue implements IForm<Vehicle>  {
     public isLoading: boolean;
     public isSending: boolean;
     public entity: Vehicle;
+    private user: User;
     
 
     constructor() {
         super();
-
+        this.user = this.$services.userService.getCurrentUser();
         this.isLoading = false;
         this.isSending = false;
         this.entity = new Vehicle({
@@ -68,7 +69,7 @@ export default class VehicleForm extends Vue implements IForm<Vehicle>  {
             year: undefined,
             color: '',
             licensePlate: '',
-            ownerId: 2,
+            ownerId: this.user.id,
         });
     }
 
