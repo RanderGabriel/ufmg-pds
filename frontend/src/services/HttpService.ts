@@ -3,11 +3,13 @@ import axios from 'axios';
 export default class HttpService {
 
     public setAuthToken(token: string) {
-        axios.defaults.withCredentials = true;
-        axios.defaults.headers.common["X-Authorization"] = token;
+        axios.defaults.headers.common["Access-Control-Allow-Credentials"] = true;
+        axios.defaults.headers.common["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept, authorization";
+        axios.defaults.headers.common["authorization"] = token;
     }
 
     public async get(url: string, params: any = null) {
+        console.log(axios.defaults.headers);
         try {
             const response = await axios.get(url, {
                 params,

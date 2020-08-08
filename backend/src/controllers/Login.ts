@@ -1,4 +1,4 @@
-import { createConnection, Connection } from "typeorm";
+import { createConnection, Connection, getRepository } from "typeorm";
 import express = require('express');
 import crypto = require('crypto');
 import { User } from "../entity/User";
@@ -111,6 +111,18 @@ export class LoginController{
         connection.close();
         res.status(200).send({success: true, user});
     }
+
+    //TODO: Mover para service
+    public async isAuthenticated(token: string): Promise<boolean> {
+        const conn = await createConnection();
+        let access: Access = null;
+        try {
+            access = await AccessDatabase.getAccessByToken(conn, token);
+        } finally {
+            await conn.close();
+            return !!access;
+        }
+    }
 }
 
 
@@ -121,5 +133,11 @@ const AccessDatabase = {
         access.user = user;
         access.userToken = userToken;
         return await accessRepository.save(access);
+    },
+    async getAccessByToken(connection: Connection, token: string) : Promise<Access> {
+        const accessRepository = connection.getRepository(Access);
+        return await accessRepository.findOne({
+            where: { userToken: token },
+        });
     }
 }

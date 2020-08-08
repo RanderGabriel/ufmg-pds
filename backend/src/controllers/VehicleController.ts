@@ -36,7 +36,7 @@ class VehicleController extends BaseController<Vehicle> {
             res.send(ApiResponse.returnData(entity));
 
         } catch (error) {
-            res.send(ApiResponse.returnError({
+            res.status(500).send(ApiResponse.returnError({
                 message: error,
             }));
         }
@@ -49,7 +49,7 @@ class VehicleController extends BaseController<Vehicle> {
             res.send(ApiResponse.returnData(entity));
 
         } catch (error) {
-            res.send(ApiResponse.returnError({
+            res.status(500).send(ApiResponse.returnError({
                 message: error,
             }));
         }
