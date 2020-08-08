@@ -59,7 +59,6 @@ export default class LoginForm extends Vue implements IForm<User>  {
         try {
             this.isSending = true;
             const user = await this.$services.userService.login(this.entity);
-            console.log(user);
             if(user) {
                 this.$router.push('/profile');
             }
