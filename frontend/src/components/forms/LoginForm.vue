@@ -60,6 +60,7 @@ export default class LoginForm extends Vue implements IForm<User>  {
             this.isSending = true;
             const user = await this.$services.userService.login(this.entity);
             if(user) {
+                localStorage.setItem('authToken', user);
                 this.$router.push('/profile');
             }
 

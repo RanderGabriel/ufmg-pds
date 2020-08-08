@@ -36,4 +36,21 @@ const router = new VueRouter({
     routes,
 });
 
+const publicRoutes = [
+    '/login',
+    '/signup',
+];
+
+const isAuthenticated = () => {
+    return !!localStorage.getItem('authToken');
+};
+
+router.beforeEach((to, from, next) => {
+    if(!publicRoutes.find(p => p === to.path) && !isAuthenticated()) {
+        next('/login');
+    } else {
+        next();
+    }
+});
+
 export default router;
