@@ -9,10 +9,10 @@ import VehicleController from './VehicleController';
 apiRouter.use('/vehicle', authenticate, VehicleController);
 
 import MechanicRouter from "../routers/Mechanic";
-apiRouter.use("/mechanic", authenticate, MechanicRouter);
+apiRouter.use("/mechanic", MechanicRouter);
 
 import DriverRouter from "../routers/Driver";
-apiRouter.use("/driver", authenticate, DriverRouter);
+apiRouter.use("/driver", DriverRouter);
 
 import LoginRouter from "../routers/Login";
 apiRouter.use("/login", LoginRouter);

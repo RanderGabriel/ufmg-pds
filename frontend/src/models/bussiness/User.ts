@@ -3,6 +3,8 @@ export default class User {
     public email: string;
     public password: string;
     public passwordConfirmation?: string;
+    public phoneNumber?: number;
+    public name?: string;
     public id?: string;
     public token?: string;
     public profile: "MECHANIC" | "DRIVER";
@@ -14,5 +16,7 @@ export default class User {
         this.profile = entity.profile;
         this.id = entity.id;
         this.token = entity.token;
+        this.phoneNumber = entity.phoneNumber;
+        this.name = entity.name;
     }
 }

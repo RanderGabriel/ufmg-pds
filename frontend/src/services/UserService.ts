@@ -23,6 +23,7 @@ export default class UserService {
             const response = await httpService.post<User>('/api/login', data);
             httpService.setAuthToken(response.token);
             const user = new User(response);
+            console.log(user);
             this.saveUser(user);
             return user;
         } catch (error) {

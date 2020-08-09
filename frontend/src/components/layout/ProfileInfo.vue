@@ -3,6 +3,8 @@
         <h3>Meu Perfil</h3>
         <div class="profile-container">
             <h4>E-mail: {{entity.email}}</h4>
+            <h4>Nome completo: {{entity.name}}</h4>
+            <h4>Telefone: {{entity.phoneNumber}}</h4>
         </div>
     </div>
 </template>

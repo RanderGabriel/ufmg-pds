@@ -7,6 +7,8 @@ export const UserDatabase = {
     async createUser(connection: Connection, data: {
         email: string;
         passwordHash: string;
+        name: string;
+        phoneNumber: string;
     }, profile: Profile) {
         
         const userRepository = connection.getRepository(User);
@@ -14,6 +16,8 @@ export const UserDatabase = {
         user.email = data.email;
         user.passwordHash = data.passwordHash;
         user.profile = profile;
+        user.name = data.name;
+        user.phoneNumber = data.phoneNumber;
         await userRepository.insert(user);
         return user;
     },

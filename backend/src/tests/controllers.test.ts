@@ -9,8 +9,13 @@ test('Post /api/driver', async () =>{;
     const response = await request(application)
         .post('/api/driver')
         .send({
-            email: "test@test.com.br",
+            //Tratativa para não ter e-mails repetidos.
+            //O ideal seria zerar um banco de teste a cada
+            //nova execução
+            email: `test${Date.now()}@test.com.br`,
             password: '123',
+            name: "Motorista de teste",
+            phoneNumber: "319858233012309"
         });
     expect(response.status).toBe(200);
 });
@@ -21,8 +26,10 @@ describe('Test mechanic login', () => {
         const response = await request(application)
             .post('/api/mechanic')
             .send({
-                email: `test_${Date.now()}@test.com`,
+                email: `test_mec_${Date.now()}@test.com`,
                 password: '123',
+                name: "Mecânico de teste",
+                phoneNumber: "319858233012309"
             });
         expect(response.status).toBe(200);
     });
@@ -39,6 +46,15 @@ describe('Test mechanic login', () => {
     });
 
     test('POST /api/login success', async () => {
+        //Cria o usuario (propositalmente ignora erros)
+        await request(application)
+        .post('/api/driver')
+        .send({
+            email: `test@test.com`,
+            password: '123',
+            name: "Motorista de teste",
+            phoneNumber: "319858233012309"
+        });
         const response = await request(application)
             .post('/api/login')
             .send({

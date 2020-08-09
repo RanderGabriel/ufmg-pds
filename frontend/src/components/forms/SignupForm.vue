@@ -21,6 +21,18 @@
                     </div>
                 </div>
                 <div class="field">
+                    <label class="label">Insira seu nome completo</label>
+                    <div class="control">
+                        <input class="input" type="text" v-model="entity.name">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Insira seu número de telefone</label>
+                    <div class="control">
+                        <input class="input" type="tel" v-model="entity.phoneNumber">
+                    </div>
+                </div>
+                <div class="field">
                     <div class="control">
                         <input type="radio" value="DRIVER" v-model="entity.profile">Sou motorista
                         <input type="radio" value="MECHANIC" v-model="entity.profile">Sou mecânico

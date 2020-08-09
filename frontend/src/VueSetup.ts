@@ -7,7 +7,7 @@ import Input from '@/components/form/Input.vue';
 import Form from '@/components/form/Form.vue';
 
 import VehicleForm from '@/components/forms/VehicleForm.vue';
-import SignupForm from '@/components/forms/SingupForm.vue';
+import SignupForm from '@/components/forms/SignupForm.vue';
 import LoginForm from '@/components/forms/LoginForm.vue';
 import ProfileInfo from '@/components/layout/ProfileInfo.vue';
 

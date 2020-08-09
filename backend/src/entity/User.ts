@@ -19,6 +19,12 @@ export class User {
     @Column({nullable:true})
     passwordResetExpires: Date;
 
+    @Column()
+    name: string;
+
+    @Column()
+    phoneNumber: string;
+
     @ManyToOne(type => Profile)
     @JoinColumn()
     profile: Profile;

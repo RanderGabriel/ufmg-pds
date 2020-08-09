@@ -10,7 +10,9 @@ export class DriverController implements CrudController {
         createConnection().then(async connection => {
             const request = {
                 email: req.body.email,
-                passwordHash: await generateSaltedPassword(req.body.password)
+                passwordHash: await generateSaltedPassword(req.body.password),
+                phoneNumber: req.body.phoneNumber,
+                name: req.body.name
             };
 
             const profile = await ProfileDatabase.getProfile(connection, "DRIVER");
@@ -30,7 +32,14 @@ export class DriverController implements CrudController {
                 } finally {
                     connection.close();
                 }
-                res.status(200).send({success: true, user})
+                res.status(200).send({success: true,
+                    ...{
+                        ...user,
+                        passwordHash: undefined,
+                        passwordResetExpires: undefined,
+                        passwordResetToken: undefined,
+                    } as User
+                });
             }
         })
         .catch(err => {
