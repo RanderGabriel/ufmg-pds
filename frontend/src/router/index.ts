@@ -49,7 +49,11 @@ const isAuthenticated = () => {
 router.beforeEach((to, from, next) => {
     if(!publicRoutes.find(p => p === to.path) && !isAuthenticated()) {
         next('/login');
-    } else {
+    } 
+    else if(to.path === '/') {
+        next('/profile');
+    }
+    else {
         next();
     }
 });
