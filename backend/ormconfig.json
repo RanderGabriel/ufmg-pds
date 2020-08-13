@@ -8,7 +8,7 @@
   "synchronize": true,
   "logging": false,
   "entities": ["build/entity/*.js"],
-  "migrations": ["build/migration/**/*.js"],
+  "migrations": ["build/migration/*.js"],
   "subscribers": ["build/subscriber/**/*.ts"],
   "cli": {
     "entitiesDir": "build/entity",
