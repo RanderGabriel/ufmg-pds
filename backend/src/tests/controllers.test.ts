@@ -1,12 +1,8 @@
 const request = require("supertest");
-const application = require('../../build/App').default.app;
+const application = require('../App').default;
 
-// afterAll(() => {
-//     application.server.close();
-// });
-
-test('Post /api/driver', async () =>{;
-    const response = await request(application)
+test('Post /api/driver', async () =>{
+    const response = await request(application.app)
         .post('/api/driver')
         .send({
             //Tratativa para não ter e-mails repetidos.
@@ -22,8 +18,8 @@ test('Post /api/driver', async () =>{;
 
 describe('Test mechanic login', () => {
 
-    test('POST /api/mechanic success', async () =>{;
-        const response = await request(application)
+    test('POST /api/mechanic success', async () => {
+        const response = await request(application.app)
             .post('/api/mechanic')
             .send({
                 email: `test_mec_${Date.now()}@test.com`,
@@ -35,8 +31,8 @@ describe('Test mechanic login', () => {
     });
 
     
-    test('POST /api/mechanic error', async () =>{;
-        const response = await request(application)
+    test('POST /api/mechanic error', async () =>{
+        const response = await request(application.app)
             .post('/api/mechanic')
             .send({
                 email: "test@test.com",
@@ -47,7 +43,7 @@ describe('Test mechanic login', () => {
 
     test('POST /api/login success', async () => {
         //Cria o usuario (propositalmente ignora erros)
-        await request(application)
+        await request(application.app)
         .post('/api/driver')
         .send({
             email: `test@test.com`,
@@ -55,7 +51,7 @@ describe('Test mechanic login', () => {
             name: "Motorista de teste",
             phoneNumber: "319858233012309"
         });
-        const response = await request(application)
+        const response = await request(application.app)
             .post('/api/login')
             .send({
                 email: "test@test.com",
@@ -65,7 +61,7 @@ describe('Test mechanic login', () => {
     });
 
     test('POST /api/login invalid password', async () => {
-        const response = await request(application)
+        const response = await request(application.app)
             .post('/api/login')
             .send({
                 email: "test@test.com",
@@ -75,7 +71,7 @@ describe('Test mechanic login', () => {
     });
 
     test('POST /api/login unknown user', async () => {
-        const response = await request(application)
+        const response = await request(application.app)
             .post('/api/login')
             .send({
                 email: "test@test.co",
