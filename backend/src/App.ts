@@ -6,7 +6,7 @@ class App {
     
     public app: express.Express;
 
-    constructor() {
+    constructor(port: number) {
         this.app = express();
         this.useMiddlewares(Middlewares);
         this.useControllers(Controllers);
@@ -21,12 +21,11 @@ class App {
     }
 
     public start(port: number = 5000) {
-        this.app.listen(port);
-        console.log(`App running at :${port}`);
+        return this.app.listen(port);
     }
 
 }
 
-const application = new App();
+const application = new App(5000);
 
 export default application;

@@ -10,11 +10,14 @@ class VehicleController extends BaseController<Vehicle> {
     constructor() {
         super();
 
+        // A próxima linha faz que todos os end-points desta rota são acessados somente por usuários conectados.
+        // this.router.use(authenticate);
+
         this.router.post('/create', this.create);
-        this.router.get('/get', authenticate, this.get);
-        this.router.get('/getAll', authenticate, this.getAll);
-        this.router.post('/update', authenticate, this.update);
-        this.router.get('/delete', authenticate, this.delete);
+        this.router.get('/get', this.get);
+        this.router.get('/getAll', this.getAll);
+        this.router.post('/update', this.update);
+        this.router.get('/delete', this.delete);
     }
 
     public async create(req: express.Request, res: express.Response) {
@@ -32,7 +35,8 @@ class VehicleController extends BaseController<Vehicle> {
 
     public async get(req: express.Request, res: express.Response) {
         try {
-            const entity = await vehicleService.getAll();
+            const id = Number(req.query.id) || 0;
+            const entity = await vehicleService.get(id);
 
             res.send(ApiResponse.returnData(entity));
 
@@ -45,9 +49,9 @@ class VehicleController extends BaseController<Vehicle> {
 
     public async getAll(req: express.Request, res: express.Response) {
         try {
-            const entity = await vehicleService.getAll();
+            const entities = await vehicleService.getAll();
 
-            res.send(ApiResponse.returnData(entity));
+            res.send(ApiResponse.returnData(entities));
 
         } catch (error) {
             res.status(500).send(ApiResponse.returnError({
@@ -68,12 +72,13 @@ class VehicleController extends BaseController<Vehicle> {
             }));
         }
     }
+    
     public async delete(req: express.Request, res: express.Response) {
         try {
             const id = Number(req.query.id) || 0;
-            const entity = await vehicleService.delete(id);
+            await vehicleService.delete(id);
 
-            res.send(ApiResponse.returnData(entity));
+            res.send(ApiResponse.returnData(id));
 
         } catch (error) {
             res.send(ApiResponse.returnError({
