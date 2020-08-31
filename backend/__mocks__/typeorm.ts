@@ -1,13 +1,14 @@
-const typeorm = (jest as any).createMockFromModule('typeorm');
 
-typeorm.createConnection = function () {
-    return new Promise((resolve, rejects) => {
-        resolve({
-            close: function(){ }
-        })
-    })
-}
-
-typeorm.PrimaryGeneratedColumn = () => {};  
-
-export default typeorm
+export const createConnection = () => new Promise((resolve, reject) => resolve({
+        getRepository: () => ({
+            findOne: () => ({}),
+            delete: () => ({})
+        }),
+        close: () => jest.fn(),
+    }));
+export const Entity =  jest.fn();
+export const Column =  jest.fn();
+export const PrimaryGeneratedColumn =  jest.fn();
+export const ManyToOne =  jest.fn();
+export const JoinColumn =  jest.fn();
+export const OneToOne =  jest.fn();
