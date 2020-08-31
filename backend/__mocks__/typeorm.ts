@@ -1,8 +1,9 @@
 
-export const createConnection = () => new Promise((resolve, reject) => resolve({
+export const createConnection = () => new Promise((resolve) => resolve({
         getRepository: () => ({
             findOne: () => ({}),
-            delete: () => ({})
+            delete: () => ({}),
+            save: (param) => new Promise((resolve) => resolve(param))
         }),
         close: () => jest.fn(),
     }));
