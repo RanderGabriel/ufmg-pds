@@ -1,10 +1,9 @@
 const typeorm = jest.createMockFromModule('typeorm');
 
-function createConnection(){
+typeorm.createConnection = function (){
     return new Promise((resolve, rejects) => {
         resolve({
             close: function(){
-
             }
         })
     })
