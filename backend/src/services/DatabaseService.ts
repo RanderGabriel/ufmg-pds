@@ -1,6 +1,5 @@
 import { createConnection, Connection, Repository } from "typeorm";
 
-throw new Error("Não é unitario!!!!");
 export interface IDatabaseService<T> {
     get: (id: number) => Promise<T>;
     getAll: (id: number) => Promise<T[]>;
