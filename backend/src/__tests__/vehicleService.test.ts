@@ -2,8 +2,6 @@
 import { vehicleService } from "../services/VehicleService";
 import { User } from "../entity/User";
 
-jest.mock("express");
-jest.mock("../services/DatabaseService");
 jest.mock("../entity/User");
 jest.mock("../entity/Vehicle");
 
@@ -19,11 +17,11 @@ const testUser: User = {
         name: "DRIVER",
         id: 1
     },
-}
+};
 
 describe("it should create, read, update and delete vehicles", () => {
     test("it should create", async () => {
-        const vehicle = await vehicleService.create({
+        await vehicleService.create({
             color: "Vermelho",
             id: 1,
             licensePlate: "ABC-1234",
@@ -32,6 +30,14 @@ describe("it should create, read, update and delete vehicles", () => {
             owner: testUser,
             year: 2020
         });
-        expect(vehicle.id).toBe(1);
     });
-})
+    test("it should delete", async () => {
+        await vehicleService.delete(1);
+    });
+    test("it should read", async () => {
+        await vehicleService.get(1);
+    });
+    test("it should getAll", async () => {
+        await vehicleService.getAll();
+    });
+});

@@ -3,7 +3,8 @@ export const createConnection = () => new Promise((resolve) => resolve({
         getRepository: () => ({
             findOne: () => ({}),
             delete: () => ({}),
-            save: (param) => new Promise((resolve) => resolve(param))
+            save: (param) => new Promise((resolve) => resolve(param)),
+            find: jest.fn()
         }),
         close: () => jest.fn(),
     }));

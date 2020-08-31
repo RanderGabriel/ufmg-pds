@@ -6,19 +6,9 @@ export default class DatabaseSevice<T> {
         return new Promise(async (resolve, reject) => {
             createConnection()
                 .then(async (connection: any) => {
-                    try {
-                        const result = await fn(connection);
-                        resolve(result);
-                    } catch (error) {
-                        reject(error);
-                    } finally {
-                        connection.close();
-                    }
+                    const result = await fn(connection);
+                    resolve(result);
                 })
-                .catch((error) => {
-                    reject(error);
-                });
         });
     }
-
 }
