@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "serve": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts && node build/index.js",
-    "test": "jest --testTimeout=10000 --runInBand",
+    "test": "jest --testTimeout=10000",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "migrate": "tsc --experimentalDecorators --outDir build/migration --emitDecoratorMetadata src/migration/1596640481807-ProfileSetup.ts && ts-node ./node_modules/typeorm/cli.js migration:run",
     "schema:sync": "ts-node ./node_modules/typeorm/cli.js schema:sync",
