@@ -1,12 +1,13 @@
-const typeorm = jest.createMockFromModule('typeorm');
+const typeorm = (jest as any).createMockFromModule('typeorm');
 
-typeorm.createConnection = function (){
+typeorm.createConnection = function () {
     return new Promise((resolve, rejects) => {
         resolve({
-            close: function(){
-            }
+            close: function(){ }
         })
     })
 }
+
+typeorm.PrimaryGeneratedColumn = () => {};  
 
 export default typeorm

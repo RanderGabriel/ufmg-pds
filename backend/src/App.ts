@@ -21,6 +21,7 @@ class App {
     }
 
     public start(port: number = 5000) {
+        console.log(`rodando na porta ${port}`)
         return this.app.listen(port);
     }
 

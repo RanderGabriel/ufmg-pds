@@ -1,7 +1,7 @@
 import { Connection } from "typeorm";
 import { Profile } from "../entity/Profile";
 
-const ProfileDatabase = jest.createMockFromModule('../ProfileDatabase')
+const ProfileDatabase = (jest as any).createMockFromModule('../ProfileDatabase')
 
 let mockProfileName = ''
 Profile.__setMockProfileName = (name: string) => {

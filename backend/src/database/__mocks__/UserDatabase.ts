@@ -2,7 +2,7 @@ import { Connection,  } from "typeorm";
 import { User } from "../../entity/User";
 import { Profile } from "../../entity/Profile";
 
-const UserDatabase = jest.createMockFromModule('../UserDatabase')
+const UserDatabase = (jest as any).createMockFromModule('../UserDatabase')
 
 let mockUser = undefined
 

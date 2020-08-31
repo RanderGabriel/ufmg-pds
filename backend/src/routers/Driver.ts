@@ -10,8 +10,7 @@ router.post('', async (req :express.Request, res:express.Response) => {
         res.status(200).send(result)
     } catch (error) {
         res.status(500).send(error)
-    }
-    
+    }  
 });
 
 export default router;

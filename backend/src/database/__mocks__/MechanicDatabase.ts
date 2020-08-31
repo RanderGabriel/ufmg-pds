@@ -1,4 +1,4 @@
-const MechanicDatabase = jest.createMockFromModule('../MechanicDatabase')
+const MechanicDatabase = (jest as any).createMockFromModule('../MechanicDatabase')
 import { Connection } from "typeorm";
 
 MechanicDatabase.createMechanic = async (data: {
