@@ -1,7 +1,9 @@
 import Server from '../../build/App';
 import request  = require('supertest');
 
-jest.mock("typeorm");
+jest.unmock("typeorm");
+jest.unmock("../services/DatabaseService")
+
 describe('VehicleController', () => {
     let createdEntity = null;
 
