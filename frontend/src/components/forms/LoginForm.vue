@@ -14,6 +14,7 @@
                         <input class="input" type="password" v-model="entity.password">
                     </div>
                 </div>
+                <div class="field"><a href="/forgot-password">Esqueceu-se da senha?</a></div>
                 <div class="field">
                     <div class="control">
                         <input type="radio" value="DRIVER" v-model="entity.profile">Sou motorista
