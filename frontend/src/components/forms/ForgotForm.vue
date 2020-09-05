@@ -3,19 +3,10 @@
         <form @submit.prevent="onSubmit()">
             <div class="mb-5">
                 <div class="field">
-                    <label class="label">E-mail</label>
+                    <label class="label">Informe seu e-mail para recuperação</label>
                     <div class="control">
                         <input class="input" type="text" v-model="entity.email">
                     </div>
-                </div>
-                <div class="field">
-                    <label class="label">Senha</label>
-                    <div class="control">
-                        <input class="input" type="password" v-model="entity.password">
-                    </div>
-                </div>
-                <div class="field">
-                    <router-link to="/login/forgot">Esqueceu-se da senha?</router-link>
                 </div>
                 <div class="field">
                     <div class="control">
@@ -26,7 +17,7 @@
             </div>
             <div>
                 <button class="button is-primary has-text-weight-bold is-fullwidth" :class="{'is-loading': isSending}" type="submit" :disabled="isSending">
-                    CADASTRAR
+                    Recuperar
                 </button>
             </div>
         </form>
@@ -39,7 +30,7 @@ import { User } from '../../models/bussiness';
 import IForm from './IForm';
 
 @Component
-export default class LoginForm extends Vue implements IForm<User>  {
+export default class ForgotForm extends Vue implements IForm<User>  {
 
     public isLoading: boolean;
     public isSending: boolean;
@@ -53,7 +44,7 @@ export default class LoginForm extends Vue implements IForm<User>  {
         this.isSending = false;
         this.entity = new User({
             email: '',
-            password: '',
+            password: null,
             profile: 'DRIVER'
         });
     }
@@ -61,15 +52,19 @@ export default class LoginForm extends Vue implements IForm<User>  {
     public async onSubmit() {
         try {
             this.isSending = true;
-            const user = await this.$services.userService.login(this.entity);
+            const user = await this.$services.userService.forgot(this.entity);
             if(user) {
-                this.$router.push('/profile');
+                this.$router.push('/login/reset');
             }
         } catch (error) {
         } finally {
             this.isSending = false;
             
         }
+    }
+
+    public mounted() {
+        console.log("mounted");
     }
 
 }

@@ -2,7 +2,9 @@ import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 
 import SignUp from '@/views/SignUp.vue';
-import Login from '@/views/Login.vue';
+
+import Login from '@/views/login/Login.vue';
+import LoginForgot from '@/views/login/LoginForgot.vue';
 
 import Profile from '@/views/profile/Profile.vue';
 import ProfileVehicles from '@/views/profile/ProfileVehicles.vue';
@@ -14,6 +16,10 @@ const routes: RouteConfig[] = [
     {
         path: '/login',
         component: Login,
+    },
+    {
+        path: '/login/forgot',
+        component: LoginForgot,
     },
     {
         path: '/signup',
@@ -39,6 +45,7 @@ const router = new VueRouter({
 
 const publicRoutes = [
     '/login',
+    '/login/forgot',
     '/signup',
 ];
 
