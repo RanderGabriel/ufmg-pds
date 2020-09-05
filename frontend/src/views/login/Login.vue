@@ -1,6 +1,7 @@
 <template>
     <div class="sign-up">
         <login-form />
+        <router-view></router-view>
     </div>
 </template>
 

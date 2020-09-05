@@ -1,6 +1,5 @@
 import { Connection } from "typeorm";
-import { Mechanic } from "../entity/Mechanic";
-import { User } from "../entity/User";
+import { Mechanic } from "../entity";
 import { UserDatabase } from "./UserDatabase";
 
 export const MechanicDatabase = {
