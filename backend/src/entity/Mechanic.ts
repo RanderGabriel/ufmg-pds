@@ -2,7 +2,7 @@ import { Entity, OneToOne, PrimaryGeneratedColumn, JoinColumn } from "typeorm";
 import User  from "./User";
 
 @Entity()
-export default class Mechanic {
+export class Mechanic {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -12,3 +12,5 @@ export default class Mechanic {
     user: User;
 
 }
+
+export default Mechanic;
