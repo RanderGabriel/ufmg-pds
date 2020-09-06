@@ -6,9 +6,9 @@ export default class UserService {
     public async create(data: User) {
         let route = '';
         if(data.profile === "MECHANIC") {
-            route = '/api/mechanic';
+            route = '/api/mechanic/create';
         } else {
-            route = '/api/driver';
+            route = '/api/driver/create';
         }
         try {
             const response = await httpService.post<User>(route, data);
