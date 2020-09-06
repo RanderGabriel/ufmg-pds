@@ -1,9 +1,9 @@
-import { createConnection, Connection, getRepository } from "typeorm";
+import { getConnection, Connection } from "typeorm";
 import express = require('express');
 import crypto = require('crypto');
 import { User } from "../entity/User";
 import { generateSaltedPassword } from "../utils";
-import { UserDatabase } from "../database";
+import {userService} from '../services/UserService'
 import * as bcrypt from 'bcrypt';
 import { Access } from "../entity/Access";
 import * as nodemailer from 'nodemailer'; 
@@ -13,17 +13,15 @@ export class LoginController{
     async insert(req: express.Request, res: express.Response) {
         const data = { email: req.body.email as string,
         password: req.body.password as string };
-        const connection = await createConnection();
-        const user = await UserDatabase.getUser(connection, data.email);
+        const user = await userService.getByProperty({email: data.email})
         if(!user) {
             res.status(500).send({ success: false, message: "Usuário não encontrado" });
-            connection.close();
             return;
         }
         
         if(await bcrypt.compare(data.password, user.passwordHash)) {
             const token = crypto.randomBytes(20).toString('hex');;
-            const response = await AccessDatabase.createAccess(connection, user, token);
+            const response = await AccessDatabase.createAccess(getConnection(), user, token);
             res.send({
                 success: true,
                 token,
@@ -37,17 +35,15 @@ export class LoginController{
         } else {
             res.status(500).send({ success: false, message: "Senha inválida" });
         }
-        connection.close();
+
     }
 
     async forgot(req :express.Request, res: express.Response) {
         const { email } = req.body;
-        const connection = await createConnection();
-        const userRepository = connection.getRepository(User);
+        const userRepository = getConnection().getRepository(User);
         const user = await userRepository.findOne({ email });
         if(user === undefined) {
             res.status(500).send({ success: false, message: "Usuário não encontrado" });
-            connection.close();
             return;
         } else {
             const token = crypto.randomBytes(20).toString('hex');
@@ -83,7 +79,6 @@ export class LoginController{
             }); 
             //Fim do envio de e-mail
 
-            connection.close();
             res.status(200).send({success: true, user});
         }
     }
@@ -92,43 +87,36 @@ export class LoginController{
         const data = { email: req.body.email as string,
         password: req.body.password as string,
         passwordResetToken: req.body.token as string };
-        const connection = await createConnection();
-        const userRepository = connection.getRepository(User);
+        const userRepository = getConnection().getRepository(User);
         const user = await userRepository.findOne(data.email);
         if(!user) {
             res.status(500).send({ success: false, message: "Usuário não encontrado." });
-            connection.close();
             return;
         }
         
         if(data.passwordResetToken != user.passwordResetToken) {
             res.status(500).send({ success: false, message: "Token inválido." });
-            connection.close();
             return;
         }
 
         const now: Date = new Date();
         if(now > user.passwordResetExpires){
             res.status(500).send({ success: false, message: "Token expirado, gere um novo." });
-            connection.close();
             return;
         }
 
         user.passwordHash = await generateSaltedPassword(data.password);
         await userRepository.save(user);
 
-        connection.close();
         res.status(200).send({success: true, user});
     }
 
     //TODO: Mover para service
     public async isAuthenticated(token: string): Promise<boolean> {
-        const conn = await createConnection();
         let access: Access = null;
         try {
-            access = await AccessDatabase.getAccessByToken(conn, token);
+            access = await AccessDatabase.getAccessByToken(getConnection(), token);
         } finally {
-            await conn.close();
             return !!access;
         }
     }

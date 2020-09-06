@@ -1,4 +1,4 @@
-import { createConnection, Connection, Repository } from "typeorm";
+import { getConnection, Connection } from "typeorm";
 
 export interface IDatabaseService<T> {
     get: (id: number) => Promise<T>;
@@ -10,22 +10,14 @@ export interface IDatabaseService<T> {
 
 export default class DatabaseSevice<T> {
 
-    async execute(fn: (connection: Connection) => any): Promise<T|T[]> {
+    async execute(fn: (connection: Connection) => any): Promise<T | T[]> {
         return new Promise(async (resolve, reject) => {
-            createConnection()
-                .then(async (connection) => {
-                    try {
-                        const result = await fn(connection);
-                        resolve(result);
-                    } catch (error) {
-                        reject(error);
-                    } finally {
-                        connection.close();
-                    }
-                })
-                .catch((error) => {
-                    reject(error);
-                });
+            try {
+                const result = await fn(getConnection());
+                resolve(result);
+            } catch (error) {
+                reject(error);
+            }
         });
     }
 

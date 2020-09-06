@@ -1,12 +1,13 @@
 import express = require("express");
-import { Mechanic, User, Profile } from "../entity";
+import { Driver, User, Profile } from "../entity";
 import BaseController from "./BaseController";
 import { ApiResponse } from '../models';
-import { mechanicService } from '../services/MechanicService';
+import { driverService } from '../services/DriverService';
 import { userService } from '../services/UserService';
 import { profileService } from '../services/ProfileService'
 import { generateSaltedPassword } from "../utils";
-class MechanicController extends BaseController<Mechanic> {
+
+class DriverController extends BaseController<Driver> {
 
     constructor() {
         super();
@@ -16,8 +17,8 @@ class MechanicController extends BaseController<Mechanic> {
 
     public async create(req: express.Request, res: express.Response) {
         try {
-            const mechanicProfile: Profile = await (await profileService.getAll()).find(
-                profile => profile.name === "MECHANIC"
+            const driverProfile: Profile = await (await profileService.getAll()).find(
+                profile => profile.name === "Driver"
             )
             
             const user = new User();
@@ -25,14 +26,14 @@ class MechanicController extends BaseController<Mechanic> {
             user.passwordHash = await generateSaltedPassword(req.body.password);
             user.phoneNumber = req.body.phoneNumber;
             user.name = req.body.name;
-            user.profile = mechanicProfile;
+            user.profile = driverProfile;
 
             const userResponse = await userService.create(user);
 
-            const mechanic = new Mechanic();
-            mechanic.user = user;
+            const driver = new Driver();
+            driver.user = user;
 
-            const entity = await mechanicService.create(mechanic);
+            const entity = await driverService.create(driver);
 
             res.send(ApiResponse.returnData(entity));
 
@@ -44,5 +45,5 @@ class MechanicController extends BaseController<Mechanic> {
     }
 }
 
-const router = new MechanicController().router
+const router = new DriverController().router
 export default router
