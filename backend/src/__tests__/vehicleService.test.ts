@@ -1,6 +1,6 @@
 
 import { vehicleService } from "../services/VehicleService";
-import { User } from "../entity/User";
+import { User } from "../entity";
 
 jest.mock("../entity/User");
 jest.mock("../entity/Vehicle");

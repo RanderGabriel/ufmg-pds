@@ -1,28 +1,30 @@
-import Server from '../../build/App';
+import {AppTest} from '../App';
 import request  = require('supertest');
 
 jest.unmock("typeorm");
 jest.unmock("../services/DatabaseService")
 
+
+let app
+beforeAll(async () => {
+    const appTest = new AppTest()
+    await appTest.setupTest()
+    app = appTest.app
+})
+
 describe('MechanicController', () => {
 
     test('POST /api/mechanic/create', async () => {
-        const res = await request(Server.app)
+        const res = await request(app)
             .post('/api/mechanic/create')
             .send({
-                user: {
                     email: "teste@123.com",
-                    id: 1,
+                    password: "teste123",
                     name: "teste",
-                    passwordHash: "123123",
-                    passwordResetExpires: new Date(0),
-                    passwordResetToken: "123214234",
                     phoneNumber: "123123123",
-                    profile: 1,
-                }
             });
+        console.log(res.body)
 
-            
         expect(res.status).toEqual(200);
         expect(res.body.code).toEqual(200);
         expect(res.body.data).toBeTruthy();

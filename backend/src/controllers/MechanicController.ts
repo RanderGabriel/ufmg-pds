@@ -16,9 +16,7 @@ class MechanicController extends BaseController<Mechanic> {
 
     public async create(req: express.Request, res: express.Response) {
         try {
-            const mechanicProfile: Profile = await (await profileService.getAll()).find(
-                profile => profile.name === "MECHANIC"
-            )
+            const mechanicProfile: Profile = await profileService.getByProperty({name: "MECHANIC"})
             
             const user = new User();
             user.email = req.body.email;

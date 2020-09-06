@@ -1,5 +1,5 @@
 import { Entity, OneToOne, PrimaryGeneratedColumn, JoinColumn } from "typeorm";
-import { User } from "./User";
+import User  from "./User";
 
 @Entity()
 export default class Mechanic {

@@ -8,6 +8,17 @@ export const createConnection = () => new Promise((resolve) => resolve({
         }),
         close: () => jest.fn(),
     }));
+
+export const getConnection = jest.fn()
+getConnection.mockReturnValue({
+    getRepository: () => ({
+        findOne: () => ({}),
+        delete: () => ({}),
+        save: (param) => new Promise((resolve) => resolve(param)),
+        find: jest.fn()
+    }),
+    close: () => jest.fn(),
+})
 export const Entity =  jest.fn();
 export const Column =  jest.fn();
 export const PrimaryGeneratedColumn =  jest.fn();

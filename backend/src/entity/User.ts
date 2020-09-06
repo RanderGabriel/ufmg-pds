@@ -1,8 +1,8 @@
 import {Entity, Column, ManyToOne, PrimaryGeneratedColumn, JoinColumn} from "typeorm";
-import { Profile } from "./Profile"
+import Profile  from "./Profile"
 
 @Entity()
-export class User {
+export default class User {
 
     @PrimaryGeneratedColumn()
     id: number | null;
@@ -30,5 +30,3 @@ export class User {
     profile: Profile;
 
 }
-
-export default User

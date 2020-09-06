@@ -1,8 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, OneToMany, Column } from "typeorm";
-import { User } from './User';
 
 @Entity()
-export class Profile {
+export default class Profile {
     
     @PrimaryGeneratedColumn()
     id: number;
@@ -11,5 +10,3 @@ export class Profile {
     name: string;
 
 }
-
-export default Profile

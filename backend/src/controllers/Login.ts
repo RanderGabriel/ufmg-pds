@@ -1,11 +1,10 @@
 import { getConnection, Connection } from "typeorm";
 import express = require('express');
 import crypto = require('crypto');
-import { User } from "../entity/User";
+import { User, Access} from "../entity";
 import { generateSaltedPassword } from "../utils";
 import {userService} from '../services/UserService'
 import * as bcrypt from 'bcrypt';
-import { Access } from "../entity/Access";
 import * as nodemailer from 'nodemailer'; 
 
 export class LoginController{

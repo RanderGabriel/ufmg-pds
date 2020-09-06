@@ -1,13 +1,12 @@
 import express = require('express');
 import Middlewares from './middlewares';
 import Controllers from './controllers';
-import { connect } from 'http2';
+import {createConnection} from 'typeorm'
 class App {
     
     public app: express.Express;
     
-    constructor(port: number) {
-       
+    constructor() {
         this.app = express();
         this.useMiddlewares(Middlewares);
         this.useControllers(Controllers);
@@ -28,5 +27,22 @@ class App {
 
 }
 
-const application = new App(5000);
+export class AppTest extends App {
+    constructor(){
+        super()
+    }
+
+    async setupTest() {
+        return new Promise((resolve, reject) => {
+            createConnection().then((_) => {
+                resolve()
+            }).catch(error => {
+                reject()
+            })
+        })
+    }
+}
+
+
+const application = new App();
 export default application;

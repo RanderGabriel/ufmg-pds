@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm";
-import { User } from "./User";
+import User from "./User";
 
 @Entity()
-export class Driver {
+export default class Driver {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -12,5 +12,4 @@ export class Driver {
     user: User;
 
 }
-
-export default Driver;  
+ 
