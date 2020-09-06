@@ -1,7 +1,7 @@
 const request = require("supertest");
 const application = require('../App').default;
 
-test('Post /api/driver', async () =>{
+beforeAll(async () => {
     const response = await request(application.app)
         .post('/api/driver')
         .send({
@@ -14,13 +14,14 @@ test('Post /api/driver', async () =>{
             phoneNumber: "319858233012309"
         });
     expect(response.status).toBe(200);
-});
+})
+
 
 describe('Test mechanic login', () => {
 
     test('POST /api/mechanic success', async () => {
         const response = await request(application.app)
-            .post('/api/mechanic')
+            .post('/api/mechanic/create')
             .send({
                 email: `test_mec_${Date.now()}@test.com`,
                 password: '123',
@@ -33,7 +34,7 @@ describe('Test mechanic login', () => {
     
     test('POST /api/mechanic error', async () =>{
         const response = await request(application.app)
-            .post('/api/mechanic')
+            .post('/api/mechanic/create')
             .send({
                 email: "test@test.com",
                 password: '123',

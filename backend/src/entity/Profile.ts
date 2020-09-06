@@ -11,3 +11,5 @@ export class Profile {
     name: string;
 
 }
+
+export default Profile

@@ -30,3 +30,5 @@ export class User {
     profile: Profile;
 
 }
+
+export default User

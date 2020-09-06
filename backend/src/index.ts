@@ -1,3 +1,10 @@
-import application from './App';
+import application from './App'
+import {createConnection} from 'typeorm'
 
-application.start();
+createConnection().then(connection => {
+    application.start();
+})
+.catch(error => {
+    console.log(error)
+})
+

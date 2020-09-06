@@ -1,25 +1,26 @@
 import express = require('express');
 import Middlewares from './middlewares';
 import Controllers from './controllers';
-
+import { connect } from 'http2';
 class App {
     
     public app: express.Express;
-
+    
     constructor(port: number) {
+       
         this.app = express();
         this.useMiddlewares(Middlewares);
         this.useControllers(Controllers);
     }
-
+    
     private useMiddlewares(middlewares: express.Router) {
         this.app.use(middlewares);
     }
-
+    
     private useControllers(controllers: express.Router) {
         this.app.use(controllers);
     }
-
+    
     public start(port: number = 5000) {
         console.log(`rodando na porta ${port}`)
         return this.app.listen(port);
@@ -28,5 +29,4 @@ class App {
 }
 
 const application = new App(5000);
-
 export default application;

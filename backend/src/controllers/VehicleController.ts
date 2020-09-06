@@ -22,7 +22,7 @@ class VehicleController extends BaseController<Vehicle> {
 
     public async create(req: express.Request, res: express.Response) {
         try {
-            const entity = await vehicleService.update(req.body);
+            const entity = await vehicleService.create(req.body);
 
             res.send(ApiResponse.returnData(entity));
 

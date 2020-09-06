@@ -12,3 +12,5 @@ export class Driver {
     user: User;
 
 }
+
+export default Driver;  
