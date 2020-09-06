@@ -18,16 +18,15 @@ class DriverController extends BaseController<Driver> {
     public async create(req: express.Request, res: express.Response) {
         try {
             const driverProfile: Profile = await profileService.getByProperty({name: "DRIVER"})
-            
+
             const user = new User();
             user.email = req.body.email;
             user.passwordHash = await generateSaltedPassword(req.body.password);
             user.phoneNumber = req.body.phoneNumber;
             user.name = req.body.name;
             user.profile = driverProfile;
-
-            const userResponse = await userService.create(user);
-
+            await userService.create(user);
+            
             const driver = new Driver();
             driver.user = user;
 

@@ -17,7 +17,7 @@ class MechanicController extends BaseController<Mechanic> {
     public async create(req: express.Request, res: express.Response) {
         try {
             const mechanicProfile: Profile = await profileService.getByProperty({name: "MECHANIC"})
-            
+
             const user = new User();
             user.email = req.body.email;
             user.passwordHash = await generateSaltedPassword(req.body.password);
@@ -25,8 +25,8 @@ class MechanicController extends BaseController<Mechanic> {
             user.name = req.body.name;
             user.profile = mechanicProfile;
 
-            const userResponse = await userService.create(user);
-
+            const response  = await userService.create(user);
+            
             const mechanic = new Mechanic();
             mechanic.user = user;
 

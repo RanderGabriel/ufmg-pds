@@ -32,7 +32,7 @@ export default class ProfileService extends DatabaseService<Profile> implements 
     }){
           try {
             return await this.execute(async (connection) => {
-                return await connection.getRepository(Profile).find({
+                return await connection.getRepository(Profile).findOne({
                     where: query
                 });
             }) as Profile;
