@@ -1,5 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, OneToOne, Column, JoinColumn } from "typeorm";
-import { User } from "./User";
 import { Mechanic } from "./Mechanic";
 
 @Entity()
@@ -36,3 +35,5 @@ export class Autoshop {
     ableToMove: boolean;
     
 }
+
+export default Autoshop;
