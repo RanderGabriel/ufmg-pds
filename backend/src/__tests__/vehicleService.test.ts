@@ -1,6 +1,7 @@
 
 import { vehicleService } from "../services/VehicleService";
 import { User } from "../entity";
+import { getConnection } from "../../__mocks__/typeorm";
 
 const testUser: User = {
     email: "teste@123.com",
@@ -16,25 +17,46 @@ const testUser: User = {
     },
 };
 
+const testVehicle = {
+    color: "Vermelho",
+    id: 1,
+    licensePlate: "ABC-1234",
+    make: "Chevrolet",
+    model: "Celta",
+    owner: testUser,
+    year: 2020
+};
 describe("it should create, read, update and delete vehicles", () => {
     test("it should create", async () => {
-        await vehicleService.create({
-            color: "Vermelho",
-            id: 1,
-            licensePlate: "ABC-1234",
-            make: "Chevrolet",
-            model: "Celta",
-            owner: testUser,
-            year: 2020
-        });
+        const vehicle = await vehicleService.create(testVehicle);
+
+        expect(vehicle.id).toEqual(1);
     });
     test("it should delete", async () => {
         await vehicleService.delete(1);
     });
     test("it should read", async () => {
-        await vehicleService.get(1);
+        // @ts-ignore
+        getConnection.mockReturnValueOnce({
+            getRepository: () => ({
+                findOne : () => Promise.resolve(testVehicle),
+            })
+        });
+
+        const vehicle = await vehicleService.get(1);
+        expect(vehicle.id).toEqual(1);
     });
     test("it should getAll", async () => {
-        await vehicleService.getAll();
+        getConnection.mockReturnValueOnce({
+            getRepository: () => ({
+                findOne : () => Promise.resolve(testVehicle),
+                find: () => Promise.resolve([testVehicle])
+            })
+        });
+
+        const vehicles = await vehicleService.getAll();
+        expect(
+            vehicles.filter(v => v.id === testVehicle.id).length
+            ).toEqual(1);
     });
 });
