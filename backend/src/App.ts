@@ -22,7 +22,7 @@ class App {
     
     public start(port: number = 5000) {
         console.log(`rodando na porta ${port}`)
-        return this.app.listen(port);
+        this.app.listen(port);
     }
 
 }
@@ -42,7 +42,6 @@ export class AppTest extends App {
         })
     }
 }
-
 
 const application = new App();
 export default application;

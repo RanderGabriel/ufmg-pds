@@ -34,9 +34,9 @@ export default class UserService extends DatabaseService<User> implements IDatab
     }){
           try {
             return await this.execute(async (connection) => {
-                return await connection.getRepository(User).find({
+                return await connection.getRepository(User).findOne({
                     where: query
-                });
+                })
             }) as User;
         } catch (error) {
             throw error;

@@ -1,15 +1,17 @@
-import {AppTest} from '../App';
 import request  = require('supertest');
+const AppTest = require('../../build/App').AppTest;
 
 jest.unmock("typeorm");
 jest.unmock("../services/DatabaseService")
 
 
 let app
-beforeAll(async () => {
+beforeAll((done) => {
     const appTest = new AppTest()
-    await appTest.setupTest()
-    app = appTest.app
+    appTest.setupTest().then( () => {
+        app = appTest.app
+        done()
+    })
 })
 
 describe('MechanicController', () => {
@@ -23,13 +25,24 @@ describe('MechanicController', () => {
                     name: "teste",
                     phoneNumber: "123123123",
             });
-        console.log(res.body)
 
         expect(res.status).toEqual(200);
         expect(res.body.code).toEqual(200);
         expect(res.body.data).toBeTruthy();
         expect(res.body.error).toEqual(null);
 
+    });
+
+    test('POST /api/mechanic/create error', async () =>{
+        const response = await request(app)
+            .post('/api/mechanic/create')
+            .send({
+                email: "test@test.com",
+                password: '123',
+            });
+
+        expect(response.status).toBe(200);
+        expect(response.body.code).toBe(500);
     });
 
 })

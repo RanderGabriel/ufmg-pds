@@ -10,10 +10,13 @@ import * as nodemailer from 'nodemailer';
 export class LoginController{
 
     async insert(req: express.Request, res: express.Response) {
-        const data = { email: req.body.email as string,
-        password: req.body.password as string };
+        const data = { 
+            email: req.body.email as string,
+            password: req.body.password as string 
+        };
         const user = await userService.getByProperty({email: data.email})
-        if(!user) {
+    
+        if(user === undefined) {
             res.status(500).send({ success: false, message: "Usuário não encontrado" });
             return;
         }

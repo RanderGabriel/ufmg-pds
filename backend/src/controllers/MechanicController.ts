@@ -6,6 +6,7 @@ import { mechanicService } from '../services/MechanicService';
 import { userService } from '../services/UserService';
 import { profileService } from '../services/ProfileService'
 import { generateSaltedPassword } from "../utils";
+
 class MechanicController extends BaseController<Mechanic> {
 
     constructor() {
@@ -15,18 +16,29 @@ class MechanicController extends BaseController<Mechanic> {
     }
 
     public async create(req: express.Request, res: express.Response) {
+        const request = req.body
+
+        if (request.email === undefined || request.password === undefined ||
+            request.phoneNumber === undefined || request.name === undefined) {
+                
+            res.send(ApiResponse.returnError({
+                message: 'Missing parameters',
+            }));
+            return
+        }
+
         try {
-            const mechanicProfile: Profile = await profileService.getByProperty({name: "MECHANIC"})
+            const mechanicProfile: Profile = await profileService.getByProperty({ name: "MECHANIC" })
 
             const user = new User();
-            user.email = req.body.email;
-            user.passwordHash = await generateSaltedPassword(req.body.password);
-            user.phoneNumber = req.body.phoneNumber;
-            user.name = req.body.name;
+            user.email = request.email;
+            user.passwordHash = await generateSaltedPassword(request.password);
+            user.phoneNumber = request.phoneNumber;
+            user.name = request.name;
             user.profile = mechanicProfile;
 
-            const response  = await userService.create(user);
-            
+            const response = await userService.create(user);
+
             const mechanic = new Mechanic();
             mechanic.user = user;
 
