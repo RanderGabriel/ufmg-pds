@@ -18,6 +18,21 @@ export default class UserService {
         }
     }
 
+
+    public async logoff(): Promise<boolean> {
+        try {
+            await httpService.post<User>(`/api/user/logoff`);
+            this.removeUser();
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    private removeUser() {
+        localStorage.removeItem('userInfo');
+    }
+
     public async login(data: User): Promise<User> {
         try {
             const response = await httpService.post<User>('/api/login', data);

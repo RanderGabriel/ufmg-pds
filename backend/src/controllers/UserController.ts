@@ -1,8 +1,9 @@
 import * as express from 'express';
 import BaseController from './BaseController';
 import { userService } from '../services/UserService';
+import { accessService } from '../services/AccessService';
 import { mailerService } from '../services/MailerService'
-import { User } from '../entity';
+import { User, Access } from '../entity';
 import { ApiResponse } from '../models';
 //import { generateSaltedPassword } from "../utils";
 import crypto = require('crypto');
@@ -17,6 +18,7 @@ class UserController extends BaseController<User> {
         this.router.post('/update', this.update);
         this.router.get('/delete', this.delete);
         this.router.post('/forgot-password', this.forgotPassword);
+        this.router.post('/logoff', this.logoff)
     }
 
     public async forgotPassword(req: express.Request, res: express.Response) {
@@ -112,6 +114,19 @@ class UserController extends BaseController<User> {
 
             res.send(ApiResponse.returnData(id));
 
+        } catch (error) {
+            res.send(ApiResponse.returnError({
+                message: error,
+            }));
+        }
+    }
+
+    public async logoff(req: express.Request, res: express.Response) {
+        try {
+            const token = req.headers["authorization"];
+            const access: Access = await accessService.getByToken(token)
+            await accessService.delete(access.id);
+            res.send(ApiResponse.returnData(null));
         } catch (error) {
             res.send(ApiResponse.returnError({
                 message: error,
