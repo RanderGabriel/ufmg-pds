@@ -3,21 +3,21 @@
         <form @submit.prevent="onSubmit()">
             <div class="mb-5">
                 <div class="field">
-                    <label class="label">Informe seu e-mail para recuperação</label>
+                    <label class="label">Informe a nova Senha</label>
                     <div class="control">
-                        <input class="input" type="text" v-model="entity.email">
+                        <input class="input" type="password" v-model="entity.password">
                     </div>
                 </div>
                 <div class="field">
+                    <label class="label">Confirme a nova Senha</label>
                     <div class="control">
-                        <input type="radio" value="DRIVER" v-model="entity.profile">Sou motorista
-                        <input type="radio" value="MECHANIC" v-model="entity.profile">Sou mecânico
+                        <input class="input" type="password" v-model="entity.passwordConfirmation">
                     </div>
                 </div>
             </div>
             <div>
                 <button class="button is-primary has-text-weight-bold is-fullwidth" :class="{'is-loading': isSending}" type="submit" :disabled="isSending">
-                    RECUPERAR
+                    CONFIRMAR
                 </button>
             </div>
         </form>
@@ -52,10 +52,9 @@ export default class ForgotForm extends Vue implements IForm<User>  {
     public async onSubmit() {
         try {
             this.isSending = true;
-            const user = await this.$services.userService.forgotPassword(this.entity);
+            const user = await this.$services.userService.resetPassword(this.entity);
             if(user) {
-                //this.$router.push('/login/reset');
-                alert("Solicitação realizada com sucesso! Verifique seu e-mail.");
+                this.$router.push('/login/reset');
             }
         } catch (error) {
         } finally {

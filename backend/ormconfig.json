@@ -3,7 +3,7 @@
   "host": "127.0.0.1",
   "port": 3306,
   "username": "root",
-  "password": "mysql123",
+  "password": "password",
   "database": "app_test",
   "synchronize": true,
   "logging": false,

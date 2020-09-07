@@ -5,6 +5,9 @@ const router = express.Router();
 
 const apiRouter = express.Router();
 
+import UserController from './UserController';
+apiRouter.use('/user', UserController);
+
 import VehicleController from './VehicleController';
 apiRouter.use('/vehicle', VehicleController);
 

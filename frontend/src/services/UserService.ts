@@ -33,7 +33,7 @@ export default class UserService {
 
     public async forgotPassword(data: User) {
         try {
-            const response = await httpService.post<User>('/api/login/forgot-password', data);
+            const response = await httpService.post<User>('/api/user/forgot-password', data);
             return response.data ? new User(response.data) : null;
         } catch (error) {
             throw error;

@@ -31,6 +31,7 @@ export default class UserService extends DatabaseService<User> implements IDatab
         email?: string;
         name?: string;
         phoneNumber?: string; 
+        profileId?: number
     }){
           try {
             return await this.execute(async (connection) => {
