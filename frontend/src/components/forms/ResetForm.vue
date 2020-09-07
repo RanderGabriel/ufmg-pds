@@ -30,7 +30,7 @@ import { User } from '../../models/bussiness';
 import IForm from './IForm';
 
 @Component
-export default class ForgotForm extends Vue implements IForm<User>  {
+export default class ResetForm extends Vue implements IForm<User>  {
 
     public isLoading: boolean;
     public isSending: boolean;
@@ -44,8 +44,9 @@ export default class ForgotForm extends Vue implements IForm<User>  {
         this.isSending = false;
         this.entity = new User({
             email: '',
-            password: null,
-            profile: 'DRIVER'
+            token: '',
+            password: '',
+            passwordConfirmation: '',
         });
     }
 

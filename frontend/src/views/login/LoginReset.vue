@@ -1,6 +1,6 @@
 <template>
-    <div class="login-forgot">
-        <forgot-form />
+    <div class="login-reset">
+        <reset-form />
     </div>
 </template>
 
@@ -8,7 +8,7 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
 @Component
-export default class LoginForgot extends Vue {
+export default class LoginReset extends Vue {
 
 
 }

@@ -10,6 +10,7 @@ import VehicleForm from '@/components/forms/VehicleForm.vue';
 import SignupForm from '@/components/forms/SignupForm.vue';
 import LoginForm from '@/components/forms/LoginForm.vue';
 import ForgotForm from '@/components/forms/ForgotForm.vue';
+import ResetForm from '@/components/forms/ResetForm.vue';
 import ProfileInfo from '@/components/layout/ProfileInfo.vue';
 
 import ServicesPlugin from '@/services';
@@ -28,10 +29,10 @@ export default class VueConfig {
         Vue.component('empty-list', EmptyList);
         Vue.component('vehicle-form', VehicleForm);
         Vue.component('custom-form', Form);
-        Vue.component('custom-form', Form);
         Vue.component('signup-form', SignupForm);
         Vue.component('login-form', LoginForm);
         Vue.component('forgot-form', ForgotForm);
+        Vue.component('reset-form', ResetForm);
         Vue.component('profile-info', ProfileInfo);
     }
 

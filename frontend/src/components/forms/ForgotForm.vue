@@ -26,6 +26,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import { ApiResponse } from '../../../../backend/src/models';
 import { User } from '../../models/bussiness';
 import IForm from './IForm';
 
@@ -52,10 +53,9 @@ export default class ForgotForm extends Vue implements IForm<User>  {
     public async onSubmit() {
         try {
             this.isSending = true;
-            const user = await this.$services.userService.forgotPassword(this.entity);
-            if(user) {
-                //this.$router.push('/login/reset');
-                alert("Solicitação realizada com sucesso! Verifique seu e-mail.");
+            const res = await this.$services.userService.forgotPassword(this.entity);
+            if(res) {
+                alert("Solicitação recebida! Verifique sua caixa de e-mail.");
             }
         } catch (error) {
         } finally {

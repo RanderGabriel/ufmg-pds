@@ -38,12 +38,15 @@ class UserController extends BaseController<User> {
                 user.passwordResetExpires = now;
 
                 const response = await userService.update(user);
-                const mailer = await mailerService.send(user);
-                
-                //console.log(mailer);
-
-                //res.send(ApiResponse.returnData(response));
-                //res.send(ApiResponse.returnData(user));
+                if(await mailerService.send(user) == true) {
+                    res.send(ApiResponse.returnData({
+                        message: "Solicitação recebida com sucesso! Verifique sua caixa de e-mail."
+                    }));
+                } else {
+                    res.send(ApiResponse.returnError({
+                        message: "Ops, algum erro aconteceu. Tente novamente!"
+                    }));
+                }
             }
 
         } catch (error) {
