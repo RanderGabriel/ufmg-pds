@@ -17,7 +17,7 @@
             </div>
             <div>
                 <button class="button is-primary has-text-weight-bold is-fullwidth" :class="{'is-loading': isSending}" type="submit" :disabled="isSending">
-                    Recuperar
+                    RECUPERAR
                 </button>
             </div>
         </form>
@@ -52,7 +52,7 @@ export default class ForgotForm extends Vue implements IForm<User>  {
     public async onSubmit() {
         try {
             this.isSending = true;
-            const user = await this.$services.userService.forgot(this.entity);
+            const user = await this.$services.userService.forgotPassword(this.entity);
             if(user) {
                 this.$router.push('/login/reset');
             }
@@ -61,10 +61,6 @@ export default class ForgotForm extends Vue implements IForm<User>  {
             this.isSending = false;
             
         }
-    }
-
-    public mounted() {
-        console.log("mounted");
     }
 
 }
