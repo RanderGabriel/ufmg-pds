@@ -7,7 +7,7 @@ export default class Driver {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToOne(type => User)
+    @OneToOne(type => User, {onDelete: 'CASCADE'})
     @JoinColumn()
     user: User;
 

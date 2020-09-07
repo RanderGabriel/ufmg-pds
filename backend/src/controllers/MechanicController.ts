@@ -18,15 +18,6 @@ class MechanicController extends BaseController<Mechanic> {
     public async create(req: express.Request, res: express.Response) {
         const request = req.body
 
-        if (request.email === undefined || request.password === undefined ||
-            request.phoneNumber === undefined || request.name === undefined) {
-                
-            res.send(ApiResponse.returnError({
-                message: 'Missing parameters',
-            }));
-            return
-        }
-
         try {
             const mechanicProfile: Profile = await profileService.getByProperty({ name: "MECHANIC" })
 

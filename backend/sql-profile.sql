@@ -1,0 +1,1 @@
+insert into app_test.profile(name) values ('MECHANIC'), ('DRIVER')

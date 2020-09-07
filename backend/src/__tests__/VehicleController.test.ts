@@ -5,6 +5,7 @@ jest.unmock("typeorm");
 jest.unmock("../services/DatabaseService")
 
 let app
+
 beforeAll((done) => {
     const appTest = new AppTest()
     appTest.setupTest().then( () => {
@@ -92,3 +93,10 @@ describe('VehicleController', () => {
     });
 
 });
+
+afterAll(async () => {
+    const VehicleService = require('../../build/services/VehicleService').default
+    const vehicleService = new VehicleService()
+    const vehicles = await vehicleService.getAll()
+    vehicles.forEach((vehicle) => {vehicleService.delete(vehicle.id)})
+})

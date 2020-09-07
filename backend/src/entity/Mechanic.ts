@@ -7,7 +7,7 @@ export class Mechanic {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToOne(type => User)
+    @OneToOne(type => User, {onDelete: 'CASCADE'})
     @JoinColumn()
     user: User;
 

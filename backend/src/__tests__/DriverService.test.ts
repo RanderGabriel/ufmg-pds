@@ -1,5 +1,5 @@
-import { mechanicService } from "../services/MechanicService";
-import {Mechanic, User }from "../entity";
+import { driverService } from "../services/DriverService";
+import {Driver, User }from "../entity";
 
 const testUser: User = {
     email: "teste@123.com",
@@ -10,28 +10,28 @@ const testUser: User = {
     passwordResetToken: "123214234",
     phoneNumber: "123123123",
     profile: {
-        name: "MECHANIC",
+        name: "driver",
         id: 1
     },
 };
 
-const mechanicTest: Mechanic = {
+const mechanicTest: Driver = {
     id: 1,
     user: testUser
 }
 
 describe("it should create, read, update and delete vehicles", () => {
     test("it should create", async () => {
-        await mechanicService.create(mechanicTest);
+        await driverService.create(mechanicTest);
     });
 
     test("it should delete", async () => {
-        await mechanicService.delete(1);
+        await driverService.delete(1);
     });
     test("it should read", async () => {
-        await mechanicService.get(1);
+        await driverService.get(1);
     });
     test("it should getAll", async () => {
-        await mechanicService.getAll();
+        await driverService.getAll();
     });
 });

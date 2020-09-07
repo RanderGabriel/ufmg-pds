@@ -1,4 +1,3 @@
-
 const request = require("supertest");
 const AppTest = require('../../build/App').AppTest;
 const express = require('express')
@@ -60,5 +59,14 @@ describe('Test mechanic login', () => {
                 password: '123',
             });
         expect(response.status).toBe(500);
+    })
+})
+
+afterAll(async () => {
+    const DriverService = require('../../build/services/DriverService').default
+    const driverService = new DriverService()
+    const drives = await driverService.getAll()
+    drives.forEach(async (driver) => {
+        driverService.delete(driver.id)
     })
 })

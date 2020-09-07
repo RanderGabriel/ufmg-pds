@@ -1,6 +1,6 @@
+
 import request  = require('supertest');
 const AppTest = require('../../build/App').AppTest;
-import MechanicService from '../services/MechanicService'
 
 jest.unmock("typeorm");
 jest.unmock("../services/DatabaseService")
@@ -9,16 +9,16 @@ let app
 beforeAll((done) => {
     const appTest = new AppTest()
     appTest.setupTest().then( () => {
-        app = appTest.app
+        app = appTest.app   
         done()
     })
 })
 
-describe('MechanicController', () => {
+describe('DriverController', () => {
 
-    test('POST /api/mechanic/create', async () => {
+    test('POST /api/driver/create', async () => {
         const res = await request(app)
-            .post('/api/mechanic/create')
+            .post('/api/driver/create')
             .send({
                     email: "teste@123.com",
                     password: "teste123",
@@ -33,13 +33,14 @@ describe('MechanicController', () => {
 
     });
 
-    test('POST /api/mechanic/create error', async () =>{
+    test('POST /api/driver/create error', async () =>{
         const response = await request(app)
-            .post('/api/mechanic/create')
+            .post('/api/driver/create')
             .send({
                 email: "test@test.com",
                 password: '123',
             });
+
         expect(response.status).toBe(200);
         expect(response.body.code).toBe(500);
     });
@@ -47,13 +48,10 @@ describe('MechanicController', () => {
 })
 
 afterAll(async () => {
-    const MechanicService = require('../../build/services/MechanicService').default
-    const mechanicService = new MechanicService()
-    const mechanics = await mechanicService.getAll()
-    mechanics.forEach(async (mechanic) => {
-        await mechanicService.delete(mechanic.id)
+    const DriverService = require('../../build/services/DriverService').default
+    const driverService = new DriverService()
+    const drives = await driverService.getAll()
+    drives.forEach(async (driver) => {
+        driverService.delete(driver.id)
     })
-
-   
-  
 })

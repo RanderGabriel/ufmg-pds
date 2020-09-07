@@ -2,9 +2,6 @@
 import { vehicleService } from "../services/VehicleService";
 import { User } from "../entity";
 
-jest.mock("../entity/User");
-jest.mock("../entity/Vehicle");
-
 const testUser: User = {
     email: "teste@123.com",
     id: 1,
