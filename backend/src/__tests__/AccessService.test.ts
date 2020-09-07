@@ -1,5 +1,6 @@
 import { accessService } from "../services/AccessService";
 import { User, Access }from "../entity";
+import { getConnection } from "../../__mocks__/typeorm";
 
 const testUser: User = {
     email: "teste@123.com",
@@ -24,16 +25,33 @@ const testAccess: Access = {
 
 describe("it should create, read, update and delete accesses", () => {
     test("it should create", async () => {
-        await accessService.create(testAccess);
+        const access = await accessService.create(testAccess);
+        expect(access).toEqual(testAccess);
     });
 
     test("it should delete", async () => {
         await accessService.delete(1);
     });
     test("it should read", async () => {
-        await accessService.get(1);
+        // @ts-ignore
+        getConnection.mockReturnValueOnce({
+            getRepository: () => ({
+                findOne : () => Promise.resolve(testAccess),
+            })
+        });
+        const access = await accessService.get(1);
+        expect(access).toEqual(access);
     });
     test("it should getAll", async () => {
-        await accessService.getAll();
+        // @ts-ignore
+        getConnection.mockReturnValueOnce({
+            getRepository: () => ({
+                findOne : () => Promise.resolve(testAccess),
+                find: () => Promise.resolve([testAccess])
+            })
+        });
+        const accesses = await accessService.getAll();
+        expect(accesses.filter(a => a.id === 1).length).toEqual(1);
+        expect(accesses.find(a => a.id === 1)).toEqual(testAccess);
     });
 });
