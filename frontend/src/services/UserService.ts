@@ -55,6 +55,15 @@ export default class UserService {
         }
     }
 
+    public async resetPassword(data: User) {
+        try {
+            const response = await httpService.post<User>('/api/user/reset-password', data);
+            return response.data ? new User(response.data) : null;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     public saveUser(user: User) {
         localStorage.setItem('userInfo', JSON.stringify(user));
     }
