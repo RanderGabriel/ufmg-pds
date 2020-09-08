@@ -48,7 +48,7 @@ export default class ResetForm extends Vue implements IForm<User>  {
             email: params.get('email'),
             password: '',
             passwordConfirmation: '',
-            passwordResetToken: params.get('email'),
+            passwordResetToken: params.get('token'),
             profile: 'DRIVER',
         });
     }
@@ -57,7 +57,9 @@ export default class ResetForm extends Vue implements IForm<User>  {
         try {
             this.isSending = true;
             const user = await this.$services.userService.resetPassword(this.entity);
+            console.log(user);
             if(user) {
+                alert("A nova senha foi cadastrada com sucesso!");
                 this.$router.push('/profile');
             }
         } catch (error) {

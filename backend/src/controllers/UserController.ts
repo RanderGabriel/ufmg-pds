@@ -58,21 +58,17 @@ class UserController extends BaseController<User> {
     }
 
     async resetPassword(req: express.Request, res: express.Response) {
-        const data = { email: req.body.email as string,
-                       password: req.body.password as string,
-                       passwordConfirmation: req.body.passwordConfirmation as string,
-                       passwordResetToken: req.body.token as string 
-        };
+        const request = req.body;
         
-        const user: User = await userService.getByProperty({ email: data.email });
-        user.passwordHash = await generateSaltedPassword(data.password);
+        const user: User = await userService.getByProperty({ email: request.email });
+        user.passwordHash = await generateSaltedPassword(request.password);
         
         if(!user) {
             res.send(ApiResponse.returnError({ message: "Usuário não encontrado." }));
             return;
         }
         
-        if(data.passwordResetToken != user.passwordResetToken) {
+        if(request.passwordResetToken != user.passwordResetToken) {
             res.send(ApiResponse.returnError({ message: "Token inválido! Verifique seu e-mail novamente." }));
             return;
         }
@@ -83,7 +79,7 @@ class UserController extends BaseController<User> {
             return;
         }
 
-        if(data.password != data.passwordConfirmation) {
+        if(request.password != request.passwordConfirmation) {
             res.send(ApiResponse.returnError({ message: "As senhas não são idênticas." }));
             return;
         }

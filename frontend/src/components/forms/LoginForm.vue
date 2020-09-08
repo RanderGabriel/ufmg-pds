@@ -26,7 +26,7 @@
             </div>
             <div>
                 <button class="button is-primary has-text-weight-bold is-fullwidth" :class="{'is-loading': isSending}" type="submit" :disabled="isSending">
-                    CADASTRAR
+                    ENTRAR
                 </button>
             </div>
         </form>
