@@ -41,7 +41,7 @@ export default class AccessService extends DatabaseService<Access> implements ID
         try {
             return await this.execute(async (connection) => {
                 return await connection.getRepository(Access).save(entity);
-            });
+            }) as Access;
         } catch (error) {
             throw error;
         }
