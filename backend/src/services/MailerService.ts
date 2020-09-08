@@ -1,9 +1,5 @@
 import * as nodemailer from 'nodemailer'; 
 import { User } from '../entity';
-import { url } from 'inspector';
-import { URL } from 'url';
-import { urlencoded } from 'express';
-import { prototype } from 'module';
 
 export default class MailerService {
 
