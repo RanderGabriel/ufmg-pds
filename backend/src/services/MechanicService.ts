@@ -41,7 +41,7 @@ export default class MechanicService extends DatabaseService<Mechanic> implement
         try {
             return await this.execute(async (connection) => {
                 return await connection.getRepository(Mechanic).save(entity);
-            });
+            }) as Mechanic;
         } catch (error) {
             throw error;
         }

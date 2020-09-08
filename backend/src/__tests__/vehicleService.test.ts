@@ -59,4 +59,24 @@ describe("it should create, read, update and delete vehicles", () => {
             vehicles.filter(v => v.id === testVehicle.id).length
             ).toEqual(1);
     });
+    test("it should throw errors", async () => {
+        getConnection.mockReturnValue({
+            getRepository: () => ({
+                findOne : () => Promise.reject(),
+                find: () => Promise.reject(),
+                save: () => Promise.reject(),
+            })
+        });
+        const fn = jest.fn();
+        const promises = [
+            vehicleService.create(testVehicle).catch(fn),
+            vehicleService.get(1).catch(fn),
+            vehicleService.getAll().catch(fn),
+            vehicleService.update(testVehicle).catch(fn),
+            vehicleService.delete(1).catch(fn),
+        ];
+        await Promise.all(promises);
+        expect(fn).toBeCalledTimes(5);
+
+    });
 });

@@ -42,7 +42,7 @@ export default class DriverService extends DatabaseService<Driver> implements ID
         try {
             return await this.execute(async (connection) => {
                 return await connection.getRepository(Driver).save(entity);
-            });
+            }) as Driver;
         } catch (error) {
             throw error;
         }
