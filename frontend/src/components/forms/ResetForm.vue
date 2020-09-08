@@ -26,6 +26,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import { ApiResponse } from '../../../../backend/src/models';
 import { User } from '../../models/bussiness';
 import IForm from './IForm';
 
@@ -35,18 +36,20 @@ export default class ResetForm extends Vue implements IForm<User>  {
     public isLoading: boolean;
     public isSending: boolean;
     public entity: User;
-    
 
     constructor() {
         super();
-
+        
+        const params = new URLSearchParams(window.location.search);
+ 
         this.isLoading = false;
         this.isSending = false;
         this.entity = new User({
-            email: '',
-            token: '',
+            email: params.get('email'),
             password: '',
             passwordConfirmation: '',
+            passwordResetToken: params.get('email'),
+            profile: 'DRIVER',
         });
     }
 
@@ -55,7 +58,7 @@ export default class ResetForm extends Vue implements IForm<User>  {
             this.isSending = true;
             const user = await this.$services.userService.resetPassword(this.entity);
             if(user) {
-                this.$router.push('/login/reset');
+                this.$router.push('/profile');
             }
         } catch (error) {
         } finally {
