@@ -14,6 +14,9 @@ apiRouter.use('/vehicle', VehicleController);
 import MechanicRouter from "./MechanicController";
 apiRouter.use("/mechanic", MechanicRouter);
 
+import AutoshopRouter from "./AutoshopController";
+apiRouter.use("/login", AutoshopRouter);
+
 import DriverRouter from "./DriverController";
 apiRouter.use("/driver", DriverRouter);
 
