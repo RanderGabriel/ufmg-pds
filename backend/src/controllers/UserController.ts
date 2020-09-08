@@ -5,7 +5,7 @@ import { accessService } from '../services/AccessService';
 import { mailerService } from '../services/MailerService'
 import { User, Access } from '../entity';
 import { ApiResponse } from '../models';
-//import { generateSaltedPassword } from "../utils";
+import { generateSaltedPassword } from "../utils";
 import crypto = require('crypto');
 
 class UserController extends BaseController<User> {
@@ -18,6 +18,7 @@ class UserController extends BaseController<User> {
         this.router.post('/update', this.update);
         this.router.get('/delete', this.delete);
         this.router.post('/forgot-password', this.forgotPassword);
+        this.router.post('/reset-password', this.resetPassword);
         this.router.post('/logoff', this.logoff)
     }
 
@@ -54,6 +55,41 @@ class UserController extends BaseController<User> {
                 message: error,
             }));
         }
+    }
+
+    async resetPassword(req: express.Request, res: express.Response) {
+        const data = { email: req.body.email as string,
+                       password: req.body.password as string,
+                       passwordConfirmation: req.body.passwordConfirmation as string,
+                       passwordResetToken: req.body.token as string 
+        };
+        
+        const user: User = await userService.getByProperty({ email: data.email });
+        user.passwordHash = await generateSaltedPassword(data.password);
+        
+        if(!user) {
+            res.send(ApiResponse.returnError({ message: "Usuário não encontrado." }));
+            return;
+        }
+        
+        if(data.passwordResetToken != user.passwordResetToken) {
+            res.send(ApiResponse.returnError({ message: "Token inválido! Verifique seu e-mail novamente." }));
+            return;
+        }
+
+        const now: Date = new Date();
+        if(now > user.passwordResetExpires){
+            res.send(ApiResponse.returnError({ message: "Token expirado, gere uma nova solicitação." }));
+            return;
+        }
+
+        if(data.password != data.passwordConfirmation) {
+            res.send(ApiResponse.returnError({ message: "As senhas não são idênticas." }));
+            return;
+        }
+        
+        const response = await userService.update(user);
+        res.send(ApiResponse.returnData(user));
     }
 
     public async create(req: express.Request, res: express.Response) {
