@@ -7,7 +7,7 @@ export class Autoshop {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToOne(type => Mechanic)
+    @OneToOne(type => Mechanic, {onDelete: 'CASCADE'})
     @JoinColumn()
     mechanic: Mechanic;
 
