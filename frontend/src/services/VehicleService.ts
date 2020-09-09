@@ -46,6 +46,7 @@ export default class VehicleService {
             const response = await httpService.get('/api/vehicle/delete', {
                 id,
             });
+            return response
         } catch (error) {
             throw error;
         }
