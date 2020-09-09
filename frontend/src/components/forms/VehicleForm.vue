@@ -39,7 +39,6 @@
                 </button>
             </div>
         </form>
-        {{isSending}}
     </div>
 </template>
 

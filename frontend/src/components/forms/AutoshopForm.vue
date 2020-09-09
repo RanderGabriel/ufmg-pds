@@ -40,7 +40,7 @@
                 </div>
                 <div class="field">
                     <div class="control">
-                        <input class="input" type="checkbox" v-model="entity.ableToMove"> Disponível para deslocamento
+                        <input type="checkbox" v-model="entity.ableToMove"> Disponível para deslocamento
                     </div>
                 </div>        
             </div>
@@ -50,7 +50,6 @@
                 </button>
             </div>
         </form>
-        {{isSending}}
     </div>
 </template>
 
@@ -78,7 +77,7 @@ export default class AutoshopForm extends Vue implements IForm<Autoshop>  {
             street: '',
             streetNumber: undefined,
             city: '',
-            state: '',,
+            state: '',
             country: '',
             zipCode: '',
             ableToMove: false,

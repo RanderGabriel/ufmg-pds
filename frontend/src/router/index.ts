@@ -9,6 +9,7 @@ import LoginReset from '@/views/login/LoginReset.vue';
 
 import Profile from '@/views/profile/Profile.vue';
 import ProfileVehicles from '@/views/profile/ProfileVehicles.vue';
+import ProfileAutoshop from '@/views/profile/ProfileAutoshop.vue';
 import { userService } from '@/services/UserService';
 
 Vue.use(VueRouter);
@@ -38,6 +39,10 @@ const routes: RouteConfig[] = [
                 path: '/profile/vehicles',
                 component: ProfileVehicles,
             },
+            {
+                path: '/profile/autoshop',
+                component: ProfileAutoshop
+            }
         ],
     },
 ];
