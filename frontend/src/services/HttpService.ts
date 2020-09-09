@@ -9,7 +9,6 @@ export default class HttpService {
     }
 
     public async get(url: string, params: any = null) {
-        console.log(axios.defaults.headers);
         try {
             const response = await axios.get(url, {
                 params,
