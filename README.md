@@ -14,7 +14,7 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 - TypeScript, utilizando Node.js, em back-end.
 - Banco de dados MySQL para armazenamento das informações. 
 - WebService que será responsável pelo recebimento das requisições, tratamento dos dados e disponibilização do conteúdo requisitado, em formato JSON.
-- Front-end com Vue.js e Bootstrap.
+- Front-end com Vue.js e Bulma.
 
 ### Sprint Planning
 
