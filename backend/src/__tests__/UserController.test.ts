@@ -18,6 +18,7 @@ describe('UserController', () => {
 
     test('POST /api/user/create', async () => {
         const now: Date = new Date();
+        now.setHours(now.getHours() + 1)
         const res = await request(app)
             .post('/api/user/create')
             .send({
@@ -25,7 +26,7 @@ describe('UserController', () => {
                     password: "123456",
                     passwordHash: "$2b$10$cIGTfUIr4I2mPOoFA0dn..b9W0ap0FEI4wYgC.pW5SgKMyd2aZ1vK",
                     passwordResetToken: "29342766fd627646dff66b917f5a7728896b0484",
-                    passwordResetExpires: now.setHours(now.getHours() + 1),
+                    passwordResetExpires: now,
                     name: "reset teste",
                     phoneNumber: "123123123",
                     profileId: 1,
@@ -75,5 +76,5 @@ afterAll(async () => {
     const UserService = require('../../build/services/UserService').default
     const userService = new UserService()
     const user = await userService.getByProperty({email: "reset@123.com"});
-    await userService.delete(user.id)
+    if(user) await userService.delete(user.id)
 })
