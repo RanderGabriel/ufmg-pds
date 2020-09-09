@@ -13,10 +13,7 @@ class UserController extends BaseController<User> {
     constructor() {
         super();
         this.router.post('/create', this.create);
-        this.router.get('/get', this.get);
-        //this.router.get('/getAll', this.getAll);
         this.router.post('/update', this.update);
-        this.router.get('/delete', this.delete);
         this.router.post('/forgot-password', this.forgotPassword);
         this.router.post('/reset-password', this.resetPassword);
         this.router.post('/logoff', this.logoff)
@@ -84,8 +81,16 @@ class UserController extends BaseController<User> {
             return;
         }
         
-        const response = await userService.update(user);
-        res.send(ApiResponse.returnData(user));
+        if(await userService.update(user)) {
+            res.send(ApiResponse.returnData({
+                message: "Senha alterada com sucesso!"
+            }));
+        } else {
+            res.send(ApiResponse.returnError({
+                message: "Ops, algum erro aconteceu. Tente novamente!"
+            }));
+        }
+        
     }
 
     public async create(req: express.Request, res: express.Response) {
@@ -101,53 +106,11 @@ class UserController extends BaseController<User> {
         }
     }
 
-    public async get(req: express.Request, res: express.Response) {
-        try {
-            const id = Number(req.query.id) || 0;
-            const entity = await userService.get(id);
-
-            res.send(ApiResponse.returnData(entity));
-
-        } catch (error) {
-            res.status(500).send(ApiResponse.returnError({
-                message: error,
-            }));
-        }
-    }
-
-    public async getAll(req: express.Request, res: express.Response) {
-        const request = req.body
-        try {
-            const entities = await userService.getAll();
-
-            res.send(ApiResponse.returnData(entities));
-
-        } catch (error) {
-            res.status(500).send(ApiResponse.returnError({
-                message: error,
-            }));
-        }
-    }
-
     public async update(req: express.Request, res: express.Response) {
         try {
             const entity = await userService.update(req.body);
 
             res.send(ApiResponse.returnData(entity));
-
-        } catch (error) {
-            res.send(ApiResponse.returnError({
-                message: error,
-            }));
-        }
-    }
-    
-    public async delete(req: express.Request, res: express.Response) {
-        try {
-            const id = Number(req.query.id) || 0;
-            await userService.delete(id);
-
-            res.send(ApiResponse.returnData(id));
 
         } catch (error) {
             res.send(ApiResponse.returnError({
