@@ -24,6 +24,7 @@
     "mysql": "^2.18.1",
     "nodemailer": "^6.4.5",
     "reflect-metadata": "^0.1.13",
+    "ts-node": "^9.0.0",
     "typeorm": "^0.2.25"
   },
   "devDependencies": {
@@ -44,7 +45,10 @@
   },
   "watch": {
     "test": {
-      "patterns": ["src", "test"],
+      "patterns": [
+        "src",
+        "test"
+      ],
       "extensions": "ts",
       "quiet": true,
       "legacyWatch": true,

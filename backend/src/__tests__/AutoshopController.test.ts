@@ -31,7 +31,7 @@ describe('AutoshopController', () => {
                 zipCode: 123
             });
 
-            
+        
         expect(res.status).toEqual(200);
         expect(res.body.code).toEqual(200);
         expect(res.body.data).toBeTruthy();

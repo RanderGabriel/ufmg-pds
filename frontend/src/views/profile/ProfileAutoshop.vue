@@ -50,10 +50,10 @@
             <template v-else>
                 <empty-list @addNew="showForm()">
                     <template v-slot:message>
-                        Você não possui veículos cadastrados.
+                        Você não possui oficina cadastrada.
                     </template>
                     <template v-slot:button>
-                        CADASTRAR NOVO VEÍCULO
+                        CADASTRAR OFICINA
                     </template>
                 </empty-list>
             </template>
