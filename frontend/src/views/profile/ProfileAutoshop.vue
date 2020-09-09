@@ -7,6 +7,8 @@
             </h2>
         </div>
         <div>
+        </div>
+        <div>
             <template v-if="hasAutoshops">
                 <table class="table is-fullwidth">
                     <thead>
@@ -25,10 +27,13 @@
                     <tbody>
                         <tr v-for="autoshop in autoshops" :key="autoshop.id">
                             <td>
-                              {{autoshop.street}}
+                                {{autoshop.street + ' ' + autoshop.streetNumber + ', ' + autoshop.city + ', ' + autoshop.state + ', ' + autoshop.country}}
                             </td>
-                            <td>
-                                {{autoshop.ableToMove}}
+                            <td v-if="autoshop.ableToMove = false">
+                                Não
+                            </td>
+                            <td v-else>
+                                Sim
                             </td>
                             <td>
                                 <button class="button is-size-7" @click="editAutoshop(autoshop)">
@@ -45,10 +50,10 @@
             <template v-else>
                 <empty-list @addNew="showForm()">
                     <template v-slot:message>
-                        Você não possui oficina cadastrada.
+                        Você não possui veículos cadastrados.
                     </template>
                     <template v-slot:button>
-                        CADASTRAR OFICINA
+                        CADASTRAR NOVO VEÍCULO
                     </template>
                 </empty-list>
             </template>
@@ -108,7 +113,7 @@ export default class ProfileAutoshops extends Vue {
 
 <style lang="scss" scoped>
 
-    .profile-autoshop {
+    .profile-autoshops {
     }
 
 </style>
