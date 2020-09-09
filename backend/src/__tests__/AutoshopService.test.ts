@@ -27,7 +27,7 @@ const testMechanic: Mechanic = {
 // Vincular Oficina ao mecânico
 const testAutoshop: Autoshop = {
     id: 1,
-    mechanic: testMechanic,
+    mechanic: testUser,
     ableToMove: true,
     city: 'Belo Horizonte',
     state: 'MG',

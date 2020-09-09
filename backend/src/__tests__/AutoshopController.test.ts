@@ -67,7 +67,7 @@ describe('AutoshopController', () => {
     });
 
     test('POST /api/autoshop/update', async () => {
-        createdEntity.model = 'Gol';
+        createdEntity.street = 'Av Antonio Carlos';
 
         const res = await request(app)
             .post('/api/autoshop/update')
@@ -76,7 +76,7 @@ describe('AutoshopController', () => {
         expect(res.status).toEqual(200);
         expect(res.body.code).toEqual(200);
         expect(res.body.data).toBeTruthy();
-        expect(res.body.data).toHaveProperty('model', 'Gol');
+        expect(res.body.data).toHaveProperty('street', 'Av Antonio Carlos');
         expect(res.body.error).toEqual(null);
     });
 

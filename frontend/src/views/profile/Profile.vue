@@ -1,8 +1,8 @@
 <template>
     <div class="profile">
         <aside class="profile-side-menu">
-            <router-link to="/profile/vehicles">VEÍCULOS</router-link>
-
+            <router-link to="/profile/vehicles"> VEÍCULOS </router-link>
+            <router-link to="/profile/autoshop"> OFICINA </router-link>
         </aside>
         <div class="profile-content">
             <router-view></router-view>

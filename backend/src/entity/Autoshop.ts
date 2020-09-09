@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, OneToOne, Column, JoinColumn } from "typeorm";
-import { Mechanic } from "./Mechanic";
+import User from "./User";
 
 @Entity()
 export class Autoshop {
@@ -7,9 +7,9 @@ export class Autoshop {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToOne(type => Mechanic, {onDelete: 'CASCADE'})
+    @OneToOne(type => User, {onDelete: 'CASCADE'})
     @JoinColumn()
-    mechanic: Mechanic;
+    mechanic: User;
 
     @Column()
     street: string;
