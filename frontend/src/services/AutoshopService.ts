@@ -46,6 +46,7 @@ export default class AutoshopService {
             const response = await httpService.get('/api/autoshop/delete', {
                 id,
             });
+            return response
         } catch (error) {
             throw error;
         }
