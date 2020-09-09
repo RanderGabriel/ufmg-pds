@@ -7,8 +7,6 @@
             </h2>
         </div>
         <div>
-        </div>
-        <div>
             <template v-if="hasAutoshops">
                 <table class="table is-fullwidth">
                     <thead>
@@ -27,13 +25,10 @@
                     <tbody>
                         <tr v-for="autoshop in autoshops" :key="autoshop.id">
                             <td>
-                                {{autoshop.street + ' ' + autoshop.streetNumber + ', ' + autoshop.city + ', ' + autoshop.state + ', ' + autoshop.country}}
+                              {{autoshop.street}}
                             </td>
-                            <td v-if="autoshop.ableToMove == false">
-                                Não
-                            </td>
-                            <td v-else>
-                                Sim
+                            <td>
+                                {{autoshop.ableToMove}}
                             </td>
                             <td>
                                 <button class="button is-size-7" @click="editAutoshop(autoshop)">
@@ -113,7 +108,7 @@ export default class ProfileAutoshops extends Vue {
 
 <style lang="scss" scoped>
 
-    .profile-autoshops {
+    .profile-autoshop {
     }
 
 </style>

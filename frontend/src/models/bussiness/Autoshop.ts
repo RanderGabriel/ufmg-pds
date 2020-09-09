@@ -6,6 +6,7 @@ export default class Autoshop {
     public city: string;
     public state: string;
     public country: string;
+    public zipCode: string;
     public ableToMove: boolean;
     public mechanicId: number;
 
@@ -16,6 +17,7 @@ export default class Autoshop {
         this.city = entity.city;
         this.state = entity.state;
         this.country = entity.country;
+        this.zipCode = entity.zipCode;
         this.ableToMove = entity.ableToMove;
         this.mechanicId = entity.mechanicId;
     }

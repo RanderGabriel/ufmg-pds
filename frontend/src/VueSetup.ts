@@ -12,6 +12,7 @@ import LoginForm from '@/components/forms/LoginForm.vue';
 import ForgotForm from '@/components/forms/ForgotForm.vue';
 import ResetForm from '@/components/forms/ResetForm.vue';
 import ProfileInfo from '@/components/layout/ProfileInfo.vue';
+import AutoshopForm from '@/components/forms/AutoshopForm.vue';
 
 import ServicesPlugin from '@/services';
 
@@ -34,6 +35,7 @@ export default class VueConfig {
         Vue.component('forgot-form', ForgotForm);
         Vue.component('reset-form', ResetForm);
         Vue.component('profile-info', ProfileInfo);
+        Vue.component('autoshop-form', AutoshopForm);
     }
 
     private static registerPlugins(Vue: VueConstructor<Vue>) {

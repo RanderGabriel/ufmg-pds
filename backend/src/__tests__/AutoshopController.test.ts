@@ -27,7 +27,8 @@ describe('AutoshopController', () => {
                 city: 'Belo Horizonte',
                 state: 'MG',
                 country: 'Brazil',
-                ableToMove: true
+                ableToMove: true,
+                zipCode: 123
             });
 
             

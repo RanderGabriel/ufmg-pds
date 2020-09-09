@@ -3,6 +3,12 @@
         <form @submit.prevent="onSubmit()">
             <div class="mb-5">
                 <div class="field">
+                    <label class="label">CEP</label>
+                    <div class="control">
+                        <input class="input" type="text" v-model="entity.zipCode">
+                    </div>
+                </div>
+                <div class="field">
                     <label class="label">Logradouro</label>
                     <div class="control">
                         <input class="input" type="text" v-model="entity.street">
@@ -74,6 +80,7 @@ export default class AutoshopForm extends Vue implements IForm<Autoshop>  {
             city: '',
             state: '',,
             country: '',
+            zipCode: '',
             ableToMove: false,
             mechanicId: this.user.id,
         });
