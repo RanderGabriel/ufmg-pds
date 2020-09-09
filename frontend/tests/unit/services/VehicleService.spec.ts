@@ -22,6 +22,7 @@ describe("VehicleService", () => {
         })
 
         const response : any = await vehicleService.get(1)
+        //Testando o mock
         expect(response.id).toBe(1)
         expect(response.make).toBe('TestFactory')
         expect(response.year).toBe('2030')
