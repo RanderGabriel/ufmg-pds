@@ -1,13 +1,20 @@
 import express = require('express');
 import Middlewares from './middlewares';
 import Controllers from './controllers';
-import {createConnection} from 'typeorm'
+import { createConnection } from 'typeorm';
+import * as http from 'http';
+import socketIO = require('socket.io');
+import WebsocketService from './services/WebsocketService';
+
 class App {
     
     public app: express.Express;
-    
+    private server: http.Server;
+    private io: socketIO.Server;
+
     constructor() {
         this.app = express();
+
         this.useMiddlewares(Middlewares);
         this.useControllers(Controllers);
     }
@@ -19,16 +26,28 @@ class App {
     private useControllers(controllers: express.Router) {
         this.app.use(controllers);
     }
-    
-    public start(port: number = 5000) {
-        console.log(`rodando na porta ${port}`)
-        this.app.listen(port);
+
+    private configureSocket() {
+        this.app.get('/websocket', (req: express.Request, res: express.Response) => {
+            const message = String(req.query.message);
+            this.io.emit('globalAlert', message);
+        });
+
+        this.io.on('connection', (socket) => {
+            console.log(`Connected: ${socket.id}`);
+        });
     }
+
+    public start(port: number = 5000) {
+        this.server = this.app.listen(5000);
+        this.io = socketIO.listen(this.server);
+        this.configureSocket();
+    } 
 
 }
 
 export class AppTest extends App {
-    constructor(){
+    constructor() {
         super()
     }
 
