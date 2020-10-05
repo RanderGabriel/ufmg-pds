@@ -27,6 +27,10 @@ export default class App extends Vue {
             alert(message);
         });
     }
+
+    mounted() {
+        this.$services.userService.init();
+    }
 }
 </script>
 

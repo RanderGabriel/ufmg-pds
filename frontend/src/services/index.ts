@@ -1,11 +1,13 @@
 import VehicleService, { vehicleService } from './VehicleService';
 import UserService, { userService } from './UserService';
 import AutoshopService, { autoshopService } from './AutoshopService';
+import RequestService, { requestService } from './RequestService';
 
 export interface IServices {
     vehicleService: VehicleService;
     userService: UserService;
     autoshopService: AutoshopService;
+    requestService: RequestService;
 }
 
 export class ServicesPlugin {
@@ -14,7 +16,8 @@ export class ServicesPlugin {
         Vue.prototype.$services = {
             vehicleService,
             userService,
-            autoshopService
+            autoshopService,
+            requestService
         } as IServices;
     }
 

@@ -13,7 +13,9 @@ export class LoginController{
             password: req.body.password as string 
         };
         const user = await userService.getByProperty({email: data.email})
-    
+        
+        const profile = user.profile;
+
         if(user === undefined) {
             res.status(500).send({ success: false, message: "Usuário não encontrado" });
             return;
@@ -27,10 +29,11 @@ export class LoginController{
                 token,
                 ...{
                     ...user,
+                    profile: profile.name,
                     passwordHash: undefined,
                     passwordResetExpires: undefined,
                     passwordResetToken: undefined,
-                } as User
+                }
             });
         } else {
             res.status(500).send({ success: false, message: "Senha inválida" });

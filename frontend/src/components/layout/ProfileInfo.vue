@@ -5,7 +5,9 @@
             <h4>E-mail: {{entity.email}}</h4>
             <h4>Nome completo: {{entity.name}}</h4>
             <h4>Telefone: {{entity.phoneNumber}}</h4>
+            <button v-if="entity.profile === 'DRIVER'" @click="createRequest()">Criar solicitação</button>
         </div>
+       
     </div>
 </template>
 
@@ -20,6 +22,10 @@ export default class ProfileInfo extends Vue {
 
     mounted () {
         this.entity = this.$services.userService.getCurrentUser();
+    }
+
+    createRequest() {
+        this.$services.requestService.create();
     }
 }
 

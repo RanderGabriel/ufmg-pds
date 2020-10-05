@@ -1,66 +1,60 @@
 import DatabaseService, { IDatabaseService } from "./DatabaseService";
-import { User } from "../entity";
+import { Request } from "../entity";
 
-export default class UserService extends DatabaseService<User> implements IDatabaseService<User> {
+export default class RequestService extends DatabaseService<Request> implements IDatabaseService<Request> {
     
     constructor() {
         super();
     }
     
-    public async create(entity: User) {
+    public async create(entity: Request) {
         try {
             return await this.execute(async (connection) => {
-                return await connection.getRepository(User).save(entity);
-            }) as User;
+                return await connection.getRepository(Request).save(entity);
+            }) as Request;
         } catch (error) {
             throw error;
         }
     }
     
-    public async get(id: number): Promise<User> {
+    public async get(id: number): Promise<Request> {
         try {
             return await this.execute(async (connection) => {
-                return await connection.getRepository(User).findOne(id);
-            }) as User;
+                return await connection.getRepository(Request).findOne(id);
+            }) as Request;
         } catch (error) {
             throw error;
         }
     }
 
     public async getByProperty(query: {
-        email?: string;
-        name?: string;
-        phoneNumber?: string; 
-        profileId?: number
+        id: string
     }){
           try {
             return await this.execute(async (connection) => {
-                return await connection.getRepository(User).findOne({
-                    where: query,
-                    relations: [
-                        "profile"
-                    ]
+                return await connection.getRepository(Request).findOne({
+                    where: query
                 })
-            }) as User;
+            }) as Request;
         } catch (error) {
             throw error;
         }
     }
     
-    public async getAll(): Promise<User[]> {
+    public async getAll(): Promise<Request[]> {
         try {
             return await this.execute(async (connection) => {
-                return await connection.getRepository(User).find();
-            }) as User[];
+                return await connection.getRepository(Request).find();
+            }) as Request[];
         } catch (error) {
             throw error;
         }
     }
     
-    public async update(entity: User) {
+    public async update(entity: Request) {
         try {
             return await this.execute(async (connection) => {
-                return await connection.getRepository(User).save(entity);
+                return await connection.getRepository(Request).save(entity);
             });
         } catch (error) {
             throw error;
@@ -70,7 +64,7 @@ export default class UserService extends DatabaseService<User> implements IDatab
     public async delete(id: number) {
         try {
             return await this.execute(async (connection) => {
-                return await connection.getRepository(User).delete(id);
+                return await connection.getRepository(Request).delete(id);
             });
         } catch (error) {
             throw error;
@@ -79,4 +73,4 @@ export default class UserService extends DatabaseService<User> implements IDatab
     
 }
 
-export const userService = new UserService();
+export const requestService = new RequestService();

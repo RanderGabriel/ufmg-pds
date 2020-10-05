@@ -37,6 +37,22 @@ export default class DriverService extends DatabaseService<Driver> implements ID
             throw error;
         }
     }
+
+    public async getByUserId(userId: number) : Promise<Driver> {
+        try {
+            return await this.execute(async (connection) => {
+                return await connection.getRepository(Driver).findOne({
+                    where: {
+                        user: {
+                            id: userId
+                        }
+                    }
+                });
+            }) as Driver;
+        } catch (error) {
+            throw error;
+        }
+    }
     
     public async update(entity: Driver) {
         try {

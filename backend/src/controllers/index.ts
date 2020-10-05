@@ -20,6 +20,9 @@ apiRouter.use("/autoshop", AutoshopRouter);
 import DriverRouter from "./DriverController";
 apiRouter.use("/driver", DriverRouter);
 
+import RequestRouter from "./RequestController";
+apiRouter.use("/request", RequestRouter);
+
 import LoginRouter from "../routers/Login";
 apiRouter.use("/login", LoginRouter);
 

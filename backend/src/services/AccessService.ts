@@ -57,13 +57,16 @@ export default class AccessService extends DatabaseService<Access> implements ID
         }
     }
 
-    public async getByToken(token: string): Promise<Access> {
+    public async getByToken(token: string, includeUser: boolean = false): Promise<Access> {
         try {
             return await this.execute(async (connection) => {
                 return await connection.getRepository(Access).findOne({
                     where: {
-                        userToken: token
-                    }
+                        userToken: token,
+                    },
+                    ...(includeUser ? {
+                        relations:["user"]
+                    } : {})
                 });
             }) as Access;
         } catch (error) {
