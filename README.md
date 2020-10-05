@@ -16,7 +16,7 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 - WebService que será responsável pelo recebimento das requisições, tratamento dos dados e disponibilização do conteúdo requisitado, em formato JSON.
 - Front-end com Vue.js e Bulma.
 
-### Sprint Planning
+### Sprint Planning I
 
 1. Como um motorista, eu quero cadastrar meu perfil para ter acesso ao sistema e realizar solicitações de atendimento.<br>
 1.1. Definir entidades no backend (AP) <br> 
@@ -89,6 +89,29 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 9.4. Criar método de criação de veículos de trabalho na camada de acesso à dados (BA) <br>
 9.5. Criar rota POST para criação de veículos de trabalho (BA) <br>
 9.6. Criar tela de cadastro de veículos (BA)<br>
+
+### Sprint Planning II
+
+1. Como um mecânico quero visualizar as novas requisições de atendimento (Brian)
+
+2. Como um mecânico quero aceitar uma solicitação de atendimento (Brian)
+
+3. Como um mecânico quero entrar em contato com o motorista que precisa do atendimento após aceitar a solicitação (Augusto)
+
+4. Como um mecânico quero encerrar um atendimento (Augusto)
+
+5. Como um mecânico quero visualizar meu histórico de atendimentos (Eduardo)
+
+6. Como um motorista quero realizar uma solicitação de atendimento (Rander)
+
+7. Como um motorista quero aceitar ou rejeitar um atendimento (Rander)
+
+8. Como um motorista quero entrar em contato com o mecânico (Marlon)
+
+9. Como um motorista quero pesquisar por um mecânico (Marlon)
+
+10. Como um motorista quero avaliar um atendimento (Eduardo)
+
 
 ### Arquitetura
 - Diagrama de Pacotes
