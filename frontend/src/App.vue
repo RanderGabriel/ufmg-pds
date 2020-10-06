@@ -26,6 +26,13 @@ export default class App extends Vue {
         sockeService.on('globalAlert', (message) => {
             alert(message);
         });
+
+        sockeService.on("requestCreated", (message) => {
+            console.log("REQUEST CREATED!!! ID: " + message.id);
+            //alert(message.id);
+        });
+
+        console.log("CREATED");
     }
 
     mounted() {

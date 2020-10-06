@@ -33,8 +33,14 @@ class App {
             this.io.emit('globalAlert', message);
         });
 
+        WebsocketService.initIo(this.io);
         this.io.on('connection', (socket) => {
             console.log(`Connected: ${socket.id}`);
+            socket.on("createRequest", (args) => {
+                this.io.emit("requestCreated", {
+                    id: args.id
+                })
+            })
         });
     }
 

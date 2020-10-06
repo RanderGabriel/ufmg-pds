@@ -2,6 +2,10 @@ export default class WebsocketService {
     static io: any;
     static socket: any;
     
+    static initIo(io: any) {
+        WebsocketService.io = io;
+    }
+
     static onConnection(io, onConnection: (socket) => void) {
         this.io = io;
         this.io.on('connection', (socket) => {

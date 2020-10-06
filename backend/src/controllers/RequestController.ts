@@ -5,6 +5,7 @@ import { ApiResponse } from '../models';
 import { requestService } from '../services/RequestService'
 import { driverService, profileService, userService } from "../services";
 import { accessService } from "../services/AccessService";
+import WebsocketService from '../services/WebsocketService';
 
 class RequestController extends BaseController<Request> {
 
@@ -28,7 +29,9 @@ class RequestController extends BaseController<Request> {
             request.driver = driver;
             request.creationDate = new Date();
             await requestService.create(request);
-            res.send(ApiResponse.returnData(null))
+            //TODO: Implementar filtro para notificação (notificar apenas oficinas próximas)
+            WebsocketService.emit("requestCreated", { id: request.id });
+            res.send(ApiResponse.returnData(null));
         } catch (error) {
             res.send(ApiResponse.returnError({
                 message: error,
