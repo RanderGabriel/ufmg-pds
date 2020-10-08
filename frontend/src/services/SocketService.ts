@@ -17,4 +17,4 @@ export default class SocketService {
     }
 }
 
-export const sockeService = new SocketService();
+export const socketService = new SocketService();

@@ -1,26 +1,21 @@
 import VehicleService, { vehicleService } from './VehicleService';
 import UserService, { userService } from './UserService';
-import AutoshopService, { autoshopService } from './AutoshopService';
-import RequestService, { requestService } from './RequestService';
+import SocketService, { socketService } from './SocketService';
+import AuthService, { authService } from './AuthService';
+import SolicitationService, { solicitationService } from './SolicitationService';
 
 export interface IServices {
     vehicleService: VehicleService;
     userService: UserService;
-    autoshopService: AutoshopService;
-    requestService: RequestService;
+    socketService: SocketService;
+    authService: AuthService,
+    solicitationService: SolicitationService,
 }
 
-export class ServicesPlugin {
-
-    public install(Vue: any) {
-        Vue.prototype.$services = {
-            vehicleService,
-            userService,
-            autoshopService,
-            requestService
-        } as IServices;
-    }
-
-}
-
-export default new ServicesPlugin();
+export default {
+    vehicleService,
+    userService,
+    socketService,
+    authService,
+    solicitationService,
+} as IServices;

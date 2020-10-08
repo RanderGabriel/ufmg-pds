@@ -10,57 +10,29 @@ export default class UserService {
         } else {
             route = '/api/driver/create';
         }
-        try {
-            const response = await httpService.post<User>(route, data);
-            return response.data ? new User(response.data) : null;
-        } catch (error) {
-            throw error;
-        }
+        const response = await httpService.post<User>(route, data);
+        return response.data ? new User(response.data) : null;
     }
 
 
     public async logoff(): Promise<boolean> {
-        try {
-            await httpService.post<User>(`/api/user/logoff`);
-            this.removeUser();
-            return true;
-        } catch (error) {
-            return false;
-        }
+        await httpService.post<User>(`/api/user/logoff`);
+        this.removeUser();
+        return true;
     }
 
     private removeUser() {
         localStorage.removeItem('userInfo');
     }
 
-    public async login(data: User): Promise<User> {
-        try {
-            const response = await httpService.post<User>('/api/login', data);
-            httpService.setAuthToken(response.token);
-            const user = new User(response);
-            this.saveUser(user);
-            return user;
-        } catch (error) {
-            throw error;
-        }
-    }
-
     public async forgotPassword(data: User) {
-        try {
-            const response = await httpService.post<User>('/api/user/forgot-password', data);
-            return response.data ? new User(response.data) : null;
-        } catch (error) {
-            throw error;
-        }
+        const response = await httpService.post<User>('/api/user/forgot-password', data);
+        return response.data ? new User(response.data) : null;
     }
 
     public async resetPassword(data: User) {
-        try {
-            const response = await httpService.post<User>('/api/user/reset-password', data);
-            return response.data ? new User(response.data) : null;
-        } catch (error) {
-            throw error;
-        }
+        const response = await httpService.post<User>('/api/user/reset-password', data);
+        return response.data ? new User(response.data) : null;
     }
 
     public saveUser(user: User) {
@@ -73,11 +45,6 @@ export default class UserService {
         return new User(JSON.parse(raw));
     }
 
-    public init() {
-        const user = this.getCurrentUser();
-        if(user && user.token)
-            httpService.setAuthToken(user.token);
-    }
 }
 
 export const userService = new UserService();

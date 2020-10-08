@@ -1,78 +1,51 @@
-import Vue from 'vue';
-import VueRouter, { RouteConfig } from 'vue-router';
+import { createWebHistory, createRouter } from "vue-router";
 
-import SignUp from '@/views/SignUp.vue';
+import SignUp from "@/views/signup/index.vue";
+import Login from "@/views/login/index.vue";
+import Home from "@/views/home/index.vue";
+import Error404 from "@/views/error/404-not-found.vue";
+import { authService } from '@/services/AuthService';
 
-import Login from '@/views/login/Login.vue';
-import LoginForgot from '@/views/login/LoginForgot.vue';
-import LoginReset from '@/views/login/LoginReset.vue';
-
-import Profile from '@/views/profile/Profile.vue';
-import ProfileVehicles from '@/views/profile/ProfileVehicles.vue';
-import ProfileAutoshop from '@/views/profile/ProfileAutoshop.vue';
-import { userService } from '@/services/UserService';
-
-Vue.use(VueRouter);
-
-const routes: RouteConfig[] = [
+const routes = [
     {
-        path: '/login',
-        component: Login,
+        path: '/404-not-found',
+        component: Error404
     },
     {
-        path: '/login/forgot',
-        component: LoginForgot,
+        path: '/home',
+        component: Home,
+        alias: ['/'],
     },
     {
-        path: '/login/reset',
-        component: LoginReset,
-    },
-    {
-        path: '/signup',
+        path: "/signup",
         component: SignUp,
     },
     {
-        path: '/profile',
-        component: Profile,
-        children: [
-            {
-                path: '/profile/vehicles',
-                component: ProfileVehicles,
-            },
-            {
-                path: '/profile/autoshop',
-                component: ProfileAutoshop
-            }
-        ],
+        path: "/login",
+        component: Login,
     },
 ];
 
-const router = new VueRouter({
-    mode: 'history',
-    base: process.env.BASE_URL,
+const publicRoutes = [
+    '/404-not-found',
+    '/signup',
+    '/login',
+];
+
+
+const router = createRouter({
+    history: createWebHistory(),
     routes,
 });
 
-const publicRoutes = [
-    '/login',
-    '/login/forgot',
-    '/login/reset',
-    '/signup',
-];
-
-const isAuthenticated = () => {
-    return !!userService.getCurrentUser();
-};
-
 router.beforeEach((to, from, next) => {
-    if(!publicRoutes.find(p => p === to.path) && !isAuthenticated()) {
-        next('/login');
-    } 
-    else if(to.path === '/') {
-        next('/profile');
-    }
-    else {
+    const isPublicRoute = publicRoutes.some((route) => route === to.path);
+    const isAuthenticaded = authService.isAuthenticated();
+
+    if (isPublicRoute || isAuthenticaded) {
         next();
+    } else {
+        router.push('/login');
     }
 });
 

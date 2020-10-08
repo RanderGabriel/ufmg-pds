@@ -16,8 +16,6 @@ export default class HttpService {
         this.postResponse = response
     }
 
-    public setAuthToken(token: string) {}
-
     async get(url: string, params: any = null) {
         return new Promise((resolve, reject) => {
             resolve(this.getResponse)

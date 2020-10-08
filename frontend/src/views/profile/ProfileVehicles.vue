@@ -100,7 +100,7 @@ export default class ProfileVehicles extends Vue {
 
     private editVehicle() {
         this.isFormActive = true;
-    }
+    }        
 
     private async deleteVehicle(vehicle: Vehicle) {
         await this.$services.vehicleService.delete(vehicle.id);

@@ -1,51 +1,24 @@
 <template>
-    <div id="app">
-        <navbar></navbar>
-    	<router-view></router-view>
-        <input type="text" v-model="message">
-        <button @click="greet()">ENVIAR</button>
-    </div>
+    <navbar></navbar>
+    <router-view></router-view>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { httpService } from './services/HttpService';
-import { sockeService } from './services/SocketService';
+import { defineComponent, onMounted } from 'vue';
 
-@Component
-export default class App extends Vue {
+export default defineComponent({
+    name: 'App',
+    setup() {
+        onMounted(() => {
 
-    public message: any = '';
-
-    private async greet() {
-        await httpService.get('/websocket', { message: this.message });
-        this.message = '';
-    }
-
-    private created() {
-        sockeService.on('globalAlert', (message) => {
-            alert(message);
         });
-
-        sockeService.on("requestCreated", (message) => {
-            console.log("REQUEST CREATED!!! ID: " + message.id);
-            //alert(message.id);
-        });
-
-        console.log("CREATED");
-    }
-
-    mounted() {
-        this.$services.userService.init();
-    }
-}
+    },
+});
 </script>
 
-<style lang="scss">
+<style>
 
     #app {
-		// background-color: #fafafa;
-		height: 100vh;
     }
-
+    
 </style>

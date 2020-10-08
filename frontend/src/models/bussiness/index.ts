@@ -1,6 +1,5 @@
 import Vehicle from './Vehicle';
 import User from "./User";
-import Autoshop from "./Autoshop";
-import Request from "./Request";
+import Solicitation from "./Solicitation";
 
-export { Vehicle, User, Autoshop, Request };
+export { Vehicle, User, Solicitation };
