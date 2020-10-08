@@ -1,27 +1,27 @@
 import DatabaseService, { IDatabaseService } from "./DatabaseService";
-import { Request } from "../entity";
+import { Solicitation } from "../entity";
 
-export default class RequestService extends DatabaseService<Request> implements IDatabaseService<Request> {
+export default class SolicitationService extends DatabaseService<Solicitation> implements IDatabaseService<Solicitation> {
     
     constructor() {
         super();
     }
     
-    public async create(entity: Request) {
+    public async create(entity: Solicitation) {
         try {
             return await this.execute(async (connection) => {
-                return await connection.getRepository(Request).save(entity);
-            }) as Request;
+                return await connection.getRepository(Solicitation).save(entity);
+            }) as Solicitation;
         } catch (error) {
             throw error;
         }
     }
     
-    public async get(id: number): Promise<Request> {
+    public async get(id: number): Promise<Solicitation> {
         try {
             return await this.execute(async (connection) => {
-                return await connection.getRepository(Request).findOne(id);
-            }) as Request;
+                return await connection.getRepository(Solicitation).findOne(id);
+            }) as Solicitation;
         } catch (error) {
             throw error;
         }
@@ -32,29 +32,29 @@ export default class RequestService extends DatabaseService<Request> implements 
     }){
           try {
             return await this.execute(async (connection) => {
-                return await connection.getRepository(Request).findOne({
+                return await connection.getRepository(Solicitation).findOne({
                     where: query
                 })
-            }) as Request;
+            }) as Solicitation;
         } catch (error) {
             throw error;
         }
     }
     
-    public async getAll(): Promise<Request[]> {
+    public async getAll(): Promise<Solicitation[]> {
         try {
             return await this.execute(async (connection) => {
-                return await connection.getRepository(Request).find();
-            }) as Request[];
+                return await connection.getRepository(Solicitation).find();
+            }) as Solicitation[];
         } catch (error) {
             throw error;
         }
     }
     
-    public async update(entity: Request) {
+    public async update(entity: Solicitation) {
         try {
             return await this.execute(async (connection) => {
-                return await connection.getRepository(Request).save(entity);
+                return await connection.getRepository(Solicitation).save(entity);
             });
         } catch (error) {
             throw error;
@@ -64,7 +64,7 @@ export default class RequestService extends DatabaseService<Request> implements 
     public async delete(id: number) {
         try {
             return await this.execute(async (connection) => {
-                return await connection.getRepository(Request).delete(id);
+                return await connection.getRepository(Solicitation).delete(id);
             });
         } catch (error) {
             throw error;
@@ -73,4 +73,4 @@ export default class RequestService extends DatabaseService<Request> implements 
     
 }
 
-export const requestService = new RequestService();
+export const solicitationService = new SolicitationService();

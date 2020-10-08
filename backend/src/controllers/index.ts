@@ -20,8 +20,8 @@ apiRouter.use("/mechanic", MechanicRouter);
 import DriverRouter from "./DriverController";
 apiRouter.use("/driver", DriverRouter);
 
-import RequestRouter from "./RequestController";
-apiRouter.use("/request", RequestRouter);
+import SolicitationController from "./SolicitationController";
+apiRouter.use("/solicitation", SolicitationController);
 
 router.use('/api', apiRouter);
 

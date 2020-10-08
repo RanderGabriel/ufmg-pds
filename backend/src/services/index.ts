@@ -5,6 +5,7 @@ import { profileService } from './ProfileService'
 import { userService } from './UserService'
 import { vehicleService } from './VehicleService'
 import { mailerService } from './MailerService'
+import { solicitationService } from './SolicitationService'
 
 export {
     autoshopService, 
@@ -13,6 +14,7 @@ export {
     profileService, 
     userService,
     vehicleService,
-    mailerService
+    mailerService,
+    solicitationService,
 }
 
