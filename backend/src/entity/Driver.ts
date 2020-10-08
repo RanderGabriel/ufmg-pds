@@ -11,5 +11,11 @@ export default class Driver {
     @JoinColumn()
     user: User;
 
+    static createEntity(user: User) {
+        const newEntity = new Driver();
+        newEntity.user = user;
+        return newEntity;
+    }
+
 }
  

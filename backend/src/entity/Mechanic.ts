@@ -2,15 +2,19 @@ import { Entity, OneToOne, PrimaryGeneratedColumn, JoinColumn } from "typeorm";
 import User  from "./User";
 
 @Entity()
-export class Mechanic {
+export default class Mechanic {
 
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToOne(type => User, {onDelete: 'CASCADE'})
+    @OneToOne(type => User, { onDelete: 'CASCADE' })
     @JoinColumn()
     user: User;
 
-}
+    static createEntity(user: User) {
+        const newEntity = new Mechanic();
+        newEntity.user = user;
+        return newEntity;
+    }
 
-export default Mechanic;
+}

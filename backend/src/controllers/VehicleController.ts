@@ -1,11 +1,9 @@
 import * as express from 'express';
 import BaseController from './BaseController';
 import { vehicleService } from '../services/VehicleService';
-import { Vehicle } from '../entity';
 import { ApiResponse } from '../models';
-import { authenticate } from '../middlewares/authenticate';
 
-class VehicleController extends BaseController<Vehicle> {
+class VehicleController extends BaseController {
 
     constructor() {
         super();

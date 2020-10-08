@@ -11,20 +11,17 @@ apiRouter.use('/user', UserController);
 import VehicleController from './VehicleController';
 apiRouter.use('/vehicle', VehicleController);
 
+import LoginController from './LoginController';
+apiRouter.use('/login', LoginController);
+
 import MechanicRouter from "./MechanicController";
 apiRouter.use("/mechanic", MechanicRouter);
-
-import AutoshopRouter from "./AutoshopController";
-apiRouter.use("/autoshop", AutoshopRouter);
 
 import DriverRouter from "./DriverController";
 apiRouter.use("/driver", DriverRouter);
 
 import RequestRouter from "./RequestController";
 apiRouter.use("/request", RequestRouter);
-
-import LoginRouter from "../routers/Login";
-apiRouter.use("/login", LoginRouter);
 
 router.use('/api', apiRouter);
 

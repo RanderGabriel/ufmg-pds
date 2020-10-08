@@ -7,11 +7,10 @@ import { userService } from '../services/UserService';
 import { profileService } from '../services/ProfileService'
 import { generateSaltedPassword } from "../utils";
 
-class MechanicController extends BaseController<Mechanic> {
+class MechanicController extends BaseController {
 
     constructor() {
         super();
-
         this.router.post('/create', this.create);
     }
 

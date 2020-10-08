@@ -34,6 +34,7 @@ class App {
         });
 
         WebsocketService.initIo(this.io);
+        
         this.io.on('connection', (socket) => {
             console.log(`Connected: ${socket.id}`);
             socket.on("createRequest", (args) => {

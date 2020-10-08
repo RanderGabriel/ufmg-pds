@@ -3,12 +3,13 @@ import BaseController from './BaseController';
 import { userService } from '../services/UserService';
 import { accessService } from '../services/AccessService';
 import { mailerService } from '../services/MailerService'
-import { User, Access } from '../entity';
+import { User, Access, Mechanic, Driver } from '../entity';
 import { ApiResponse } from '../models';
 import { generateSaltedPassword } from "../utils";
 import crypto = require('crypto');
+import { mechanicService } from '../services';
 
-class UserController extends BaseController<User> {
+class UserController extends BaseController {
 
     constructor() {
         super();
@@ -95,9 +96,20 @@ class UserController extends BaseController<User> {
 
     public async create(req: express.Request, res: express.Response) {
         try {
-            const entity = await userService.create(req.body);
+            const { name, email, password, phoneNumber, profile } = req.body;
+            const newUser = await User.createEntity(name, email, password, phoneNumber);
+            await userService.create(newUser);
 
-            res.send(ApiResponse.returnData(entity));
+
+            if (profile === 'MECHANIC') {
+                const newMechanic = await Mechanic.createEntity(newUser);
+                res.send(ApiResponse.returnData(await mechanicService.create(newMechanic)));
+            }
+
+            if (profile === 'DRIVER') {
+                const newDriver = await Driver.createEntity(newUser);
+                res.send(ApiResponse.returnData(await mechanicService.create(newDriver)));
+            }
 
         } catch (error) {
             res.send(ApiResponse.returnError({

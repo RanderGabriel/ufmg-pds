@@ -36,6 +36,16 @@ export default class VehicleService extends DatabaseService<Vehicle> implements 
             throw error;
         }
     }
+
+    public async getAllByOwnerId(ownerId: number): Promise<Vehicle[]> {
+        try {
+            return await this.execute(async (connection) => {
+                return await connection.getRepository(Vehicle).find({ where: { owner: ownerId }});
+            }) as Vehicle[];
+        } catch (error) {
+            throw error;
+        }
+    }
     
     public async update(entity: Vehicle) {
         try {

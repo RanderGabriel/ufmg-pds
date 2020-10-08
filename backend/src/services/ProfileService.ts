@@ -27,10 +27,8 @@ export default class ProfileService extends DatabaseService<Profile> implements 
         }
     }
     
-    public async getByProperty(query: {
-        name?: string;
-    }){
-          try {
+    public async getByProperty(query: { name?: string }) {
+        try {
             return await this.execute(async (connection) => {
                 return await connection.getRepository(Profile).findOne({
                     where: query

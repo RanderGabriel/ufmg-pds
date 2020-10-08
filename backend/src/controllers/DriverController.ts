@@ -7,7 +7,7 @@ import { userService } from '../services/UserService';
 import { profileService } from '../services/ProfileService'
 import { generateSaltedPassword } from "../utils";
 
-class DriverController extends BaseController<Driver> {
+class DriverController extends BaseController {
 
     constructor() {
         super();
@@ -43,4 +43,5 @@ class DriverController extends BaseController<Driver> {
 }
 
 const router = new DriverController().router
-export default router
+export default router;
+
