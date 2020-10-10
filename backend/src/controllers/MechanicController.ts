@@ -19,7 +19,12 @@ class MechanicController extends BaseController {
 
         try {
             const mechanicProfile: Profile = await profileService.getByProperty({ name: "MECHANIC" })
-
+            if(!mechanicProfile) {
+                res.send(ApiResponse.returnError({
+                    message: "Há um problema de configuração. Por favor, contate o administrador"
+                }));
+                return;
+            }
             const user = new User();
             user.email = request.email;
             user.passwordHash = await generateSaltedPassword(request.password);

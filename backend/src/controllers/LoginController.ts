@@ -23,6 +23,7 @@ export class LoginController extends BaseController {
             res.send(ApiResponse.returnError({
                 message: "Usuário não encontrado!",
             }));
+            return;
         }
 
         if (await bcrypt.compare(password, user.passwordHash)) {

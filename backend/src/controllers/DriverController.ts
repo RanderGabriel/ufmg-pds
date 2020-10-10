@@ -18,7 +18,12 @@ class DriverController extends BaseController {
     public async create(req: express.Request, res: express.Response) {
         try {
             const driverProfile: Profile = await profileService.getByProperty({name: "DRIVER"})
-
+            if(!driverProfile) {
+                res.send(ApiResponse.returnError({
+                    message: "Há um problema de configuração. Por favor, contate o administrador"
+                }));
+                return;
+            }
             const user = new User();
             user.email = req.body.email;
             user.passwordHash = await generateSaltedPassword(req.body.password);

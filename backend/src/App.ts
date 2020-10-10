@@ -5,6 +5,7 @@ import { createConnection } from 'typeorm';
 import * as http from 'http';
 import socketIO = require('socket.io');
 import WebsocketService from './services/WebsocketService';
+import { profileService } from './services';
 
 class App {
     
@@ -45,10 +46,23 @@ class App {
         });
     }
 
+    async checkProfiles() {
+        const profiles = await profileService.getAll();
+        if(!profiles || profiles.length <= 0) {
+            console.warn(`
+            NENHUM PERFIL ENCONTRADO!!
+            Sem os perfis, o cadastro não funciona corretamente
+
+            Você se esqueceu de rodar o 'npm run migrate'?
+            `);
+        }
+    }
+
     public start(port: number = 5000) {
         this.server = this.app.listen(5000);
         this.io = socketIO.listen(this.server);
         this.configureSocket();
+        this.checkProfiles();
     } 
 
 }
