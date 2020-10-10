@@ -13,9 +13,21 @@
                     <input class="input" type="password" v-model="formData.password">
                 </div>
             </div>
-            <button class="button is-medium is-rounded is-dark is-fullwidth" type="submit">
-                ENTRAR
-            </button>
+            <div class="field">
+                <div class="control">
+                    <button class="button is-medium is-rounded is-dark is-fullwidth" type="submit">
+                        ENTRAR
+                    </button>
+                </div>
+            </div>
+            
+            <div class="field">
+                <div class="control">
+                    <button @click.prevent="onSignUp()" class="button is-outline is-medium is-rounded is-fullwidth" :class="{'is-loading': isSending}" :disabled="isSending">
+                        CADASTRAR
+                    </button>
+                </div>
+            </div>
         </form>
     </div>
 </template>
@@ -33,8 +45,8 @@ export default defineComponent({
     setup() {
         const isLoading = ref(false);
         const formData = ref({
-            email: 'brianaikau@gmail.com',
-            password: '123456',
+            email: '',
+            password: '',
         });
 
         async function onSubmit() {
@@ -45,9 +57,14 @@ export default defineComponent({
             router.push('/');
         }
 
+        function onSignUp() {
+            router.push('/signup');
+        }
+
         return {
             formData,
             onSubmit,
+            onSignUp
         }
     },
 });
