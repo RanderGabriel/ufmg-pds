@@ -31,6 +31,17 @@
                     <input class="input" type="tel" v-model="formData.phoneNumber" autocomplete="off">
                 </div>
             </div>
+            <div class="field mb-5">
+                <label class="label">Tipo de cadastro</label>
+                <div class="control">
+                    <div class="select">
+                        <select v-model="formData.profile">
+                            <option value="DRIVER">Motorista</option>
+                            <option value="MECHANIC">Mecânico</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
             <button class="button is-medium is-rounded is-dark is-fullwidth" type="submit">
                 CADASTRAR
             </button>
@@ -53,6 +64,7 @@ export default defineComponent({
             password: '',
             passwordConfirm: '',
             phoneNumber: '',
+            profile: 'DRIVER' as "DRIVER" | "MECHANIC",
         });
 
         async function onSubmit() {
@@ -62,7 +74,7 @@ export default defineComponent({
                 email: formData.value.email,
                 password: formData.value.password,
                 phoneNumber: formData.value.phoneNumber,
-                profile: 'MECHANIC',
+                profile: formData.value.profile,
             });
             isLoading.value = false;
             router.push('/login');
