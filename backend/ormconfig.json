@@ -1,5 +1,4 @@
-[{
-  "name": "default",
+{
   "type": "mysql",
   "host": "127.0.0.1",
   "port": 3306,
@@ -16,27 +15,6 @@
     "migrationsDir": "build/migration",
     "subscribersDir": "build/subscriber"
   }
-},
-{
-  "name":"test-connection",
-  "type": "mysql",
-  "host": "127.0.0.1",
-  "port": 3306,
-  "username": "root",
-  "password": "password",
-  "database": "app_test",
-  "synchronize": true,
-  "logging": false,
-  "dropSchema": true,
-  "migrationsRun": true,
-  "entities": ["build/entity/*.js"],
-  "migrations": ["build/migration/*.js"],
-  "subscribers": ["build/subscriber/**/*.ts"],
-  "cli": {
-    "entitiesDir": "build/entity",
-    "migrationsDir": "build/migration",
-    "subscribersDir": "build/subscriber"
-  } 
-}]
+}
   
 
