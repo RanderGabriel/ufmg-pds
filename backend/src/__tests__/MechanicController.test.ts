@@ -46,14 +46,3 @@ describe('MechanicController', () => {
 
 })
 
-afterAll(async () => {
-    const MechanicService = require('../../build/services/MechanicService').default
-    const mechanicService = new MechanicService()
-    const mechanics = await mechanicService.getAll()
-    mechanics.forEach(async (mechanic) => {
-        await mechanicService.delete(mechanic.id)
-    })
-
-   
-  
-})

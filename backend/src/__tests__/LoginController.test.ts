@@ -62,11 +62,3 @@ describe('Test mechanic login', () => {
     })
 })
 
-afterAll(async () => {
-    const DriverService = require('../../build/services/DriverService').default
-    const driverService = new DriverService()
-    const drives = await driverService.getAll()
-    drives.forEach(async (driver) => {
-        driverService.delete(driver.id)
-    })
-})

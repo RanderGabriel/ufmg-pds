@@ -72,9 +72,3 @@ describe('UserController', () => {
 
 })
 
-afterAll(async () => {
-    const UserService = require('../../build/services/UserService').default
-    const userService = new UserService()
-    const user = await userService.getByProperty({email: "reset@123.com"});
-    if(user) await userService.delete(user.id)
-})
