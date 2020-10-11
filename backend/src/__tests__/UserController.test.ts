@@ -1,5 +1,6 @@
 
 import request  = require('supertest');
+import { userService } from '../../build/services';
 const AppTest = require('../../build/App').AppTest;
 
 jest.unmock("typeorm");
@@ -30,6 +31,7 @@ describe('UserController', () => {
                     name: "reset teste",
                     phoneNumber: "123123123",
                     profileId: 1,
+                    profile: "MECHANIC"
             });
 
         expect(res.status).toEqual(200);
@@ -40,15 +42,20 @@ describe('UserController', () => {
     });
 
     test('POST /api/user/reset-password', async () => {
+        const { passwordResetToken } = await userService.getByProperty({
+            email: "reset@123.com"
+        });
+        expect(passwordResetToken).toBeTruthy();
+
         const res = await request(app)
             .post('/api/user/reset-password')
             .send({
                     email: "reset@123.com",
                     password: "teste",
                     passwordConfirmation: "teste",
-                    passwordResetToken: "29342766fd627646dff66b917f5a7728896b0484",
+                    passwordResetToken,
             });
-
+        
         expect(res.status).toEqual(200);
         expect(res.body.code).toEqual(200);
         expect(res.body.data).toBeTruthy();

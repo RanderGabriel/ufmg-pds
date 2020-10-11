@@ -1,7 +1,7 @@
 const AppTest = require('../../build/App').AppTest;
-import { solicitationService, driverService, mechanicService} from "../services";
+import { userService, solicitationService, driverService, mechanicService } from "../../build/services";
 import { Mechanic, Solicitation, Driver, User } from "../entity";
-import request  = require('supertest');
+import request = require('supertest');
 
 jest.unmock("typeorm");
 jest.unmock("../services/DatabaseService")
@@ -68,28 +68,32 @@ let app
 beforeAll(async (done) => {
     const appTest = new AppTest();
     appTest.setupTest()
-    .then(() => {
-        app = appTest.app;
-        Promise.all([
-            mechanicService.create(mechanicTest), 
-            driverService.create(driverTest)]
-        ).then(async () => {
-            await solicitationService.create(solicitationTest1);
-            await solicitationService.create(solicitationTest2);
-            done(); 
-        })
-    })
-    .catch(error => {
-        console.log(error)
-    })
-   
-})
+        .then(() => {
+            app = appTest.app;
+            Promise.all([
+                userService.create(userDriver),
+                userService.create(userMechanic)
+            ]).then(() =>
+            Promise.all([
+                mechanicService.create(mechanicTest),
+                driverService.create(driverTest)]
+            ).then(() => solicitationService.create(solicitationTest1))
+                .then(() => {
+                    solicitationService.create(solicitationTest2);
+                    done();
+                }));
+
+        }).catch(error => {
+            console.log(error)
+        });
+});
+    
 
 describe("SolicitationController", () => {
     test("getAll without await", async () => {
         const resp = await request(app)
-            .get('api/solicitation/getAll')
-        
-        expect(resp.body.data.lenght).toEqual(2);
+            .get('/api/solicitation/getAll')
+
+        expect(resp.body.data.length).toEqual(2);
     })
 })

@@ -20,7 +20,7 @@ export class LoginController extends BaseController {
         const user = await userService.getByProperty({email: email});
 
         if (!user) {
-            res.send(ApiResponse.returnError({
+            res.status(500).send(ApiResponse.returnError({
                 message: "Usuário não encontrado!",
             }));
             return;
@@ -36,7 +36,7 @@ export class LoginController extends BaseController {
             }));
 
         } else {
-            res.send(ApiResponse.returnError({
+            res.status(500).send(ApiResponse.returnError({
                 message: "Senha inválida.",
             }));
         }

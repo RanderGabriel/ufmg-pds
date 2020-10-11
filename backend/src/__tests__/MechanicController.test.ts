@@ -20,7 +20,7 @@ describe('MechanicController', () => {
         const res = await request(app)
             .post('/api/mechanic/create')
             .send({
-                    email: "teste@123.com",
+                    email: "mechanic@123.com",
                     password: "teste123",
                     name: "teste",
                     phoneNumber: "123123123",

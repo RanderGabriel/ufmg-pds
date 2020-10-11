@@ -20,7 +20,7 @@ describe('DriverController', () => {
         const res = await request(app)
             .post('/api/driver/create')
             .send({
-                    email: "teste@123.com",
+                    email: "motorista@123.com",
                     password: "teste123",
                     name: "teste",
                     phoneNumber: "123123123",

@@ -28,6 +28,7 @@ class UserController extends BaseController {
                 res.send(ApiResponse.returnError({
                     message: "Usuário não encontrado!"
                 }));
+                return;
             } else {
                 const token = crypto.randomBytes(20).toString('hex');
                 const now: Date = new Date();
@@ -104,12 +105,18 @@ class UserController extends BaseController {
             if (profile === 'MECHANIC') {
                 const newMechanic = await Mechanic.createEntity(newUser);
                 res.send(ApiResponse.returnData(await mechanicService.create(newMechanic)));
+                return;
             }
 
             if (profile === 'DRIVER') {
                 const newDriver = await Driver.createEntity(newUser);
                 res.send(ApiResponse.returnData(await mechanicService.create(newDriver)));
+                return;
             }
+
+            res.send(ApiResponse.returnError({
+                message: "Ocorreu um erro inesperado"
+            }))
 
         } catch (error) {
             res.send(ApiResponse.returnError({
