@@ -14,6 +14,23 @@ class SolicitationController extends BaseController {
         this.router.post('/accept', this.accept);
         this.router.post('/start', this.start);
         this.router.post('/cancel', this.cancel);
+        this.router.get("/getAll", this.getAll)
+    }
+
+    public async getAll(req: express.Request, res: express.Response) {
+        try {
+            let responseData;
+            if (req.query.await === "true") {
+                responseData = await solicitationService.getAll({ finishedAt: null });
+            } else {
+                responseData = await solicitationService.getAll();
+            }
+            res.send(ApiResponse.returnData(responseData));
+        } catch (error) {
+            res.send(ApiResponse.returnData({
+                message: error,
+            }))
+        }
     }
 
     public async create(req: express.Request, res: express.Response) {
@@ -34,7 +51,7 @@ class SolicitationController extends BaseController {
         }
     }
 
-    public async accept(req: express.Request, res:  express.Response) {
+    public async accept(req: express.Request, res: express.Response) {
         //TODO: Implementar aceite da solicitação pelo mecânico (coloquei aqui só pra conseguir implementar a parte do motorista)
         WebsocketService.emit("acceptedSolicitation_" + req.body.id, {
             // Dados do mecânico
@@ -46,16 +63,16 @@ class SolicitationController extends BaseController {
         }))
     }
 
-    public async start(req: express.Request, res:  express.Response) {
+    public async start(req: express.Request, res: express.Response) {
         try {
             const { id } = req.body;
             const solicitation = await solicitationService.get(Number(id));
             const { user } = await accessService.getByToken(req.headers["authorization"], true);
             const driver = await driverService.getByUserId(user.id);
-            if(!driver) {
+            if (!driver) {
                 throw new Error("Somente motoristas podem inciar solicitações");
             }
-            if(solicitation.driver.id !== driver.id) {
+            if (solicitation.driver.id !== driver.id) {
                 throw new Error("Um motorista só pode inciar solicitações criadas por ele mesmo.");
             }
             res.send(ApiResponse.returnData(null));
@@ -64,16 +81,16 @@ class SolicitationController extends BaseController {
         }
     }
 
-    public async cancel(req: express.Request, res:  express.Response) {
+    public async cancel(req: express.Request, res: express.Response) {
         try {
             const { id } = req.body;
             const solicitation = await solicitationService.get(Number(id));
             const { user } = await accessService.getByToken(req.headers["authorization"], true);
             const driver = await driverService.getByUserId(user.id);
-            if(!driver) {
+            if (!driver) {
                 throw new Error("Somente motoristas podem cancelar solicitações");
             }
-            if(solicitation.driver.id !== driver.id) {
+            if (solicitation.driver.id !== driver.id) {
                 throw new Error("Um motorista só pode cancelar solicitações criadas por ele mesmo.");
             }
             solicitation.finishedAt = new Date();

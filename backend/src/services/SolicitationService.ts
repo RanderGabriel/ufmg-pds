@@ -43,10 +43,14 @@ export default class SolicitationService extends DatabaseService<Solicitation> i
         }
     }
     
-    public async getAll(): Promise<Solicitation[]> {
+    public async getAll(query = undefined): Promise<Solicitation[]> {
         try {
             return await this.execute(async (connection) => {
-                return await connection.getRepository(Solicitation).find();
+                if(query === undefined ){
+                    return await connection.getRepository(Solicitation).find();
+                } else {
+                    return await connection.getRepository(Solicitation).find(query);
+                }
             }) as Solicitation[];
         } catch (error) {
             throw error;
