@@ -1,4 +1,3 @@
-import { autoshopService } from './AutoshopService'
 import { driverService } from './DriverService'
 import { mechanicService } from './MechanicService'
 import { profileService } from './ProfileService'
@@ -8,7 +7,6 @@ import { mailerService } from './MailerService'
 import { solicitationService } from './SolicitationService'
 
 export {
-    autoshopService, 
     driverService, 
     mechanicService, 
     profileService, 
