@@ -21,7 +21,7 @@ export default defineComponent({
     },
     setup() {
         console.log(this);
-        const profile = Math.random() > 0.5 ? 'MECHANIC' : 'DRIVER';
+        const profile = services.userService.getCurrentUser()?.profile;
         return {
             profile,
         };

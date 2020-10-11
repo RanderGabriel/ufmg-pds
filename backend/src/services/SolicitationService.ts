@@ -20,7 +20,9 @@ export default class SolicitationService extends DatabaseService<Solicitation> i
     public async get(id: number): Promise<Solicitation> {
         try {
             return await this.execute(async (connection) => {
-                return await connection.getRepository(Solicitation).findOne(id);
+                return await connection.getRepository(Solicitation).findOne(id, {
+                    relations: ["mechanic", "driver"]
+                });
             }) as Solicitation;
         } catch (error) {
             throw error;

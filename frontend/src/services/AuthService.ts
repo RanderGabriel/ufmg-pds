@@ -1,4 +1,6 @@
+import { User } from '@/models/bussiness';
 import { httpService } from './HttpService';
+import { userService } from './UserService';
 
 export default class AuthService {
 
@@ -9,6 +11,11 @@ export default class AuthService {
         });
         if (response && response.data.token) {
             localStorage.setItem('token', response.data.token);
+            if(response.data.user) {
+                userService.saveUser(new User({
+                    ...response.data.user, profile: response.data.user.profile.name
+                }));
+            }
         }
     }
 
