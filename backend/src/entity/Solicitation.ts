@@ -23,25 +23,7 @@ export default class Solicitation {
 
     @Column()
     @Column({ nullable: true })
-    acceptedAt: Date;
-
-    @Column()
-    @Column({ nullable: true })
-    refusedAt: Date;
-
-    @Column()
-    @Column({ nullable: true })
     finishedAt: Date;
-
-    // Coluna para indicar que o MOTORISTA aceitou
-    @Column()
-    @Column({ nullable: true })
-    startedAt: Date;
-
-    // Coluna para indicar que o MOTORISTA rejeitou
-    @Column()
-    @Column({ nullable: true })
-    cancelledAt: Date;
 
     @Column({ default: () => "'{}'" })
     coordinates: string;

@@ -58,8 +58,6 @@ class SolicitationController extends BaseController {
             if(solicitation.driver.id !== driver.id) {
                 throw new Error("Um motorista só pode inciar solicitações criadas por ele mesmo.");
             }
-            solicitation.startedAt = new Date();
-            const result = await solicitationService.update(solicitation);
             res.send(ApiResponse.returnData(null));
         } catch (err) {
             res.send(ApiResponse.returnError(new ApiError(err.message)));
@@ -78,7 +76,7 @@ class SolicitationController extends BaseController {
             if(solicitation.driver.id !== driver.id) {
                 throw new Error("Um motorista só pode cancelar solicitações criadas por ele mesmo.");
             }
-            solicitation.cancelledAt = new Date();
+            solicitation.finishedAt = new Date();
             const result = await solicitationService.update(solicitation);
             res.send(ApiResponse.returnData(null));
         } catch (err) {
