@@ -8,7 +8,8 @@ export class ProfileSetup1596640481807 implements MigrationInterface {
     }
     
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query('drop table profile');
+        await queryRunner.query('delete from profile');
+        await queryRunner.query(`alter table profile auto_increment = 1`);
     }
 
 }

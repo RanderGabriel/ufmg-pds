@@ -74,9 +74,10 @@ export class AppTest extends App {
 
     async setupTest() {
         return new Promise((resolve, reject) => {
-            createConnection("test-connection").then((_) => {
+            createConnection().then((_) => {
                 resolve()
             }).catch(error => {
+                console.log(error)
                 reject()
             })
         })
