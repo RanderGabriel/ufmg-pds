@@ -23,7 +23,10 @@ export default class SolicitationService {
         return true;
     }
 
-
+    public async getAll(){
+        const response = await httpService.get('/api/solicitation/getAll');
+        return response;
+    }
 }
 
 export const solicitationService = new SolicitationService();
