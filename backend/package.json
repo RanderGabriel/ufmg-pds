@@ -6,7 +6,7 @@
   "scripts": {
     "serve": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts src/App.ts && node build/index.js",
     "build": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts src/App.ts",
-    "test": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts src/App.ts && jest --testTimeout=10000",
+    "test": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts src/App.ts && jest --testTimeout=10000 --forceExit",
     "test:unit": "npm run test __tests__/unit",
     "test:integration": "npm run test __tests__/unit",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
