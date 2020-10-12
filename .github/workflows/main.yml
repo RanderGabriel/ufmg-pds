@@ -44,6 +44,7 @@ jobs:
         run: |
           cd backend
           npm i
+          npm run build
           npm run schema:sync
           npm run migrate
           npm run test
