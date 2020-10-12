@@ -19,6 +19,20 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Setup MySQL
+        # You may pin to the exact commit or the version.
+        # uses: mirromutth/mysql-action@de1fba8b3f90ce8db80f663a7043be3cf3231248
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          # The port of host
+          host port: 3306
+          # The port of container
+          container port: 3306
+          # Version of MySQL to use
+          mysql root password: password
+          mysql database: app_dev
+          mysql user: sa
+          mysql password: password
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.2
       - name: Checkout
@@ -30,4 +44,6 @@ jobs:
         run: |
           cd backend
           npm i
-          npm run test:unit
+          npm run schema:sync
+          npm run migrate
+          npm run test
