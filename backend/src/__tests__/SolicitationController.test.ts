@@ -87,7 +87,6 @@ describe("SolicitationController", () => {
         const resp = await request(app)
             .get('/api/solicitation/getAll')
 
-        console.log(resp.body.data)
         expect(resp.body.data.length).toEqual(2);
     })
 })
