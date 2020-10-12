@@ -29,7 +29,7 @@ jobs:
           # The port of container
           container port: 3306
           mysql version: 5.7
-          mysql root password: password
+          mysql root password: mysql123
           mysql database: app_dev
           mysql user: sa
           mysql password: password
