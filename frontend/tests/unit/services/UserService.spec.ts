@@ -4,7 +4,7 @@ import User from '../../../src/models/bussiness/User'
 jest.mock('../../../src/services/HttpService')
 
 const userService = new UserService()
-const user = {
+const user: User = {
     id: '1',
     email: 'test@test.com',
     password: 'test123',
@@ -12,7 +12,7 @@ const user = {
     passwordResetToken: 'token',
     profile: 'DRIVER',
     token: 'anotherToken',
-    phoneNumber: 3199999999,
+    phoneNumber: '3199999999',
     name: 'Teste',
 }
 
@@ -24,7 +24,7 @@ const anotherUser = {
     passwordResetToken: 'token',
     profile: 'DRIVER',
     token: 'anotherToken',
-    phoneNumber: 3199999999,
+    phoneNumber: '3199999999',
     name: 'Teste',
 }
 
@@ -44,16 +44,9 @@ describe("UserService", () => {
         expect(response.passwordResetToken).toBe('token') 
         expect(response.profile).toBe('DRIVER') 
         expect(response.token).toBe('anotherToken') 
-        expect(response.phoneNumber).toBe(3199999999) 
+        expect(response.phoneNumber).toBe('3199999999') 
         expect(response.name).toBe('Teste') 
        
-    })
-
-    test('Login success', async () => {
-        require('../../../src/services/HttpService').httpService.__setPostResponse(user)
-
-        const response = await userService.login(user as User)
-        expect(response.id).toBe('1')
     })
 
     test('Forgot password', async () => {

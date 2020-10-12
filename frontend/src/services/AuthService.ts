@@ -12,9 +12,11 @@ export default class AuthService {
         if (response && response.data.token) {
             localStorage.setItem('token', response.data.token);
             if(response.data.user) {
-                userService.saveUser(new User({
+                const user = new User({
                     ...response.data.user, profile: response.data.user.profile.name
-                }));
+                })
+                userService.saveUser(user);
+                return user;
             }
         }
     }
