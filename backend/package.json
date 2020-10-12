@@ -4,11 +4,11 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "serve": "ts-node src/index.ts",
+    "serve": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts && node build/index.js",
     "build": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts",
     "test": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts && jest --testTimeout=10000",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "migrate": "ts-node ./node_modules/typeorm/cli.js migration:run",
+    "migrate": "tsc --experimentalDecorators --outDir build/migration --emitDecoratorMetadata src/migration/1596640481807-ProfileSetup.ts && ts-node ./node_modules/typeorm/cli.js migration:run",
     "schema:sync": "ts-node ./node_modules/typeorm/cli.js schema:sync",
     "rollback": "ts-node ./node_modules/typeorm/cli.js migration:revert",
     "watch": "npm-watch",
