@@ -1,7 +1,7 @@
 
-import VehiclesService, { vehicleService } from "../services/VehicleService";
-import { User } from "../entity";
-import { getRepository } from "../../__mocks__/typeorm";
+import VehiclesService, { vehicleService } from "../../services/VehicleService";
+import { User } from "../../entity";
+import { getRepository } from "../../../__mocks__/typeorm";
 
 const testUser: User = {
     email: "teste@123.com",

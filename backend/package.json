@@ -7,6 +7,8 @@
     "serve": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts && node build/index.js",
     "build": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts",
     "test": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts && jest --testTimeout=10000",
+    "test:unit": "npm run test __tests__/unit",
+    "test:integration": "npm run test __tests__/unit",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "migrate": "tsc --experimentalDecorators --outDir build/migration --emitDecoratorMetadata src/migration/1596640481807-ProfileSetup.ts && ts-node ./node_modules/typeorm/cli.js migration:run",
     "schema:sync": "ts-node ./node_modules/typeorm/cli.js schema:sync",
