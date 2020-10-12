@@ -6,7 +6,7 @@
   "scripts": {
     "serve": "ts-node src/index.ts",
     "build": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts",
-    "test": "jest --testTimeout=10000",
+    "test": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts && jest --testTimeout=10000",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "migrate": "ts-node ./node_modules/typeorm/cli.js migration:run",
     "schema:sync": "ts-node ./node_modules/typeorm/cli.js schema:sync",

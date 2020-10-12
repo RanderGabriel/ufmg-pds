@@ -1,16 +1,19 @@
 
 jest.unmock("typeorm");
 import request  = require('supertest');
-import { userService } from '../../build/services';
-import { createConnection} from 'typeorm'
+import { createConnection, getRepository} from 'typeorm'
+import { User } from '../../build/entity';
 
 
 let app
+let repository
 beforeAll((done) => {
     createConnection().then( () => {
-        const AppTest = require('../../build/App').AppTest;
+        
+        const AppTest = require('../../build/App').App;
         const appTest = new AppTest()
-        app = appTest.app   
+        app = appTest.app
+        repository = getRepository(User);
         done()
     })
 })
@@ -42,7 +45,7 @@ describe('UserController', () => {
     });
 
     test('POST /api/user/reset-password', async () => {
-        const { passwordResetToken } = await userService.getByProperty({
+        const { passwordResetToken } = await repository.findOne({
             email: "reset@123.com"
         });
         expect(passwordResetToken).toBeTruthy();

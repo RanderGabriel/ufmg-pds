@@ -1,5 +1,6 @@
-import { accessService } from "../services/AccessService";
+import AcessService, { accessService } from "../services/AccessService";
 import { User, Access }from "../entity";
+import { getRepository } from "../../__mocks__/typeorm";
 
 const testUser: User = {
     email: "teste@123.com",
@@ -31,75 +32,70 @@ describe("it should create, read, update and delete accesses", () => {
     test("it should delete", async () => {
         await accessService.delete(1);
     });
+
     test("it should read", async () => {
         // @ts-ignore
-        getConnection.mockReturnValueOnce({
-            getRepository: () => ({
-                findOne : () => Promise.resolve(testAccess),
-            })
+        getRepository.mockReturnValueOnce({
+           findOne : () => Promise.resolve(testAccess),
         });
-        const access = await accessService.get(1);
+        const accessServiceMock =  new AcessService();
+        const access = await accessServiceMock.get(1);
         expect(access).toEqual(access);
     });
+
     test("it should getAll", async () => {
         // @ts-ignore
-        getConnection.mockReturnValueOnce({
-            getRepository: () => ({
-                findOne : () => Promise.resolve(testAccess),
-                find: () => Promise.resolve([testAccess])
-            })
+        getRepository.mockReturnValueOnce({
+            findOne : () => Promise.resolve(testAccess),
+            find: () => Promise.resolve([testAccess])
         });
-        const accesses = await accessService.getAll();
+        const accessServiceMock =  new AcessService();
+        const accesses = await accessServiceMock.getAll();
         expect(accesses.filter(a => a.id === 1).length).toEqual(1);
         expect(accesses.find(a => a.id === 1)).toEqual(testAccess);
     });
 
     test("it should get by token", async () => {
-        getConnection.mockReturnValueOnce({
-            getRepository: () => ({
-                findOne : () => Promise.resolve(testAccess),
-                find: () => Promise.resolve([testAccess])
-            })
+        getRepository.mockReturnValueOnce({
+            findOne : () => Promise.resolve(testAccess),
+            find: () => Promise.resolve([testAccess])
         });
-
-        const access = await accessService.getByToken("aasd23lkasdclk1-3opasdk");
+        const accessServiceMock =  new AcessService();
+        const access = await accessServiceMock.getByToken("aasd23lkasdclk1-3opasdk");
         expect(access).toEqual(testAccess);
     });
 
     test("it should update", async () => {
-        getConnection.mockReturnValueOnce({
-            getRepository: () => ({
-                findOne : () => Promise.resolve(testAccess),
-                find: () => Promise.resolve([testAccess]),
-                save: (param) => Promise.resolve(param),
-            })
+        getRepository.mockReturnValueOnce({
+            findOne : () => Promise.resolve(testAccess),
+            find: () => Promise.resolve([testAccess]),
+            save: (param) => Promise.resolve(param),
         });
-
-        const access = await accessService.create(testAccess);
+        const accessServiceMock =  new AcessService();
+        const access = await accessServiceMock.create(testAccess);
         access.userToken = "asdplas16a3sd1fmsdf";
-        const updatedAcces = await accessService.update(access);
+        const updatedAcces = await accessServiceMock.update(access);
         expect(updatedAcces.userToken).toEqual("asdplas16a3sd1fmsdf");
     });
 
     test("it should throw errors", async () => {
-        getConnection.mockReturnValue({
-            getRepository: () => ({
-                findOne : () => Promise.reject(),
-                find: () => Promise.reject(),
-                save: () => Promise.reject(),
-            })
+        getRepository.mockReturnValue({
+            findOne : () => Promise.reject(),
+            find: () => Promise.reject(),
+            save: () => Promise.reject(),
         });
+
+        const accessServiceMock =  new AcessService();
         const fn = jest.fn();
         const promises = [
-            accessService.create(testAccess).catch(fn),
-            accessService.get(1).catch(fn),
-            accessService.getAll().catch(fn),
-            accessService.update(testAccess).catch(fn),
-            accessService.delete(1).catch(fn),
-            accessService.getByToken("1").catch(fn),
+            accessServiceMock.create(testAccess).catch(fn),
+            accessServiceMock.get(1).catch(fn),
+            accessServiceMock.getAll().catch(fn),
+            accessServiceMock.update(testAccess).catch(fn),
+            accessServiceMock.delete(1).catch(fn),
+            accessServiceMock.getByToken("1").catch(fn),
         ];
         await Promise.all(promises);
         expect(fn).toBeCalledTimes(6);
-
     });
 });

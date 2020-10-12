@@ -25,9 +25,7 @@ export default class User {
     @Column()
     phoneNumber: string;
 
-    @ManyToOne(type => Profile, {
-        cascade: true
-    })
+    @ManyToOne(type => Profile)
     @JoinColumn()
     profile: Profile;
 

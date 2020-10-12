@@ -1,7 +1,6 @@
-import { userService } from "../services/UserService";
+import UserService, { userService } from "../services/UserService";
 import { User } from "../entity";
-import { getConnection } from "../../__mocks__/typeorm";
-
+import { getRepository } from "../../__mocks__/typeorm";
 
 // Criar Usuário de perfil "Motorista"
 const testUser: User = {
@@ -29,43 +28,38 @@ describe("it should create, read, update and delete user", () => {
     });
     test("it should read", async () => {
         // @ts-ignore
-        getConnection.mockReturnValueOnce({
-            getRepository: () => ({
-                findOne : () => Promise.resolve(testUser),
-            })
+        getRepository.mockReturnValueOnce({
+           findOne : () => Promise.resolve(testUser),
         });
-
-        const user = await userService.get(1);
+            const userServiceMock = new UserService()
+        const user = await userServiceMock.get(1);
         expect(user.id).toEqual(1);
     });
     test("it should getAll", async () => {
-        getConnection.mockReturnValueOnce({
-            getRepository: () => ({
-                findOne : () => Promise.resolve(testUser),
-                find: () => Promise.resolve([testUser])
-            })
+        getRepository.mockReturnValueOnce({
+            findOne : () => Promise.resolve(testUser),
+            find: () => Promise.resolve([testUser])   
         });
-
-        const users = await userService.getAll();
+        const userServiceMock = new UserService();
+        const users = await userServiceMock.getAll();
         expect(
             users.filter(v => v.id === testUser.id).length
             ).toEqual(1);
     });
     test("it should throw errors", async () => {
-        getConnection.mockReturnValue({
-            getRepository: () => ({
-                findOne : () => Promise.reject(),
-                find: () => Promise.reject(),
-                save: () => Promise.reject(),
-            })
+        getRepository.mockReturnValue({
+            findOne : () => Promise.reject(),
+            find: () => Promise.reject(),
+            save: () => Promise.reject(), 
         });
+        const userServiceMock = new UserService()
         const fn = jest.fn();
         const promises = [
-            userService.create(testUser).catch(fn),
-            userService.get(1).catch(fn),
-            userService.getAll().catch(fn),
-            userService.update(testUser).catch(fn),
-            userService.delete(1).catch(fn),
+            userServiceMock.create(testUser).catch(fn),
+            userServiceMock.get(1).catch(fn),
+            userServiceMock.getAll().catch(fn),
+            userServiceMock.update(testUser).catch(fn),
+            userServiceMock.delete(1).catch(fn),
         ];
         await Promise.all(promises);
         expect(fn).toBeCalledTimes(5);
