@@ -4,9 +4,9 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "serve": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts && node build/index.js",
-    "build": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts",
-    "test": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts && jest --testTimeout=10000",
+    "serve": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts src/App.ts && node build/index.js",
+    "build": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts src/App.ts",
+    "test": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts src/App.ts && jest --testTimeout=10000",
     "test:unit": "npm run test __tests__/unit",
     "test:integration": "npm run test __tests__/unit",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
@@ -14,7 +14,7 @@
     "schema:sync": "ts-node ./node_modules/typeorm/cli.js schema:sync",
     "rollback": "ts-node ./node_modules/typeorm/cli.js migration:revert",
     "watch": "npm-watch",
-    "dev": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts && nodemon build/index.js"
+    "dev": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts src/App.ts && nodemon build/index.js"
   },
   "author": "",
   "license": "ISC",
