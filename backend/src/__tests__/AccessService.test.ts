@@ -1,6 +1,5 @@
 import { accessService } from "../services/AccessService";
 import { User, Access }from "../entity";
-import { getConnection } from "../../__mocks__/typeorm";
 
 const testUser: User = {
     email: "teste@123.com",

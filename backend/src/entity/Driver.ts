@@ -1,6 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm";
 import User from "./User";
-
 @Entity()
 export default class Driver {
 

@@ -1,7 +1,6 @@
 import {Entity, Column, ManyToOne, PrimaryGeneratedColumn, JoinColumn} from "typeorm";
 import { generateSaltedPassword } from "../utils";
 import Profile  from "./Profile"
-
 @Entity()
 export default class User {
 
@@ -26,7 +25,9 @@ export default class User {
     @Column()
     phoneNumber: string;
 
-    @ManyToOne(type => Profile)
+    @ManyToOne(type => Profile, {
+        cascade: true
+    })
     @JoinColumn()
     profile: Profile;
 

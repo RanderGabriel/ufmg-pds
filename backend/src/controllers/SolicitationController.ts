@@ -19,12 +19,7 @@ class SolicitationController extends BaseController {
 
     public async getAll(req: express.Request, res: express.Response) {
         try {
-            let responseData;
-            if (req.query.await === "true") {
-                responseData = await solicitationService.getAll({ finishedAt: null });
-            } else {
-                responseData = await solicitationService.getAll();
-            }
+            const responseData = await solicitationService.getAll();
             res.send(ApiResponse.returnData(responseData));
         } catch (error) {
             res.send(ApiResponse.returnData({

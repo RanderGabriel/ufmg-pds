@@ -1,66 +1,16 @@
-import DatabaseService, { IDatabaseService } from "./DatabaseService";
+import { DatabaseService } from "./DatabaseService";
+import { getRepository } from 'typeorm';
 import { Access } from "../entity";
 
-export default class AccessService extends DatabaseService<Access> implements IDatabaseService<Access> {
+export default class AccessService extends DatabaseService<Access> {
     
-    constructor() {
-        super();
-    }
-    
-    public async create(entity: Access) {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Access).save(entity);
-            }) as Access;
-        } catch (error) {
-            throw error;
-        }
-    }
-    
-    public async get(id: number): Promise<Access> {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Access).findOne(id);
-            }) as Access;
-        } catch (error) {
-            throw error;
-        }
-    }
-    
-    public async getAll(): Promise<Access[]> {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Access).find();
-            }) as Access[];
-        } catch (error) {
-            throw error;
-        }
-    }
-    
-    public async update(entity: Access) {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Access).save(entity);
-            }) as Access;
-        } catch (error) {
-            throw error;
-        }
-    }
-    
-    public async delete(id: number) {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Access).delete(id);
-            });
-        } catch (error) {
-            throw error;
-        }
+    constructor(){
+        super(getRepository(Access));
     }
 
     public async getByToken(token: string, includeUser: boolean = false): Promise<Access> {
         try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Access).findOne({
+                return await this.repo.findOne({
                     where: {
                         userToken: token,
                     },
@@ -68,12 +18,10 @@ export default class AccessService extends DatabaseService<Access> implements ID
                         relations:["user"]
                     } : {})
                 });
-            }) as Access;
         } catch (error) {
             throw error;
         }
     }
-    
 }
 
 export const accessService = new AccessService();

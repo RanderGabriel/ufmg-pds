@@ -3,17 +3,17 @@
   "host": "127.0.0.1",
   "port": 3306,
   "username": "root",
-  "password": "password",
+  "password": "mysql123",
   "database": "app_dev",
   "synchronize": true,
   "logging": false,
-  "entities": ["build/entity/*.js"],
-  "migrations": ["build/migration/*.js"],
-  "subscribers": ["build/subscriber/**/*.ts"],
+  "entities": ["src/entity/*.ts"],
+  "migrations": ["src/migration/*.ts"],
+  "subscribers": ["src/subscriber/**/*.ts"],
   "cli": {
-    "entitiesDir": "build/entity",
-    "migrationsDir": "build/migration",
-    "subscribersDir": "build/subscriber"
+    "entitiesDir": "src/entity",
+    "migrationsDir": "src/migration",
+    "subscribersDir": "src/subscriber"
   }
 }
   

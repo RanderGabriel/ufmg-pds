@@ -1,4 +1,4 @@
-import { getConnection, Connection } from "typeorm";
+import { Repository } from "typeorm";
 
 export interface IDatabaseService<T> {
     get: (id: number) => Promise<T>;
@@ -8,17 +8,48 @@ export interface IDatabaseService<T> {
     delete: (id: number) => void;
 }
 
-export default class DatabaseSevice<T> {
+export class DatabaseService<T> implements IDatabaseService<T> {
+    repo: Repository<T>;
 
-    async execute(fn: (connection: Connection) => any): Promise<T | T[]> {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const result = await fn(getConnection());
-                resolve(result);
-            } catch (error) {
-                reject(error);
-            }
-        });
+    constructor(repo: Repository<T>) {
+        this.repo = repo;
     }
 
+    public async create(entity: T) {
+        return await this.repo.save(entity);
+    }
+
+    public async get(id: number): Promise<T> {
+        try {
+            return await this.repo.findOne(id);
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    public async getAll(): Promise<T[]> {
+        try {
+            return await this.repo.find();
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    public async update(entity: T) {
+        try {
+            return await this.repo.save(entity);
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+
+    public async delete (id: number) {
+        try{
+            return await this.repo.delete(id);
+        }
+        catch (error) {
+            throw error;
+        }
+    }
 }

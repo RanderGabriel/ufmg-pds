@@ -1,15 +1,15 @@
 
+jest.unmock("typeorm");
 import request  = require('supertest');
 import { userService } from '../../build/services';
-const AppTest = require('../../build/App').AppTest;
+import { createConnection} from 'typeorm'
 
-jest.unmock("typeorm");
-jest.unmock("../services/DatabaseService")
 
 let app
 beforeAll((done) => {
-    const appTest = new AppTest()
-    appTest.setupTest().then( () => {
+    createConnection().then( () => {
+        const AppTest = require('../../build/App').AppTest;
+        const appTest = new AppTest()
         app = appTest.app   
         done()
     })

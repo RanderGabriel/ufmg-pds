@@ -1,6 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
 import User  from "./User";
-
 @Entity()
 export default class Vehicle {
 

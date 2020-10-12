@@ -1,32 +1,13 @@
-import DatabaseService, { IDatabaseService } from "./DatabaseService";
+import {DatabaseService} from "./DatabaseService";
 import { User } from "../entity";
+import { getRepository } from "typeorm";
 
-export default class UserService extends DatabaseService<User> implements IDatabaseService<User> {
+export default class UserService extends DatabaseService<User> {
     
     constructor() {
-        super();
+        super(getRepository(User));
     }
     
-    public async create(entity: User) {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(User).save(entity);
-            }) as User;
-        } catch (error) {
-            throw error;
-        }
-    }
-    
-    public async get(id: number): Promise<User> {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(User).findOne(id);
-            }) as User;
-        } catch (error) {
-            throw error;
-        }
-    }
-
     public async getByProperty(query: {
         email?: string;
         name?: string;
@@ -34,49 +15,17 @@ export default class UserService extends DatabaseService<User> implements IDatab
         profileId?: number
     }){
           try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(User).findOne({
+            return await this.repo.findOne({
                     where: query,
                     relations: [
                         "profile"
                     ]
-                })
-            }) as User;
+            })  
         } catch (error) {
             throw error;
         }
     }
-    
-    public async getAll(): Promise<User[]> {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(User).find();
-            }) as User[];
-        } catch (error) {
-            throw error;
-        }
-    }
-    
-    public async update(entity: User) {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(User).save(entity);
-            });
-        } catch (error) {
-            throw error;
-        }
-    }
-    
-    public async delete(id: number) {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(User).delete(id);
-            });
-        } catch (error) {
-            throw error;
-        }
-    }
-    
+      
 }
 
 export const userService = new UserService();

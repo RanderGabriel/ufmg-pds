@@ -1,75 +1,22 @@
-import DatabaseService, { IDatabaseService } from "./DatabaseService";
+import { DatabaseService } from "./DatabaseService";
 import { Profile } from "../entity";
+import { getRepository } from "typeorm";
 
-export default class ProfileService extends DatabaseService<Profile> implements IDatabaseService<Profile> {
+export default class ProfileService extends DatabaseService<Profile> {
     
     constructor() {
-        super();
-    }
-    
-    public async create(entity: Profile) {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Profile).save(entity);
-            }) as Profile;
-        } catch (error) {
-            throw error;
-        }
-    }
-    
-    public async get(id: number): Promise<Profile> {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Profile).findOne(id);
-            }) as Profile;
-        } catch (error) {
-            throw error;
-        }
+        super(getRepository(Profile));
     }
     
     public async getByProperty(query: { name?: string }) {
         try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Profile).findOne({
-                    where: query
-                });
-            }) as Profile;
+            return await this.repo.findOne({
+                where: query
+            }); 
         } catch (error) {
             throw error;
         }
-    }
-
-
-    public async getAll(): Promise<Profile[]> {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Profile).find();
-            }) as Profile[];
-        } catch (error) {
-            throw error;
-        }
-    }
-    
-    public async update(entity: Profile) {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Profile).save(entity);
-            });
-        } catch (error) {
-            throw error;
-        }
-    }
-    
-    public async delete(id: number) {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Profile).delete(id);
-            });
-        } catch (error) {
-            throw error;
-        }
-    }
-    
+    }   
 }
 
 export const profileService = new ProfileService();

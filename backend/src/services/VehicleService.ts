@@ -1,72 +1,20 @@
-import DatabaseService, { IDatabaseService } from "./DatabaseService";
+import { DatabaseService } from "./DatabaseService";
 import { Vehicle } from "../entity";
+import { getRepository } from "typeorm";
 
-export default class VehicleService extends DatabaseService<Vehicle> implements IDatabaseService<Vehicle> {
+export default class VehicleService extends DatabaseService<Vehicle> {
     
     constructor() {
-        super();
-    }
-    
-    public async create(entity: Vehicle) {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Vehicle).save(entity);
-            }) as Vehicle;
-        } catch (error) {
-            throw error;
-        }
-    }
-    
-    public async get(id: number): Promise<Vehicle> {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Vehicle).findOne(id);
-            }) as Vehicle;
-        } catch (error) {
-            throw error;
-        }
-    }
-    
-    public async getAll(): Promise<Vehicle[]> {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Vehicle).find();
-            }) as Vehicle[];
-        } catch (error) {
-            throw error;
-        }
+        super(getRepository(Vehicle));
     }
 
     public async getAllByOwnerId(ownerId: number): Promise<Vehicle[]> {
         try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Vehicle).find({ where: { owner: ownerId }});
-            }) as Vehicle[];
+             return await this.repo.find({ where: { owner: ownerId }});  
         } catch (error) {
             throw error;
         }
-    }
-    
-    public async update(entity: Vehicle) {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Vehicle).save(entity);
-            });
-        } catch (error) {
-            throw error;
-        }
-    }
-    
-    public async delete(id: number) {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Vehicle).delete(id);
-            });
-        } catch (error) {
-            throw error;
-        }
-    }
-    
+    }   
 }
 
 export const vehicleService = new VehicleService();

@@ -1,16 +1,16 @@
-
-import request  = require('supertest');
-const AppTest = require('../../build/App').AppTest;
-
 jest.unmock("typeorm");
-jest.unmock("../services/DatabaseService")
+import request  = require('supertest');
+import {createConnection} from 'typeorm';
 
 let app
 beforeAll((done) => {
-    const appTest = new AppTest()
-    appTest.setupTest().then( () => {
-        app = appTest.app   
+    createConnection().then((_) => {
+        const AppTest = require('../../build/App').App;
+        const appTest = new AppTest();
+        app = appTest.app;
         done()
+    }).catch(error => {
+        console.log(error)
     })
 })
 

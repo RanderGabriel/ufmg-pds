@@ -7,7 +7,7 @@ import socketIO = require('socket.io');
 import WebsocketService from './services/WebsocketService';
 import { profileService } from './services';
 
-class App {
+export class App {
     
     public app: express.Express;
     private server: http.Server;
@@ -65,23 +65,6 @@ class App {
         this.checkProfiles();
     } 
 
-}
-
-export class AppTest extends App {
-    constructor() {
-        super()
-    }
-
-    async setupTest() {
-        return new Promise((resolve, reject) => {
-            createConnection().then((_) => {
-                resolve()
-            }).catch(error => {
-                console.log(error)
-                reject()
-            })
-        })
-    }
 }
 
 const application = new App();

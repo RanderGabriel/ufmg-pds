@@ -1,6 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne } from "typeorm";
 import { Driver, Mechanic } from ".";
-
 @Entity()
 export default class Solicitation {
 

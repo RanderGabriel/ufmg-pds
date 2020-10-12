@@ -1,79 +1,26 @@
-import DatabaseService, { IDatabaseService } from "./DatabaseService";
+import { DatabaseService } from "./DatabaseService";
 import { Driver } from "../entity";
+import { getRepository } from "typeorm";
 
-export default class DriverService extends DatabaseService<Driver> implements IDatabaseService<Driver> {
+export default class DriverService extends DatabaseService<Driver>  {
     
     constructor() {
-        super();
+        super(getRepository(Driver));
     }
     
-    public async create(entity: Driver) {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Driver).save(entity);
-            }) as Driver;
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    
-    public async get(id: number): Promise<Driver> {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Driver).findOne(id);
-            }) as Driver;
-        } catch (error) {
-            throw error;
-        }
-    }
-    
-    public async getAll(): Promise<Driver[]> {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Driver).find();
-            }) as Driver[];
-        } catch (error) {
-            throw error;
-        }
-    }
-
     public async getByUserId(userId: number) : Promise<Driver> {
         try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Driver).findOne({
-                    where: {
-                        user: {
-                            id: userId
-                        }
+            return await this.repo.findOne({
+                where: {
+                    user: {
+                        id: userId
                     }
-                });
-            }) as Driver;
+                }
+            });   
         } catch (error) {
             throw error;
         }
     }
-    
-    public async update(entity: Driver) {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Driver).save(entity);
-            }) as Driver;
-        } catch (error) {
-            throw error;
-        }
-    }
-    
-    public async delete(id: number) {
-        try {
-            return await this.execute(async (connection) => {
-                return await connection.getRepository(Driver).delete(id);
-            });
-        } catch (error) {
-            throw error;
-        }
-    }
-    
 }
 
 export const driverService = new DriverService();
