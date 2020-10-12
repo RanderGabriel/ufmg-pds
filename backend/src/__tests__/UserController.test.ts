@@ -44,6 +44,20 @@ describe('UserController', () => {
 
     });
 
+    test('POST /api/user/forgot-password', async () => {
+        const res = await request(app)
+            .post('/api/user/forgot-password')
+            .send({
+                    email: "reset@123.com",
+            });
+
+        expect(res.status).toEqual(200);
+        expect(res.body.code).toEqual(200);
+        expect(res.body.data).toBeTruthy();
+        expect(res.body.error).toEqual(null);
+
+    });
+
     test('POST /api/user/reset-password', async () => {
         const { passwordResetToken } = await repository.findOne({
             email: "reset@123.com"
@@ -59,20 +73,6 @@ describe('UserController', () => {
                     passwordResetToken,
             });
         
-        expect(res.status).toEqual(200);
-        expect(res.body.code).toEqual(200);
-        expect(res.body.data).toBeTruthy();
-        expect(res.body.error).toEqual(null);
-
-    });
-
-    test('POST /api/user/forgot-password', async () => {
-        const res = await request(app)
-            .post('/api/user/forgot-password')
-            .send({
-                    email: "reset@123.com",
-            });
-
         expect(res.status).toEqual(200);
         expect(res.body.code).toEqual(200);
         expect(res.body.data).toBeTruthy();
