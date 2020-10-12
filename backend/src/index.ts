@@ -1,9 +1,10 @@
-
 import {createConnection} from 'typeorm'
 
+
 createConnection().then(connection => {
-    const application = require('./App').default
-    application.start()
+    const App = require('./App').App    
+    const app = new App();
+    app.start()
 })
 .catch(error => {
     console.log(error)
