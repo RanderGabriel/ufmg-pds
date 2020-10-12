@@ -1,6 +1,17 @@
 import { mailerService } from "../services/MailerService";
 import { User }from "../entity";
 
+jest.mock("nodemailer", () => ({
+    createTestAccount: jest.fn(() => Promise.resolve({
+        user: "testUser",
+        password: "testPassword",
+    })),
+    createTransport: jest.fn(() => ({
+        sendMail: jest.fn(),
+    })),
+    getTestMessageUrl: jest.fn()
+}));
+
 const testUser: User = {
     email: "teste@123.com",
     id: 1,
