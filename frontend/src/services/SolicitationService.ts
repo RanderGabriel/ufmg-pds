@@ -23,6 +23,11 @@ export default class SolicitationService {
         return true;
     }
 
+    public async finish(id: number) {
+        const response = await httpService.post('/api/solicitation/finish', { id });
+        return true;
+    }
+
     public async getAll(){
         const response = await httpService.get('/api/solicitation/getAll');
         return response;

@@ -14,6 +14,7 @@ class SolicitationController extends BaseController {
         this.router.post('/accept', this.accept);
         this.router.post('/start', this.start);
         this.router.post('/cancel', this.cancel);
+        this.router.post('/finish', this.finish);
         this.router.get("/getAll", this.getAll);
         this.router.get("/actives", this.actives);
     }
@@ -100,6 +101,18 @@ class SolicitationController extends BaseController {
             if (solicitation.driver.id !== driver.id) {
                 throw new Error("Um motorista só pode cancelar solicitações criadas por ele mesmo.");
             }
+            solicitation.finishedAt = new Date();
+            const result = await solicitationService.update(solicitation);
+            res.send(ApiResponse.returnData(null));
+        } catch (err) {
+            res.send(ApiResponse.returnError(new ApiError(err.message)));
+        }
+    }
+
+    public async finish(req: express.Request, res: express.Response) {
+        try {
+            const { id } = req.body;
+            const solicitation = await solicitationService.get(Number(id));
             solicitation.finishedAt = new Date();
             const result = await solicitationService.update(solicitation);
             res.send(ApiResponse.returnData(null));
