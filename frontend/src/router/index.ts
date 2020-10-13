@@ -30,6 +30,7 @@ const publicRoutes = [
     '/404-not-found',
     '/signup',
     '/login',
+    '/login/forgot'
 ];
 
 
