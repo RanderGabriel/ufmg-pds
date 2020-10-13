@@ -1,6 +1,5 @@
 <template>
     <div>
-        HOME
         <driver-home v-if="profile === 'DRIVER'"></driver-home>
         <mechanic-home v-if="profile === 'MECHANIC'"></mechanic-home>
     </div>

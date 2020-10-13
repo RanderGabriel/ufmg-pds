@@ -28,6 +28,11 @@ const routes = [
                 component: Login }
         ]
     },
+    {
+        path: '/logoff',
+        component: Login,
+        alias: ['/'],
+    }
 ];
 
 const publicRoutes = [

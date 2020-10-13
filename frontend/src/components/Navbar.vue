@@ -11,15 +11,65 @@
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
             </a> -->
+
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+            </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start" v-if="renderNavbar">
+                <a class="navbar-item">
+                    Home
+                </a>
+
+                <a class="navbar-item">
+                    Atendimentos
+                </a>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <router-link to="/signup" class="button is-primary" v-if="renderNavbar == false">
+                            <strong>Sign up</strong>
+                        </router-link>
+                        <router-link to="/login" class="button is-light" v-if="renderNavbar == false">
+                            Log in
+                        </router-link>
+                        <router-link to="/logoff" class="button is-danger" v-if="renderNavbar">
+                            Log out
+                        </router-link>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { authService } from '@/services/AuthService';
+
+const isAuthenticaded = authService.isAuthenticated();
 
 export default defineComponent({
     name: 'navbar',
+    data() {
+      return {
+        renderNavbar: isAuthenticaded,
+      };
+    },
+    methods: {
+      forceRerender() {
+        this.renderNavbar = false;
+
+        this.$nextTick(() => {
+          this.renderNavbar = true;
+        });
+      }
+    }
 });
 </script>
 
