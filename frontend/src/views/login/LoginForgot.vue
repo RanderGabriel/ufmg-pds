@@ -33,7 +33,6 @@ export default defineComponent({
             await userService.forgotPassword({
                 email: formData.value.email
             });
-            this.isSending = false;
 
             alert("Solicitação recebida! Verifique sua caixa de e-mail.");
         }

@@ -25,8 +25,8 @@ export default class UserService {
         localStorage.removeItem('userInfo');
     }
 
-    public async forgotPassword(data: User) {
-        const response = await httpService.post<User>('/api/user/forgot-password', data);
+    public async forgotPassword(data: { email: string}) {
+        const response = await httpService.post<{ email: string}>('/api/user/forgot-password', data);
         return response.data ? new User(response.data) : null;
     }
 
