@@ -33,6 +33,10 @@ const routes = [
         path: '/logoff',
         component: Login,
         alias: ['/'],
+    },
+    {
+        path: "/historic",
+        component: Login,
     }
 ];
 
