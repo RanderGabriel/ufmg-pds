@@ -34,14 +34,14 @@
             </div>
             <div class="level-item has-text-centered">
                 <div>
-                <p class="subtitle">O motorista está a caminho</p>
+                <p class="subtitle">O mecânico está a caminho</p>
                 </div>
             </div>
         </div>
         <div v-else class="level m-4">
             <div class="level-item has-text-centered">
                 <div>
-                <p class="subtitle">Motorista encontrado!!</p>
+                <p class="subtitle">Mecânico encontrado!!</p>
                 </div>
             </div>
             <div class="level-item has-text-centered">
