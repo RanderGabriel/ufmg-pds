@@ -64,7 +64,6 @@ class SolicitationController extends BaseController {
         try {
             const { id } = req.body;
             const { user } = await accessService.getByToken(req.headers["authorization"], true);
-            console.log(user);
             const mechanic = await mechanicService.getByUserId(user.id);
             if(!mechanic) {
                 throw new Error("Somente mecâncos podem aceitar solicitações");
@@ -106,6 +105,13 @@ class SolicitationController extends BaseController {
             if (solicitation.driver.id !== driver.id) {
                 throw new Error("Um motorista só pode inciar solicitações criadas por ele mesmo.");
             }
+            console.log("startedSolicitation_" + req.body.id)
+            WebsocketService.emit("startedSolicitation_" + req.body.id, {
+                // Dados do motorista
+                name: driver.user.name,
+                id: driver.id,
+                solicitationId: req.body.id
+            });
             res.send(ApiResponse.returnData(null));
         } catch (err) {
             res.send(ApiResponse.returnError(new ApiError(err.message)));
@@ -126,6 +132,13 @@ class SolicitationController extends BaseController {
             }
             solicitation.finishedAt = new Date();
             const result = await solicitationService.update(solicitation);
+            console.log("cancelledSolicitation_" + req.body.id)
+            WebsocketService.emit("cancelledSolicitation_" + req.body.id, {
+                // Dados do motorista
+                name: driver.user.name,
+                id: driver.id,
+                solicitationId: req.body.id
+            });
             res.send(ApiResponse.returnData(null));
         } catch (err) {
             res.send(ApiResponse.returnError(new ApiError(err.message)));

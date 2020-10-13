@@ -15,7 +15,8 @@ export default class DriverService extends DatabaseService<Driver>  {
                     user: {
                         id: userId
                     }
-                }
+                },
+                relations: ["user"],
             });   
         } catch (error) {
             throw error;

@@ -42,6 +42,16 @@
 
         <div class="card-content">
           <div class="content">
+            <p class="subtitle" v-if="!acceptedSolicitation.acceptedByDriver && !acceptedSolicitation.rejectedByDriver">Aguardando resposta do motorista...</p>
+            <div v-else-if="acceptedSolicitation.rejectedByDriver">
+              <p class="subtitle">O motorista rejeitou a solicitação</p>
+              <button
+                class="button is-info card-footer-item is-fullwidth"
+                @click="goBack()">
+                Voltar
+              </button>
+              </div>
+              <p class="subtitle" v-else>O motorista aceitou!!</p>
             Inicio do trabalho: {{ new Date().toString() }}
             <br>
             Contato: {{ acceptedSolicitation.driver.user.phoneNumber}}
@@ -74,7 +84,11 @@ export default defineComponent({
     return {
       isAccept: false,
       solicitationList: [],
-      acceptedSolicitation: {id: -1}
+      acceptedSolicitation: {id: -1} as {
+        id: number;
+        acceptedByDriver?: boolean;
+        rejectedByDriver?: boolean;
+      }
     };
   },
   async mounted() {
@@ -90,7 +104,22 @@ export default defineComponent({
     async accept(solicitation: any) {
       this.isAccept = true;
       this.acceptedSolicitation = solicitation;
-      await services.solicitationService.accept(this.acceptedSolicitation.id)
+      await services.solicitationService.accept(this.acceptedSolicitation.id);
+      console.log(`startedSolicitation_${this.acceptedSolicitation.id}`);
+      services.socketService.on(`startedSolicitation_${this.acceptedSolicitation.id}`, (data) => {
+        console.log(data)
+        if(data.solicitationId === this.acceptedSolicitation.id) {
+          this.acceptedSolicitation.acceptedByDriver = true;
+        }
+      });
+      console.log(`cancelledSolicitation_${this.acceptedSolicitation.id}`)
+      services.socketService.on(`cancelledSolicitation_${this.acceptedSolicitation.id}`, (data) => {
+        console.log(data)
+        console.log(`${data.solicitationId} === ${this.acceptedSolicitation.id}`);
+        if(data.solicitationId === this.acceptedSolicitation.id) {
+          this.acceptedSolicitation.rejectedByDriver = true;
+        }
+      });
     },
 
     async finish() {
@@ -102,6 +131,11 @@ export default defineComponent({
           return solicitation.driver !== null;
         });
       }
+    },
+
+    goBack() {
+      this.isAccept = false;
+      this.acceptedSolicitation = { id: -1 };
     }
   },
 });
