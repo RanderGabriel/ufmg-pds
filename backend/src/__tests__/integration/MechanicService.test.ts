@@ -1,6 +1,6 @@
-import MechanicService, {mechanicService} from "../services/MechanicService";
-import {Mechanic, User }from "../entity";
-import { getRepository } from "../../__mocks__/typeorm";
+import MechanicService, {mechanicService} from "../../services/MechanicService";
+import {Mechanic, User }from "../../entity";
+import { getRepository } from "../../../__mocks__/typeorm";
 
 const testUser: User = {
     email: "teste@123.com",

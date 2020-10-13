@@ -1,6 +1,6 @@
-import UserService, { userService } from "../services/UserService";
-import { User } from "../entity";
-import { getRepository } from "../../__mocks__/typeorm";
+import UserService, { userService } from "../../services/UserService";
+import { User } from "../../entity";
+import { getRepository } from "../../../__mocks__/typeorm";
 
 // Criar Usuário de perfil "Motorista"
 const testUser: User = {

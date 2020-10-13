@@ -1,5 +1,5 @@
-import { mailerService } from "../services/MailerService";
-import { User }from "../entity";
+import { mailerService } from "../../services/MailerService";
+import { User }from "../../entity";
 
 jest.mock("nodemailer", () => ({
     createTestAccount: jest.fn(() => Promise.resolve({

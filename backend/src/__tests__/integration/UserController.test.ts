@@ -2,7 +2,7 @@
 jest.unmock("typeorm");
 import request  = require('supertest');
 import { createConnection, getRepository} from 'typeorm'
-import { User } from '../../build/entity';
+import { User } from '../../../build/entity';
 
 
 let app
@@ -10,7 +10,7 @@ let repository
 beforeAll((done) => {
     createConnection().then( () => {
         
-        const AppTest = require('../../build/App').App;
+        const AppTest = require('../../../build/App').App;
         const appTest = new AppTest()
         app = appTest.app
         repository = getRepository(User);
