@@ -2,7 +2,7 @@ import express = require("express");
 import BaseController from "./BaseController";
 import { Solicitation } from "../entity";
 import { ApiError, ApiResponse } from '../models';
-import { solicitationService, driverService} from '../services'
+import { solicitationService, driverService, userService, mechanicService} from '../services'
 import { accessService } from "../services/AccessService";
 import WebsocketService from '../services/WebsocketService';
 
@@ -61,14 +61,37 @@ class SolicitationController extends BaseController {
 
     public async accept(req: express.Request, res: express.Response) {
         //TODO: Implementar aceite da solicitação pelo mecânico (coloquei aqui só pra conseguir implementar a parte do motorista)
-        WebsocketService.emit("acceptedSolicitation_" + req.body.id, {
-            // Dados do mecânico
-            name: "Fulano da silva",
-            id: 1
-        });
-        res.send(ApiResponse.returnData({
-            id: req.body.id
-        }))
+        try {
+            const { id } = req.body;
+            const { user } = await accessService.getByToken(req.headers["authorization"], true);
+            console.log(user);
+            const mechanic = await mechanicService.getByUserId(user.id);
+            if(!mechanic) {
+                throw new Error("Somente mecâncos podem aceitar solicitações");
+            }
+            // TODO: Rever mecanismo de transações.
+            // Esse é o único ponto que eu imagino que seja necessário, mas precisamos rever
+            const solicitation = await solicitationService.get(id);
+            if(solicitation.mechanic == null) {
+                solicitation.mechanic = mechanic;
+                await solicitationService.create(solicitation)
+            } else {
+                throw new Error("Essa solicitação já foi aceita por algum mecânico");
+            }
+            WebsocketService.emit("acceptedSolicitation_" + req.body.id, {
+                // Dados do mecânico
+                name: mechanic.user.name,
+                id: mechanic.id
+            });
+            res.send(ApiResponse.returnData({
+                id: req.body.id
+            }))
+        } catch (err) {
+            res.send(ApiResponse.returnError({
+                message: err.message
+            }))
+        }
+        
     }
 
     public async start(req: express.Request, res: express.Response) {

@@ -87,9 +87,10 @@ export default defineComponent({
   },
 
   methods: {
-    accept(solicitation: any) {
+    async accept(solicitation: any) {
       this.isAccept = true;
       this.acceptedSolicitation = solicitation;
+      await services.solicitationService.accept(this.acceptedSolicitation.id)
     },
 
     async finish() {

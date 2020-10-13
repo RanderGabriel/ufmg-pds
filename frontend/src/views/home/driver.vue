@@ -22,7 +22,7 @@
         <div v-else-if="!mechanicFound?.id" class="level">
             <div class="level-item has-text-centered">
                 <div>
-                <p class="title">Aguardando um motorista...</p>
+                <p class="title">Aguardando um mecânico...</p>
                 </div>
             </div>
         </div>

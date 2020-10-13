@@ -6,7 +6,7 @@ export const mapConfig = {
   rotateControl: false,
   fullscreenControl: false,
   gestureHandling: "cooperative",
-  backgroundColor: "#FFAD00",
+  backgroundColor: "#f1f1f1",
   zoomControlOptions: {
     style: "SMALL"
   },
