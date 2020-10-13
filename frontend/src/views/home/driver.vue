@@ -1,17 +1,23 @@
 <template>
-    <div class="container m-4">
-        <form v-if="!isWaiting && !mechanicFound?.id" @submit.prevent="onSubmit()">
-            <div class="field">
-                <div class="control">
-                    <label class="label">Mensagem</label>
-                    <input class="input" type="text" v-model="formData.message">
+    <div class="container">
+        <MapLoader
+            class="map"
+            :mapConfig="mapConfig"
+            apiKey="AIzaSyAk6DVhHF0mAdjhSVX5ymZO2Kdj-iCE-q4"/>
+        <div class="is-round control box p-8 m-4">
+            <p class="heading">Precisa de ajuda?</p>
+            <form class="has-background-white" v-if="!isWaiting && !mechanicFound?.id" @submit.prevent="onSubmit()">
+                <div class="field is-primary">
+                    <div class="control">
+                        <label class="label">Mensagem</label>
+                        <input class="input" type="text" v-model="formData.message">
+                    </div>
                 </div>
-            </div>
-            <div class="field">
-                <div class="control">
-                    <button v-bind:class="{ 'is-loading': isLoading }" class="button is-black is-rounded is-fullwidth" type="submit">ENVIAR SOLICITAÇÃO</button>
+                <div class="field">
+                    <div class="control">
+                        <button v-bind:class="{ 'is-loading': isLoading }" class="button is-black is-rounded is-fullwidth" type="submit">ENVIAR SOLICITAÇÃO</button>
+                    </div>
                 </div>
-            </div>
         </form>
         <div v-else-if="!mechanicFound?.id" class="level">
             <div class="level-item has-text-centered">
@@ -51,14 +57,29 @@
                 </div>
             </div>
         </div>
+        </div>
+        
     </div>
 </template>
 
 <script lang="ts">
+import MapLoader from '@/components/MapLoader.vue'
 import services from '@/services';
+import { mapConfig } from '@/constants';
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
+    components: {
+        MapLoader,
+    },
+    computed: {
+    mapConfig () {
+      return {
+        ...mapConfig,
+        center: { lat: -19.8249743, lng: -44.0210052, }
+      }
+    },
+  },
     name: 'home-driver',
     setup() {
         const isLoading = ref(false);
@@ -116,3 +137,24 @@ export default defineComponent({
     },
 });
 </script>
+<style scoped>
+    .formContainer {
+        background-color: white !important;
+        overflow: auto;
+        border-radius: 10px;
+    }
+
+    .container {
+        height: calc(100vh - 55px);
+        width: 100vw;
+        overflow: hidden;
+    }
+</style>
+<style>
+    .google-map {
+        position: absolute;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+    }
+</style>
