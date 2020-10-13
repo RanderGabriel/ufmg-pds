@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "serve": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts && node build/index.js",
+    "serve": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts src/App.ts && node build/index.js",
     "build": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts",
     "test": "tsc --experimentalDecorators --outDir build --emitDecoratorMetadata src/index.ts && jest --testTimeout=10000",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",

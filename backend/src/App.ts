@@ -1,7 +1,6 @@
 import express = require('express');
 import Middlewares from './middlewares';
 import Controllers from './controllers';
-import { createConnection } from 'typeorm';
 import * as http from 'http';
 import socketIO = require('socket.io');
 import WebsocketService from './services/WebsocketService';
@@ -66,6 +65,3 @@ export class App {
     } 
 
 }
-
-const application = new App();
-export default application;

@@ -2,7 +2,7 @@ import express = require("express");
 import BaseController from "./BaseController";
 import { Solicitation } from "../entity";
 import { ApiError, ApiResponse } from '../models';
-import { solicitationService, driverService, profileService, userService } from '../services'
+import { solicitationService, driverService} from '../services'
 import { accessService } from "../services/AccessService";
 import WebsocketService from '../services/WebsocketService';
 
@@ -14,12 +14,24 @@ class SolicitationController extends BaseController {
         this.router.post('/accept', this.accept);
         this.router.post('/start', this.start);
         this.router.post('/cancel', this.cancel);
-        this.router.get("/getAll", this.getAll)
+        this.router.get("/getAll", this.getAll);
+        this.router.get("/actives", this.actives);
     }
 
     public async getAll(req: express.Request, res: express.Response) {
         try {
             const responseData = await solicitationService.getAll();
+            res.send(ApiResponse.returnData(responseData));
+        } catch (error) {
+            res.send(ApiResponse.returnData({
+                message: error,
+            }))
+        }
+    }
+
+    public async actives(req: express.Request, res: express.Response) {
+        try {
+            const responseData = await solicitationService.actives();
             res.send(ApiResponse.returnData(responseData));
         } catch (error) {
             res.send(ApiResponse.returnData({
