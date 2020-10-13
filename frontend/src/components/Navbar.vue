@@ -21,13 +21,12 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start" v-if="renderNavbar">
-                <a class="navbar-item">
+                <router-link to="/home" class="navbar-item">
                     Home
-                </a>
-
-                <a class="navbar-item">
-                    Atendimentos
-                </a>
+                </router-link>
+                <router-link to="/solicitation" class="navbar-item">
+                    Histórico
+                </router-link>
             </div>
             <div class="navbar-end">
                 <div class="navbar-item">
