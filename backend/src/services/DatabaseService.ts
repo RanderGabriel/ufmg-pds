@@ -21,9 +21,7 @@ export class DatabaseService<T> implements IDatabaseService<T> {
 
     public async get(id: number): Promise<T> {
         try {
-            return await this.repo.findOne(id, {
-                relations: ["mechanic", "driver"],
-            });
+            return await this.repo.findOne(id);
         } catch (error) {
             throw error;
         }
