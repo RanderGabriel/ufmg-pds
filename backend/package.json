@@ -28,8 +28,7 @@
     "reflect-metadata": "^0.1.13",
     "socket.io": "^2.3.0",
     "ts-node": "^9.0.0",
-    "typeorm": "^0.2.25",
-    "vue-star-rating": "^2.1.0"
+    "typeorm": "^0.2.25"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",

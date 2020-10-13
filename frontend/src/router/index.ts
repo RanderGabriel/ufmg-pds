@@ -2,7 +2,6 @@ import { createWebHistory, createRouter } from "vue-router";
 
 import SignUp from "@/views/signup/index.vue";
 import Login from "@/views/login/index.vue";
-import LoginForgot from "@/views/login/LoginForgot.vue";
 import Home from "@/views/home/index.vue";
 import Error404 from "@/views/error/404-not-found.vue";
 import { authService } from '@/services/AuthService';
@@ -21,13 +20,10 @@ const routes = [
         path: "/signup",
         component: SignUp,
     },
-    {   path: '/login',
+    {
+        path: "/login",
         component: Login,
-        children: [
-            {   path: '/forgot', 
-                component: LoginForgot }
-        ]
-    }
+    },
 ];
 
 const publicRoutes = [
