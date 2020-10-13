@@ -24,12 +24,10 @@ const routes = [
     {
         path: "/login",
         component: Login,
-        
     },
     {
         path: "/login/forgot",
-        component: LoginForgot,
-        
+        component: LoginForgot,   
     },
     {
         path: '/logoff',

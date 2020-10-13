@@ -24,7 +24,7 @@
                 <router-link to="/home" class="navbar-item">
                     Home
                 </router-link>
-                <router-link to="/solicitation" class="navbar-item">
+                <router-link to="/historic" class="navbar-item">
                     Histórico
                 </router-link>
             </div>
