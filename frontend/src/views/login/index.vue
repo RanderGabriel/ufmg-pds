@@ -28,13 +28,6 @@
                     </button>
                 </div>
             </div>
-
-            <div class="field">
-                <div class="control">
-                    <router-link to="/login/forgot">Esqueceu-se da senha?</router-link>
-                </div>
-            </div>
-            
         </form>
     </div>
 </template>
