@@ -141,7 +141,7 @@ export default defineComponent({
     .formContainer {
         background-color: white !important;
         overflow: auto;
-        border-radius: 10px;
+        border-radius: 0px;
     }
 
     .container {
