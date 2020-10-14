@@ -37,6 +37,11 @@ export default class SolicitationService {
         const response = await httpService.get('/api/solicitation/actives');
         return response;
     }
+
+    public async completed(){
+        const response = await httpService.get('/api/solicitation/completed');
+        return response;
+    }
 }
 
 export const solicitationService = new SolicitationService();
