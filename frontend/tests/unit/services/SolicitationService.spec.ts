@@ -42,11 +42,20 @@ describe("SolicitationService", () => {
         expect(response).toEqual(true)
     })
 
+    test("start", async () => {
+        require('../../../src/services/HttpService').httpService.__setPostResponse({})
+        const response = await solicitationService.start(1);
+        
+        expect(response).toEqual(true)
+    })
+
     test("finish", async () => {
         require('../../../src/services/HttpService').httpService.__setPostResponse({})
         const response = await solicitationService.finish(1);
         
         expect(response).toEqual(true)
     })
+
+    
     
 })
