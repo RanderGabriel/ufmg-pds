@@ -17,6 +17,7 @@ class SolicitationController extends BaseController {
         this.router.post('/finish', this.finish);
         this.router.get("/getAll", this.getAll);
         this.router.get("/actives", this.actives);
+        this.router.get("/mechanic", this.mechanic);
     }
 
     public async getAll(req: express.Request, res: express.Response) {
@@ -33,6 +34,19 @@ class SolicitationController extends BaseController {
     public async actives(req: express.Request, res: express.Response) {
         try {
             const responseData = await solicitationService.actives();
+            res.send(ApiResponse.returnData(responseData));
+        } catch (error) {
+            res.send(ApiResponse.returnData({
+                message: error,
+            }))
+        }
+    }
+
+    public async mechanic(req: express.Request, res: express.Response) {
+        try {
+            const { user } = await accessService.getByToken(req.headers["authorization"], true);
+            const mechanic = await mechanicService.getByUserId(user.id);
+            const responseData = await solicitationService.getByIdMechanic(mechanic.id);
             res.send(ApiResponse.returnData(responseData));
         } catch (error) {
             res.send(ApiResponse.returnData({

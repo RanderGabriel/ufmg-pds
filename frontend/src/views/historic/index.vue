@@ -5,16 +5,11 @@
         :key="solicitation.id"
         class="card"
       >
-
-        <header class="card-header">
-          <div class="card-header-title">
-            Nome: {{ solicitation.driver.user.name }}
-          </div>
-        </header>
-
         <div class="card-content">
           <div class="content">
-            {{ solicitation.message }}
+            <div>Data Inicial: {{ solicitation.createdAt }}</div>
+            <div>Data Final: {{ solicitation.finishedAt }}</div>
+            <div>Mensagem: {{ solicitation.message }}</div>
           </div>
         </div>
 
@@ -36,20 +31,14 @@ export default defineComponent({
 
   data() {
     return {
-      isAccept: false,
-      solicitationList: [],
-      acceptedSolicitation: {id: -1} as {
-        id: number;
-        acceptedByDriver?: boolean;
-        rejectedByDriver?: boolean;
-      }
+      solicitationList: []
     };
   },
   async mounted() {
-    const response = await services.solicitationService.actives();
+    const response = await services.solicitationService.getAll();
     if (response.code === 200) {
       this.solicitationList = response.data.filter((solicitation: any) => {
-        return solicitation.driver !== null;
+        return solicitation.finishedAt !== null;
       });
     }
   },

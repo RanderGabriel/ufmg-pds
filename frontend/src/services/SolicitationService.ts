@@ -38,8 +38,8 @@ export default class SolicitationService {
         return response;
     }
 
-    public async completed(){
-        const response = await httpService.get('/api/solicitation/completed');
+    public async getByIdMechanic(){
+        const response = await httpService.get('/api/solicitation/mechanic');
         return response;
     }
 }

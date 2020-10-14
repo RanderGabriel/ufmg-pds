@@ -28,6 +28,16 @@ export default class SolicitationService extends DatabaseService<Solicitation> {
             throw error;
         }
     }
+
+    public async getByIdMechanic(id: number): Promise<Solicitation> {
+        try {
+            return await this.repo.findOne(id, {
+                relations: ["mechanic"],
+            });
+        } catch (error) {
+            throw error;
+        }
+    }
        
 }
 
