@@ -76,7 +76,8 @@ export default defineComponent({
     mapConfig () {
       return {
         ...mapConfig,
-        center: { lat: -19.8249743, lng: -44.0210052, }
+        zoom: 15,
+        center: { lat: -19.8514378, lng: -43.9817617 }
       }
     },
   },
