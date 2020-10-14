@@ -1,76 +1,56 @@
 <template>
-  <div class="home-mechanic">
-    <div v-if="!isAccept">
-      <div
-        v-for="solicitation in solicitationList"
-        :key="solicitation.id"
-        class="card"
-      >
-
-        <header class="card-header">
-          <div class="card-header-title">
-            Nome: {{ solicitation.driver.user.name }}
-          </div>
-        </header>
-
-        <div class="card-content">
-          <div class="content">
-            {{ solicitation.message }}
-          </div>
+    <div class="home-mechanic pt-4">
+        <div v-if="!isAccept">
+            <div class="card mb-3" v-for="solicitation in solicitationList" :key="solicitation.id">
+                <header class="card-header p-3">
+                    <p class="card-header-title">
+                        {{ solicitation.driver.user.name }}
+                    </p>
+                </header>
+                <div class="card-content p-4">
+                    <div class="notification mb-4">
+                        {{ solicitation.message }}
+                    </div>
+                    <button class="button is-success is-fullwidth" @click="accept(solicitation)">
+                        Aceitar
+                    </button>
+                </div>
+            </div>
         </div>
-
-        <footer class="card-footer">
-          <button
-            class="button is-success card-footer-item"
-            @click="accept(solicitation)"
-          >
-            Aceitar
-          </button>
-        </footer>
-
-      </div>
-    </div>
-
-    <div v-else>
-      <div class="card">
-
-        <header class="card-header">
-          <div class="card-header-title">
-            Solicitação de {{ acceptedSolicitation.driver.user.name }}  aceita!
-          </div>
-        </header>
-
-        <div class="card-content">
-          <div class="content">
-            <p class="subtitle" v-if="!acceptedSolicitation.acceptedByDriver && !acceptedSolicitation.rejectedByDriver">Aguardando resposta do motorista...</p>
-            <div v-else-if="acceptedSolicitation.rejectedByDriver">
-              <p class="subtitle">O motorista rejeitou a solicitação</p>
-              <button
-                class="button is-info card-footer-item is-fullwidth"
-                @click="goBack()">
-                Voltar
-              </button>
-              </div>
-              <p class="subtitle" v-else>O motorista aceitou!!</p>
-            Inicio do trabalho: {{ new Date().toString() }}
-            <br>
-            Contato: <a :href="`tel:${acceptedSolicitation.driver.user.phoneNumber}`">{{ acceptedSolicitation.driver.user.phoneNumber}}</a>
-          </div>
+        <div v-else>
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Solicitação de {{ acceptedSolicitation.driver.user.name }}  aceita!
+                    </p>
+                </header>
+                
+                <div class="card-content">
+                    <div class="content">
+                        <p class="subtitle" v-if="!acceptedSolicitation.acceptedByDriver && !acceptedSolicitation.rejectedByDriver">Aguardando resposta do motorista...</p>
+                        <div v-else-if="acceptedSolicitation.rejectedByDriver">
+                            <p class="subtitle">O motorista rejeitou a solicitação.</p>
+                            <button
+                                class="button is-info card-footer-item is-fullwidth"
+                                @click="goBack()">
+                                Voltar
+                            </button>
+                        </div>
+                        <p class="subtitle" v-else>O motorista aceitou!!</p>
+                    Inicio do trabalho: {{ new Date().toString() }}
+                    <br>
+                    Contato: <a :href="`tel:${acceptedSolicitation.driver.user.phoneNumber}`">{{ acceptedSolicitation.driver.user.phoneNumber}}</a>
+                    </div>
+                </div>
+            
+                <footer class="card-footer">
+                    <button class="button is-info card-footer-item" @click="finish()">
+                        Finalizar Solicitação
+                    </button>
+                </footer>
+            </div>
         </div>
-
-        <footer class="card-footer">
-          <button
-            class="button is-info card-footer-item"
-            @click="finish"
-          >
-            Finalizar Solicitação
-          </button>
-        </footer>
-
-      </div>
     </div>
-  </div>
-
 </template>
 
 <script lang="ts">
