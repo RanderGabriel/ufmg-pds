@@ -66,6 +66,16 @@ describe("SolicitationService", () => {
         expect(response.data.length).toEqual(2)
     })
 
+
+    test("getByIdMechanic", async () => {
+        require('../../../src/services/HttpService').httpService.__setGetResponse({
+            data: [solicitation_1, solicitation_2]
+        })
+        const response = await solicitationService.getByIdMechanic();
+        console.log(response)
+        expect(response.data.length).toEqual(2)
+    })
+
     test("cancel", async () => {
         require('../../../src/services/HttpService').httpService.__setPostResponse({})
         const response = await solicitationService.cancel(1);
