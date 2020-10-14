@@ -80,7 +80,7 @@ class SolicitationController extends BaseController {
             const { user } = await accessService.getByToken(req.headers["authorization"], true);
             const mechanic = await mechanicService.getByUserId(user.id);
             if(!mechanic) {
-                throw new Error("Somente mecâncos podem aceitar solicitações");
+                throw new Error("Somente mecânicos podem aceitar solicitações");
             }
             // TODO: Rever mecanismo de transações.
             // Esse é o único ponto que eu imagino que seja necessário, mas precisamos rever
@@ -94,7 +94,8 @@ class SolicitationController extends BaseController {
             WebsocketService.emit("acceptedSolicitation_" + req.body.id, {
                 // Dados do mecânico
                 name: mechanic.user.name,
-                id: mechanic.id
+                id: mechanic.id,
+                phoneNumber: mechanic.user.phoneNumber
             });
             res.send(ApiResponse.returnData({
                 id: req.body.id
@@ -124,6 +125,7 @@ class SolicitationController extends BaseController {
                 // Dados do motorista
                 name: driver.user.name,
                 id: driver.id,
+                phoneNumber: driver.user.phoneNumber,
                 solicitationId: req.body.id
             });
             res.send(ApiResponse.returnData(null));
@@ -151,6 +153,7 @@ class SolicitationController extends BaseController {
                 // Dados do motorista
                 name: driver.user.name,
                 id: driver.id,
+                phoneNumber: driver.user.phoneNumber,
                 solicitationId: req.body.id
             });
             res.send(ApiResponse.returnData(null));

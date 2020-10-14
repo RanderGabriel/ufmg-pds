@@ -54,7 +54,7 @@
               <p class="subtitle" v-else>O motorista aceitou!!</p>
             Inicio do trabalho: {{ new Date().toString() }}
             <br>
-            Contato: {{ acceptedSolicitation.driver.user.phoneNumber}}
+            Contato: <a :href="`tel:${acceptedSolicitation.driver.user.phoneNumber}`">{{ acceptedSolicitation.driver.user.phoneNumber}}</a>
           </div>
         </div>
 

@@ -48,6 +48,7 @@
                 <div>
                 <p class="heading">Nome</p>
                 <p class="subtitle">{{ mechanicFound.name }}</p>
+                <p class="subtitle">Contato: <a :href="`tel:${mechanicFound.phoneNumber}`">{{ mechanicFound.phoneNumber }}</a></p>
                 <div class="field">
                 <div class="control">
                     <button @click.prevent="onAccept()" class="m-2 button is-black is-rounded is-fullwidth">ACEITAR</button>
@@ -91,7 +92,8 @@ export default defineComponent({
         });
         const mechanicFound = ref({
             id: null,
-            name: null
+            name: null,
+            phoneNumber: null
         });
         const started = ref(false);
 
@@ -114,7 +116,8 @@ export default defineComponent({
             solicitationId.value = 0;
             mechanicFound.value = {
                 id: null,
-                name: null
+                name: null,
+                phoneNumber: null
             };
         }
 
