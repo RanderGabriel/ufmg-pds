@@ -82,7 +82,6 @@ class SolicitationController extends BaseController {
                 throw new Error("Somente mecânicos podem aceitar solicitações");
             }
             // TODO: Rever mecanismo de transações.
-            // Esse é o único ponto que eu imagino que seja necessário, mas precisamos rever
             const solicitation = await solicitationService.get(id);
             if(solicitation.mechanic == null) {
                 solicitation.mechanic = mechanic;
