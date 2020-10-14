@@ -74,7 +74,6 @@ class SolicitationController extends BaseController {
     }
 
     public async accept(req: express.Request, res: express.Response) {
-        //TODO: Implementar aceite da solicitação pelo mecânico (coloquei aqui só pra conseguir implementar a parte do motorista)
         try {
             const { id } = req.body;
             const { user } = await accessService.getByToken(req.headers["authorization"], true);

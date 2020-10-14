@@ -56,6 +56,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import services from "../../services";
+import { socketService } from "../../services/SocketService";
 
 export default defineComponent({
   name: "home-mechanic",
@@ -78,6 +79,12 @@ export default defineComponent({
         return solicitation.driver !== null;
       });
     }
+    socketService.on("newSolicitation", async () => {
+      const response = await services.solicitationService.actives();
+      this.solicitationList = response.data.filter((solicitation: any) => {
+        return solicitation.driver !== null;
+      });
+    })
   },
 
   methods: {
