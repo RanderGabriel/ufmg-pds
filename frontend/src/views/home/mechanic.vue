@@ -37,13 +37,15 @@
                             </button>
                         </div>
                         <p class="subtitle" v-else>O motorista aceitou!!</p>
-                    Inicio do trabalho: {{ new Date().toString() }}
-                    <br>
-                    Contato: <a :href="`tel:${acceptedSolicitation.driver.user.phoneNumber}`">{{ acceptedSolicitation.driver.user.phoneNumber}}</a>
-                    </div>
+                        <div v-if="!acceptedSolicitation.rejectedByDriver">
+                            Inicio do trabalho: {{ new Date().toString() }}
+                            <br>
+                            Contato: <a :href="`tel:${acceptedSolicitation.driver.user.phoneNumber}`">{{ acceptedSolicitation.driver.user.phoneNumber}}</a>
+                        </div>
+                        </div>
                 </div>
             
-                <footer class="card-footer">
+                <footer v-if="!acceptedSolicitation.rejectedByDriver" class="card-footer">
                     <button class="button is-info card-footer-item" @click="finish()">
                         Finalizar Solicitação
                     </button>
