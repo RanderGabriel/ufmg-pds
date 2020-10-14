@@ -7,8 +7,8 @@
       >
         <div class="card-content">
           <div class="content">
-            <div>Data Inicial: {{ solicitation.createdAt }}</div>
-            <div>Data Final: {{ solicitation.finishedAt }}</div>
+            <div>Data Inicial: {{ solicitation.createdAt.split('T')[0] }}</div>
+            <div>Data Final: {{ solicitation.finishedAt.split('T')[0] }}</div>
             <div>Mensagem: {{ solicitation.message }}</div>
             <div><Rating class="rating"/></div>
           </div>
