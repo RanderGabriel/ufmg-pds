@@ -10,6 +10,7 @@
             <div>Data Inicial: {{ solicitation.createdAt }}</div>
             <div>Data Final: {{ solicitation.finishedAt }}</div>
             <div>Mensagem: {{ solicitation.message }}</div>
+            <div><Rating class="rating"/></div>
           </div>
         </div>
 
@@ -23,12 +24,16 @@
 </template>
 
 <script lang="ts">
+
+import Rating from '@/components/Rating.vue'
 import { defineComponent } from "vue";
 import services from "../../services";
 
 export default defineComponent({
   name: "home-mechanic",
-
+  components: {
+      Rating,
+  },
   data() {
     return {
       solicitationList: []
