@@ -43,7 +43,6 @@ export default {
   methods: {
     update (val) {
       this.value = val
-      return false;
     }
   }
 }
