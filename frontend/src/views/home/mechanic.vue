@@ -45,7 +45,7 @@
                         </div>
                 </div>
             
-                <footer v-if="!acceptedSolicitation.rejectedByDriver" class="card-footer">
+                <footer v-if="acceptedSolicitation.acceptedByDriver " class="card-footer">
                     <button class="button is-info card-footer-item" @click="finish()">
                         Finalizar Solicitação
                     </button>
