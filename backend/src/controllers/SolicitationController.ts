@@ -60,14 +60,16 @@ class SolicitationController extends BaseController {
             const { message } = req.body;
             const { user } = await accessService.getByToken(req.headers["authorization"], true);
             const driver = await driverService.getByUserId(user.id);
-
+            if(!driver) {
+                throw new Error("Apenas motoristas podem criar solicitações");
+            }
             const newSolicitation = Solicitation.createEntity(message, driver);
 
             const responseData = await solicitationService.create(newSolicitation);
             WebsocketService.emit("newSolicitation", { solicitation: responseData });
             res.send(ApiResponse.returnData(responseData));
         } catch (error) {
-            res.send(ApiResponse.returnError({
+            res.status(500).send(ApiResponse.returnError({
                 message: error,
             }));
         }
@@ -99,7 +101,7 @@ class SolicitationController extends BaseController {
                 id: req.body.id
             }))
         } catch (err) {
-            res.send(ApiResponse.returnError({
+            res.status(500).send(ApiResponse.returnError({
                 message: err.message
             }))
         }
