@@ -2,7 +2,7 @@ jest.unmock("typeorm");
 import "reflect-metadata";
 import request = require('supertest');
 import { createConnection, getManager } from "typeorm";
-import { Mechanic, Solicitation, Driver, User } from "../../../build/entity";
+import { Mechanic, Solicitation, Driver, User } from "../../../src/entity";
 
 let app
 beforeAll(async (done) => {
@@ -60,7 +60,7 @@ beforeAll(async (done) => {
         solicitationTest2.finishedAt = new Date();
 
 
-        const AppTest = require('../../../build/App').App;
+        const AppTest = require('../../../src/App').App;
         const appTest = new AppTest();
         app = appTest.app;
         const entityManager = getManager()

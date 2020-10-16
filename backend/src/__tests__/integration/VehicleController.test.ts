@@ -5,7 +5,7 @@ import {createConnection} from 'typeorm'
 let app
 beforeAll((done) => {
     createConnection().then( () => {
-        const AppTest = require('../../../build/App').App;
+        const AppTest = require('../../../src/App').App;
         const appTest = new AppTest()
         app = appTest.app
         done()
