@@ -130,7 +130,7 @@ class SolicitationController extends BaseController {
             });
             res.send(ApiResponse.returnData(null));
         } catch (err) {
-            res.send(ApiResponse.returnError(new ApiError(err.message)));
+            res.status(500).send(ApiResponse.returnError(new ApiError(err.message)));
         }
     }
 
@@ -158,7 +158,7 @@ class SolicitationController extends BaseController {
             });
             res.send(ApiResponse.returnData(null));
         } catch (err) {
-            res.send(ApiResponse.returnError(new ApiError(err.message)));
+            res.status(500).send(ApiResponse.returnError(new ApiError(err.message)));
         }
     }
 

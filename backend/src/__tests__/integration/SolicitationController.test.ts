@@ -79,6 +79,7 @@ beforeAll(async (done) => {
         appTest.configureSocket();
         app = appTest.app;
         const entityManager = getManager()
+        
         Promise.all([
             entityManager.save(mechanicTest),
             entityManager.save(driverTest)]
@@ -145,6 +146,80 @@ describe("SolicitationController - GET ALL", () => {
 
         expect(resp2.status).toEqual(500);
         expect(resp2.body.code).toEqual(500);
+    })
+
+    test("ACCEPT", async () => {
+        const resp = await request(app)
+            .post('/api/solicitation/accept')
+            .set("authorization", "MECHANIC_TOKEN")
+            .send({
+                id: 106
+            });
+        expect(resp.status).toEqual(200);
+        expect(resp.body.code).toEqual(200);
+        
+        const resp2 = await request(app)
+        .post('/api/solicitation/accept')
+        .set("authorization", "DRIVER_TOKEN")
+        .send({
+            id: 106
+        });
+
+        expect(resp2.status).toEqual(500);
+        expect(resp2.body.code).toEqual(500);
+
+        const resp3 = await request(app)
+        .post('/api/solicitation/accept')
+        .set("authorization", "MECHANIC_TOKEN")
+        .send({
+            id: 105
+        });
+
+        expect(resp3.status).toEqual(500);
+        expect(resp3.body.code).toEqual(500);
+    })
+
+    test("START", async () => {
+        const resp = await request(app)
+            .post('/api/solicitation/start')
+            .set("authorization", "DRIVER_TOKEN")
+            .send({
+                id: 106
+            });
+            
+        expect(resp.body.code).toEqual(200);
+        expect(resp.status).toEqual(200);
+        
+        const resp2 = await request(app)
+        .post('/api/solicitation/start')
+        .set("authorization", "MECHANIC_TOKEN")
+        .send({
+            id: 106
+        });
+        expect(resp2.body.code).toEqual(500);
+        expect(resp2.status).toEqual(500);
+    })
+
+    test("CANCEL", async () => {
+        const resp = await request(app)
+            .post('/api/solicitation/cancel')
+            .set("authorization", "DRIVER_TOKEN")
+            .send({
+                id: 106
+            });
+            
+        expect(resp.body.code).toEqual(200);
+        expect(resp.status).toEqual(200);
+        
+        const resp2 = await request(app)
+        .post('/api/solicitation/cancel')
+        .set("authorization", "MECHANIC_TOKEN")
+        .send({
+            id: 106
+        });
+        expect(resp2.body.code).toEqual(500);
+        expect(resp2.status).toEqual(500);
+
     })
 
 })
