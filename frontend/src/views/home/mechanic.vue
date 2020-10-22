@@ -1,50 +1,33 @@
 <template>
-    <div class="home-mechanic pt-4">
-        <div v-if="!isAccept">
-           <SolicitationList 
-            :solicitationList="solicitationList"
-            @accept="accept"/>
-        </div>
-        <div v-else>
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Solicitação de {{ acceptedSolicitation.driver.user.name }}  aceita!
-                    </p>
-                </header>
-                
-                <div class="card-content">
-                    <div class="content">
-                        <p class="subtitle" v-if="!acceptedSolicitation.acceptedByDriver && !acceptedSolicitation.rejectedByDriver">Aguardando resposta do motorista...</p>
-                        <div v-else-if="acceptedSolicitation.rejectedByDriver">
-                            <p class="subtitle">O motorista rejeitou a solicitação.</p>
-                            <button
-                                class="button is-info card-footer-item is-fullwidth"
-                                @click="goBack()">
-                                Voltar
-                            </button>
-                        </div>
-                        <p class="subtitle" v-else>O motorista aceitou!!</p>
-                        <div v-if="!acceptedSolicitation.rejectedByDriver">
-                            Inicio do trabalho: {{ new Date().toString() }}
-                            <br>
-                            Contato: <a :href="`tel:${acceptedSolicitation.driver.user.phoneNumber}`">{{ acceptedSolicitation.driver.user.phoneNumber}}</a>
-                        </div>
-                        </div>
-                </div>
-            
-                <footer v-if="acceptedSolicitation.acceptedByDriver " class="card-footer">
-                    <button class="button is-info card-footer-item" @click="finish()">
-                        Finalizar Solicitação
-                    </button>
-                </footer>
-            </div>
-        </div>
-    </div>
+  <div class="home-mechanic pt-4">
+    <SolicitationList
+      v-if="state === states[0]"
+      :solicitationList="solicitationList"
+      @accept="accept"
+    />
+    <MechanicAcceptCard
+      v-if="state === states[1]"
+      :driverName="acceptedSolicitation.driver.user.name"
+    />
+    <DriverRejectCard 
+      v-if="state === states[2]"
+      :driverName="acceptedSolicitation.driver.user.name"
+      @go-back="goBack"
+    />
+    <DriverAcceptCard
+      v-if="state === states[3]"
+      :driverName="acceptedSolicitation.driver.user.name"
+      :driverPhoneNumber="acceptedSolicitation.driver.user.phoneNumber"
+      @finish="finish"
+    />
+  </div>
 </template>
 
 <script lang="ts">
-import SolicitationList from  "../../components/mechanic/SolicitationList.vue"
+import SolicitationList from "../../components/mechanic/SolicitationList.vue";
+import MechanicAcceptCard from "../../components/mechanic/MechanicAcceptCard.vue";
+import DriverRejectCard from "../../components/mechanic/DriverRejectCard.vue";
+import DriverAcceptCard from "../../components/mechanic/DriverAcceptCard.vue";
 
 import { defineComponent } from "vue";
 import services from "../../services";
@@ -53,19 +36,27 @@ import { socketService } from "../../services/SocketService";
 export default defineComponent({
   name: "home-mechanic",
   components: {
-    SolicitationList
+    SolicitationList,
+    MechanicAcceptCard,
+    DriverRejectCard,
+    DriverAcceptCard,
   },
   data() {
     return {
-      isAccept: false,
       solicitationList: [],
-      acceptedSolicitation: {id: -1} as {
-        id: number;
-        acceptedByDriver?: boolean;
-        rejectedByDriver?: boolean;
+      state: "solicitationList",
+      states: [
+        "solicitationList",
+        "waitingDriverResponse",
+        "rejectedByDriver",
+        "acceptedByDriver",
+      ],
+      acceptedSolicitation: { 
+        id: -1 
       }
     };
   },
+
   async mounted() {
     const response = await services.solicitationService.actives();
     if (response.code === 200) {
@@ -78,46 +69,50 @@ export default defineComponent({
       this.solicitationList = response.data.filter((solicitation: any) => {
         return solicitation.driver !== null;
       });
-    })
+    });
   },
 
   methods: {
     async accept(solicitation: any) {
-      this.isAccept = true;
       this.acceptedSolicitation = solicitation;
       await services.solicitationService.accept(this.acceptedSolicitation.id);
-      console.log(`startedSolicitation_${this.acceptedSolicitation.id}`);
-      services.socketService.on(`startedSolicitation_${this.acceptedSolicitation.id}`, (data) => {
-        console.log(data)
-        if(data.solicitationId === this.acceptedSolicitation.id) {
-          this.acceptedSolicitation.acceptedByDriver = true;
+      this.state = this.states[1];
+      
+      services.socketService.on(
+        `startedSolicitation_${this.acceptedSolicitation.id}`,
+        (data) => {
+          if (data.solicitationId === this.acceptedSolicitation.id) {
+            this.state = this.states[3];
+          }
         }
-      });
-      console.log(`cancelledSolicitation_${this.acceptedSolicitation.id}`)
-      services.socketService.on(`cancelledSolicitation_${this.acceptedSolicitation.id}`, (data) => {
-        console.log(data)
-        console.log(`${data.solicitationId} === ${this.acceptedSolicitation.id}`);
-        if(data.solicitationId === this.acceptedSolicitation.id) {
-          this.acceptedSolicitation.rejectedByDriver = true;
+      );
+      
+      console.log(`cancelledSolicitation_${this.acceptedSolicitation.id}`);
+      services.socketService.on(
+        `cancelledSolicitation_${this.acceptedSolicitation.id}`,
+        (data) => {
+          if (data.solicitationId === this.acceptedSolicitation.id) {
+            this.state = this.state[2];
+          }
         }
-      });
+      );
     },
 
     async finish() {
-      await services.solicitationService.finish(this.acceptedSolicitation.id)
-      this.isAccept = false;
+      await services.solicitationService.finish(this.acceptedSolicitation.id);
       const response = await services.solicitationService.actives();
       if (response.code === 200) {
         this.solicitationList = response.data.filter((solicitation: any) => {
           return solicitation.driver !== null;
         });
       }
+      this.state = this.states[0];
     },
 
     goBack() {
-      this.isAccept = false;
       this.acceptedSolicitation = { id: -1 };
-    }
+      this.state = this.states[0];
+    },
   },
 });
 </script>

@@ -29,18 +29,18 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-    name: "solicitation-list",
-    props: {
-        solicitationList: {
-            type: Array,
-            required:true
-        }
+  name: "solicitation-list",
+  props: {
+    solicitationList: {
+      type: Array,
+      required: true,
     },
-    methods: {
-        accept(solicitation) {
-            this.$emit('accept', solicitation)
-        }
-    }
+  },
+  methods: {
+    accept(solicitation: any) {
+      this.$emit("accept", solicitation);
+    },
+  },
 });
 </script>
 
