@@ -92,7 +92,7 @@ export default defineComponent({
         `cancelledSolicitation_${this.acceptedSolicitation.id}`,
         (data) => {
           if (data.solicitationId === this.acceptedSolicitation.id) {
-            this.state = this.state[2];
+            this.state = this.states[2];
           }
         }
       );
