@@ -65,7 +65,7 @@ export default defineComponent({
     };
   },
   methods: {
-    async onSubmit(formData) {
+    async onSubmit(formData: {message: string}) {
       this.state = this.states[1]
       const message = formData.message;
       const created = await services.solicitationService.create(message);
