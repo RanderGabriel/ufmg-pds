@@ -7,26 +7,9 @@
     />
     <div class="is-round control box p-8 m-4">
      
-      <DriverInput  v-if="!isWaiting && mechanicFound?.id === -1" />
-      <div v-else-if="!mechanicFound?.id" class="level">
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="title">Aguardando um mecânico...</p>
-          </div>
-        </div>
-      </div>
-      <div v-else-if="started" class="level">
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="title">Atendimento iniciado</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="subtitle">O mecânico está a caminho</p>
-          </div>
-        </div>
-      </div>
+      <DriverInput  v-if="!isWaiting && mechanicFound.id === -1" @message-submit="onSubmit"/>
+      <WaitingMechanic v-else-if="mechanicFound.id === -1"/>
+      <MechanicOnCourse v-else-if="started"/>
       <div v-else class="columns">
         <div class="column">
           <p class="is-size-3 has-text-weight-semibold has-text-centered">
@@ -71,7 +54,10 @@
 <script lang="ts">
 import MapLoader from "@/components/MapLoader.vue";
 import DriverInput from "@/components/driver/DriverInput.vue";
-import services from "@/services";
+import WaitingMechanic from "@/components/driver/WaitingMechanic.vue";
+import MechanicOnCourse from "@/components/driver/MechanicOnCourse.vue";
+
+import services from "../../services";
 import { mapConfig } from "@/constants";
 import { defineComponent } from "vue";
 
@@ -79,7 +65,9 @@ export default defineComponent({
   name: "home-driver",
   components: {
     MapLoader,
-    DriverInput
+    DriverInput,
+    WaitingMechanic,
+    MechanicOnCourse
   },
   computed: {
     mapConfig() {
@@ -95,9 +83,6 @@ export default defineComponent({
       isLoading: false,
       isWaiting: false,
       solicitationId: -1,
-      formData: {
-        message: ""
-      },
       mechanicFound: {
         id: -1,
         name: "",
@@ -107,27 +92,27 @@ export default defineComponent({
     }
   },
   methods: {
-    async onSubmit() {
-      const { message } = this.formData.value;
-      this.isLoading.value = true;
+    async onSubmit(formData) {
+      const message  = formData.message;
+      this.isLoading = true;
       const created = await services.solicitationService.create(message);
       if (!created) return;
-      this.solicitationId.value = created.id;
+      this.solicitationId = created.id;
       services.socketService.on(
         `acceptedSolicitation_${created.id}`,
         (data) => {
-          this.mechanicFound.value = data;
+          this.mechanicFound = data;
         }
       );
-      this.isWaiting.value = true;
-      this.isLoading.value = false;
+      this.isWaiting = true;
+      this.isLoading = false;
     },
 
     async onDeny() {
-      await services.solicitationService.cancel(this.solicitationId.value);
-      this.isWaiting.value = false;
-      this.solicitationId.value = 0;
-      this.mechanicFound.value = {
+      await services.solicitationService.cancel(this.solicitationId);
+      this.isWaiting = false;
+      this.solicitationId = 0;
+      this.mechanicFound = {
         id: null,
         name: null,
         phoneNumber: null,
@@ -135,8 +120,8 @@ export default defineComponent({
     },
 
     async onAccept() {
-      await services.solicitationService.start(this.solicitationId.value);
-      this.started.value = true;
+      await services.solicitationService.start(this.solicitationId);
+      this.started = true;
     },
   },
 });

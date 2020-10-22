@@ -43,7 +43,7 @@ export  default defineComponent({
   },
   methods: {
     onSubmit() {
-      this.$emit('msg-subimit', this.formData);
+      this.$emit('message-submit', this.formData);
     }
   }
 });
