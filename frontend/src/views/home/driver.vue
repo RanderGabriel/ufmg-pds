@@ -6,47 +6,19 @@
       apiKey="AIzaSyAk6DVhHF0mAdjhSVX5ymZO2Kdj-iCE-q4"
     />
     <div class="is-round control box p-8 m-4">
-     
-      <DriverInput  v-if="!isWaiting && mechanicFound.id === -1" @message-submit="onSubmit"/>
-      <WaitingMechanic v-else-if="mechanicFound.id === -1"/>
-      <MechanicOnCourse v-else-if="started"/>
-      <div v-else class="columns">
-        <div class="column">
-          <p class="is-size-3 has-text-weight-semibold has-text-centered">
-            Mecânico encontrado!!
-          </p>
-        </div>
-        <div class="column">
-          <div class="columns">
-            <div class="column">
-              <p class="heading">Nome</p>
-              <p class="subtitle">{{ mechanicFound.name }}</p>
-            </div>
-            <div class="column">
-              <p class="heading">Contato</p>
-              <p class="subtitle">
-                <a :href="`tel:${mechanicFound.phoneNumber}`">{{
-                  mechanicFound.phoneNumber
-                }}</a>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="column">
-          <button
-            @click.prevent="onAccept()"
-            class="m-2 button is-success is-rounded is-fullwidth"
-          >
-            ACEITAR
-          </button>
-          <button
-            @click.prevent="onDeny()"
-            class="m-2 button is-danger is-outlined is-rounded is-fullwidth"
-          >
-            RECUSAR
-          </button>
-        </div>
-      </div>
+      <DriverInput
+        v-if="!isWaiting && mechanicFound.id === -1"
+        @message-submit="onSubmit"
+      />
+      <WaitingMechanic v-else-if="mechanicFound.id === -1" />
+      <MechanicOnCourse v-else-if="started" />
+      <MechanicFound
+        v-else
+        :mechanicName="mechanicFound.name"
+        :mechanicPhoneNumber="mechanicFound.phoneNumber"
+        @mechanic-accepted="onAccept"
+        @mechanic-rejected="onDeny"
+      />
     </div>
   </div>
 </template>
@@ -56,6 +28,7 @@ import MapLoader from "@/components/MapLoader.vue";
 import DriverInput from "@/components/driver/DriverInput.vue";
 import WaitingMechanic from "@/components/driver/WaitingMechanic.vue";
 import MechanicOnCourse from "@/components/driver/MechanicOnCourse.vue";
+import MechanicFound from "@/components/driver/MechanicFound.vue";
 
 import services from "../../services";
 import { mapConfig } from "@/constants";
@@ -67,7 +40,8 @@ export default defineComponent({
     MapLoader,
     DriverInput,
     WaitingMechanic,
-    MechanicOnCourse
+    MechanicOnCourse,
+    MechanicFound,
   },
   computed: {
     mapConfig() {
@@ -79,21 +53,21 @@ export default defineComponent({
     },
   },
   data() {
-    return { 
+    return {
       isLoading: false,
       isWaiting: false,
       solicitationId: -1,
       mechanicFound: {
         id: -1,
         name: "",
-        phoneNumber: ""
+        phoneNumber: "",
       },
-      started: false
-    }
+      started: false,
+    };
   },
   methods: {
     async onSubmit(formData) {
-      const message  = formData.message;
+      const message = formData.message;
       this.isLoading = true;
       const created = await services.solicitationService.create(message);
       if (!created) return;

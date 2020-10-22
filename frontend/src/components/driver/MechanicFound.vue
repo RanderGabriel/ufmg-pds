@@ -9,13 +9,13 @@
       <div class="columns">
         <div class="column">
           <p class="heading">Nome</p>
-          <p class="subtitle">{{ mechanicFound.name }}</p>
+          <p class="subtitle">{{ mechanicName }}</p>
         </div>
         <div class="column">
           <p class="heading">Contato</p>
           <p class="subtitle">
-            <a :href="`tel:${mechanicFound.phoneNumber}`">{{
-              mechanicFound.phoneNumber
+            <a :href="`tel:${mechanicPhoneNumber}`">{{
+              mechanicPhoneNumber
             }}</a>
           </p>
         </div>
@@ -41,9 +41,27 @@
 <script>
 import { defineComponent } from "vue";
 
-export default {
-  
-};
+export default defineComponent({
+  name: 'mechanic-found',
+  props: {
+    mechanicName: {
+      type: String,
+      required: true
+    },
+    mechanicPhoneNumber: {
+      type: String,
+      required: true
+    }
+  },
+  methods: {
+    onAccept() {
+      this.$emit('mechanic-accepted');
+    },
+    onDeny() {
+      this.$emit('mechanic-rejected')
+    }
+  }
+});
 </script>
 
 <style>
