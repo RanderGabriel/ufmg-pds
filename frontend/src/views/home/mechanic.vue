@@ -1,21 +1,9 @@
 <template>
     <div class="home-mechanic pt-4">
         <div v-if="!isAccept">
-            <div class="card mb-3" v-for="solicitation in solicitationList" :key="solicitation.id">
-                <header class="card-header p-3">
-                    <p class="card-header-title">
-                        {{ solicitation.driver.user.name }}
-                    </p>
-                </header>
-                <div class="card-content p-4">
-                    <div class="notification mb-4">
-                        {{ solicitation.message }}
-                    </div>
-                    <button class="button is-success is-fullwidth" @click="accept(solicitation)">
-                        Aceitar
-                    </button>
-                </div>
-            </div>
+           <SolicitationList 
+            :solicitationList="solicitationList"
+            @accept="accept"/>
         </div>
         <div v-else>
             <div class="card">
@@ -56,13 +44,17 @@
 </template>
 
 <script lang="ts">
+import SolicitationList from  "../../components/mechanic/SolicitationList.vue"
+
 import { defineComponent } from "vue";
 import services from "../../services";
 import { socketService } from "../../services/SocketService";
 
 export default defineComponent({
   name: "home-mechanic",
-
+  components: {
+    SolicitationList
+  },
   data() {
     return {
       isAccept: false,
