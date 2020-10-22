@@ -11,7 +11,6 @@
       <div class="field">
         <div class="control">
           <button
-            v-bind:class="{ 'is-loading': isLoading }"
             class="button is-black is-rounded is-fullwidth"
             type="submit"
           >
@@ -33,12 +32,6 @@ export  default defineComponent({
       formData: {
         message: ""
       }
-    }
-  },
-  props: {
-    isLoading: {
-      type: Boolean,
-      default: false
     }
   },
   methods: {
