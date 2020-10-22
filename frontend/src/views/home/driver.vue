@@ -7,18 +7,18 @@
     />
     <div class="is-round control box p-8 m-4">
       <DriverInput
-        v-if="!isWaiting && mechanicFound.id === -1"
+        v-if="state === states[0]"
         @message-submit="onSubmit"
       />
-      <WaitingMechanic v-else-if="mechanicFound.id === -1" />
-      <MechanicOnCourse v-else-if="started" />
+      <WaitingMechanic v-if="state === states[1]" />
       <MechanicFound
-        v-else
+        v-if="state === states[2]"
         :mechanicName="mechanicFound.name"
         :mechanicPhoneNumber="mechanicFound.phoneNumber"
         @mechanic-accepted="onAccept"
         @mechanic-rejected="onDeny"
       />
+      <MechanicOnCourse v-if="state === states[3]" />
     </div>
   </div>
 </template>
@@ -54,47 +54,46 @@ export default defineComponent({
   },
   data() {
     return {
-      isLoading: false,
-      isWaiting: false,
+      state: 'waitingInput',
+      states: ['waitingInput', 'waitingMechanic', 'mechanicFound', 'mechanicOnCourse'],
       solicitationId: -1,
       mechanicFound: {
         id: -1,
         name: "",
         phoneNumber: "",
       },
-      started: false,
     };
   },
   methods: {
     async onSubmit(formData) {
+      this.state = this.states[1]
       const message = formData.message;
-      this.isLoading = true;
       const created = await services.solicitationService.create(message);
       if (!created) return;
       this.solicitationId = created.id;
       services.socketService.on(
         `acceptedSolicitation_${created.id}`,
         (data) => {
+          this.state = this.states[2];
           this.mechanicFound = data;
         }
       );
-      this.isWaiting = true;
-      this.isLoading = false;
     },
 
     async onDeny() {
+      this.state = this.states[0];
       await services.solicitationService.cancel(this.solicitationId);
-      this.isWaiting = false;
-      this.solicitationId = 0;
+      this.solicitationId = -1;
       this.mechanicFound = {
-        id: null,
-        name: null,
-        phoneNumber: null,
+        id: -1,
+        name: "",
+        phoneNumber: "",
       };
     },
 
     async onAccept() {
       await services.solicitationService.start(this.solicitationId);
+      this.state = this.states[3]
       this.started = true;
     },
   },
