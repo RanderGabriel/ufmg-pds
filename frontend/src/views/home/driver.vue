@@ -94,7 +94,6 @@ export default defineComponent({
     async onAccept() {
       await services.solicitationService.start(this.solicitationId);
       this.state = this.states[3]
-      this.started = true;
     },
   },
 });
