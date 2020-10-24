@@ -1,7 +1,7 @@
 export default class Evaluation {
 
     id: number;
-    evaluation: string;
+    comment: string;
     grade: number
     driver: any;
     mechanic: any;
@@ -12,7 +12,7 @@ export default class Evaluation {
         this.driver = entity.driver;
         this.createdAt = entity.createdAt;
         this.grade = entity.grade;
-        this.evaluation = entity.evaluation
+        this.comment = entity.comment
     }
 
 

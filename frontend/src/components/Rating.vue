@@ -19,7 +19,7 @@
     </div>
 
     <textarea
-      v-model="evaluation"
+      v-model="comment"
       class="textarea"
       placeholder="Comentário (Opcional)"
     ></textarea>
@@ -44,7 +44,7 @@ export default {
     return {
       grade: -1,
       startsState: [false, false, false, false, false],
-      evaluation: ""
+      comment: ""
     };
   },
 
@@ -76,7 +76,7 @@ export default {
 
     submitRating(){
       this.$emit('rating', {
-        evaluation: this.evaluation,
+        comment: this.comment,
         grade: this.grade
       })
     },
