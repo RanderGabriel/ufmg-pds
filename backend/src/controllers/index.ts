@@ -24,7 +24,7 @@ import SolicitationController from "./SolicitationController";
 apiRouter.use("/solicitation", SolicitationController);
 
 import EvaluationController from "./EvaluationController";
-apiRouter.use("/evalution", EvaluationController);
+apiRouter.use("/evaluation", EvaluationController);
 
 router.use('/api', apiRouter);
 
