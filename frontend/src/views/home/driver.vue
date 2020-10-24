@@ -6,6 +6,7 @@
       apiKey="AIzaSyAk6DVhHF0mAdjhSVX5ymZO2Kdj-iCE-q4"
     />
     <div class="is-round control box p-8 m-4">
+    <Rating/>
       <DriverInput
         v-if="state === states[0]"
         @message-submit="onSubmit"
@@ -19,6 +20,7 @@
         @mechanic-rejected="onDeny"
       />
       <MechanicOnCourse v-if="state === states[3]" />
+      <Rating v-if="state === states[4]"/>
     </div>
   </div>
 </template>
@@ -29,6 +31,7 @@ import DriverInput from "@/components/driver/DriverInput.vue";
 import WaitingMechanic from "@/components/driver/WaitingMechanic.vue";
 import MechanicOnCourse from "@/components/driver/MechanicOnCourse.vue";
 import MechanicFound from "@/components/driver/MechanicFound.vue";
+import Rating from "@/components/Rating.vue";
 
 import services from "../../services";
 import { mapConfig } from "@/constants";
@@ -42,6 +45,7 @@ export default defineComponent({
     WaitingMechanic,
     MechanicOnCourse,
     MechanicFound,
+    Rating
   },
   computed: {
     mapConfig() {
@@ -55,8 +59,11 @@ export default defineComponent({
   data() {
     return {
       state: 'waitingInput',
-      states: ['waitingInput', 'waitingMechanic', 'mechanicFound', 'mechanicOnCourse'],
-      solicitationId: -1,
+      states: ['waitingInput', 'waitingMechanic', 'mechanicFound', 'mechanicOnCourse', 'serviceAvaliation'],
+      solicitation: {
+        id: -1,
+        finishTime: null
+      },
       mechanicFound: {
         id: -1,
         name: "",
@@ -70,7 +77,7 @@ export default defineComponent({
       const message = formData.message;
       const created = await services.solicitationService.create(message);
       if (!created) return;
-      this.solicitationId = created.id;
+      this.solicitation.id = created.id;
       services.socketService.on(
         `acceptedSolicitation_${created.id}`,
         (data) => {
@@ -82,8 +89,8 @@ export default defineComponent({
 
     async onDeny() {
       this.state = this.states[0];
-      await services.solicitationService.cancel(this.solicitationId);
-      this.solicitationId = -1;
+      await services.solicitationService.cancel(this.solicitation.id);
+      this.solicitation.id = -1;
       this.mechanicFound = {
         id: -1,
         name: "",
@@ -92,18 +99,19 @@ export default defineComponent({
     },
 
     async onAccept() {
-      await services.solicitationService.start(this.solicitationId);
+      await services.solicitationService.start(this.solicitation.id);
       this.state = this.states[3]
+      console.log(this.solicitation.id)
+      
+      services.socketService.on(`finishedSolicitation_${this.solicitation.id}`, (data) => {
+        this.solicitation.finishTime = data;
+        this.state = this.states[4];
+      });
     },
   },
 });
 </script>
 <style scoped>
-.formContainer {
-  background-color: white !important;
-  overflow: auto;
-  border-radius: 0px;
-}
 
 .container {
   height: calc(100vh - 55px);

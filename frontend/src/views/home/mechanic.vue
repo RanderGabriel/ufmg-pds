@@ -65,6 +65,7 @@ export default defineComponent({
         return solicitation.driver !== null;
       });
     }
+
     socketService.on("newSolicitation", async () => {
       const response = await services.solicitationService.actives();
       this.solicitationList = response.data.filter((solicitation: any) => {

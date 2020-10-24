@@ -3,10 +3,10 @@ import router from './router';
 
 import Navbar from '@/components/Navbar.vue';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faUserSecret)
+library.add( faStar)
 
 export default class VueConfig {
     private static app: App;

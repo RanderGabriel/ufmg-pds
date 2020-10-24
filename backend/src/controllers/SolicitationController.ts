@@ -168,6 +168,9 @@ class SolicitationController extends BaseController {
             const solicitation = await solicitationService.get(Number(id));
             solicitation.finishedAt = new Date();
             const result = await solicitationService.update(solicitation);
+            WebsocketService.emit("finishedSolicitation_" + req.body.id, {
+               time: solicitation.finishedAt
+            });
             res.send(ApiResponse.returnData(null));
         } catch (err) {
             res.send(ApiResponse.returnError(new ApiError(err.message)));
