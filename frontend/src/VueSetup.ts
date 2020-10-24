@@ -2,7 +2,11 @@ import { App, Component, createApp } from 'vue';
 import router from './router';
 
 import Navbar from '@/components/Navbar.vue';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+library.add(faUserSecret)
 
 export default class VueConfig {
     private static app: App;
@@ -20,6 +24,7 @@ export default class VueConfig {
 
     static registerComponents() {
         this.app.component('navbar', Navbar);
+        this.app.component('font-awesome-icon', FontAwesomeIcon);
         return;
     }
 

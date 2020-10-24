@@ -1,5 +1,6 @@
 <template>
   <div class="home-mechanic pt-4">
+
     <SolicitationList
       v-if="state === states[0]"
       :solicitationList="solicitationList"
