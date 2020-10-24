@@ -7,9 +7,9 @@
       </div>
     </div>
    
-    <textarea class="textarea" placeholder="e.g. Hello world"></textarea>
-    <div class="mt-4 mb-4 level is-mobile">
-      <button class="button is-black is-rounded is-fullwidth submit-button"> Enviar </button>
+    <textarea class="textarea" placeholder="Opinião escrita (Opcional)"></textarea>
+    <div class="mt-4 mb-4 buttons">
+      <button class="button is-black is-rounded is-fullwidth" :disabled="rate === -1">Enviar</button>
       <button class="button is-rounded is-fullwidth"> Pular </button>
     </div>
   </div>
