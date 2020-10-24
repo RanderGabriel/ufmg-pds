@@ -91,7 +91,8 @@ class SolicitationController extends BaseController {
             } else {
                 throw new Error("Essa solicitação já foi aceita por algum mecânico");
             }
-            WebsocketService.emit("acceptedSolicitation_" + req.body.id, {
+            
+            WebsocketService.emit("acceptedSolicitation_" + id, {
                 // Dados do mecânico
                 name: mechanic.user.name,
                 id: mechanic.id,

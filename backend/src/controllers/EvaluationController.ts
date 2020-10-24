@@ -20,8 +20,7 @@ class EvaluationController extends BaseController {
             if(!driver) {
                 throw new Error("Apenas motoristas podem criar avaliações");
             }
-            const mechanic = await mechanicService.getByUserId(mechanicId)
-
+            const mechanic = await mechanicService.get(mechanicId)
             const newEvaluation = Evaluation.createEntity(comment, grade, driver, mechanic);
 
             const responseData = await evaluationService.create(newEvaluation);
