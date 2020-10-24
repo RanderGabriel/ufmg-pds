@@ -6,7 +6,6 @@
       apiKey="AIzaSyAk6DVhHF0mAdjhSVX5ymZO2Kdj-iCE-q4"
     />
     <div class="is-round control box p-8 m-4">
-    <Rating/>
       <DriverInput
         v-if="state === states[0]"
         @message-submit="onSubmit"
