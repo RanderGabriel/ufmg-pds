@@ -19,7 +19,11 @@
         @mechanic-rejected="onDeny"
       />
       <MechanicOnCourse v-if="state === states[3]" />
-      <Rating v-if="state === states[4]"/>
+      <Rating 
+        v-if="state === states[4]"
+        @rating="onRating"
+        @skip="onSkip"
+      />
     </div>
   </div>
 </template>
@@ -107,6 +111,15 @@ export default defineComponent({
         this.state = this.states[4];
       });
     },
+
+    onRating(rating: {evaluation: string, grade: number}) {
+      console.log(rating)
+      this.state = this.states[0];
+    },
+
+    onSkip(){
+      this.state = this.states[0];
+    }
   },
 });
 </script>

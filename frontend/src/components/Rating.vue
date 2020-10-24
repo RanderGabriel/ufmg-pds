@@ -19,18 +19,19 @@
     </div>
 
     <textarea
+      v-model="evaluation"
       class="textarea"
-      placeholder="Opinião escrita (Opcional)"
+      placeholder="Comentário (Opcional)"
     ></textarea>
     <div class="mt-4 mb-4 buttons">
       <button
         class="button is-black is-rounded is-fullwidth"
         :disabled="grade === -1"
-        @click="subimitRating"
+        @click="submitRating"
       >
         Enviar
       </button>
-      <button class="button is-rounded is-fullwidth">Pular</button>
+      <button class="button is-rounded is-fullwidth" @click="skip">Pular</button>
     </div>
   </div>
 </template>
@@ -78,6 +79,10 @@ export default {
         evaluation: this.evaluation,
         grade: this.grade
       })
+    },
+
+    skip() {
+      this.$emit('skip');
     }
   },
 };
