@@ -27,7 +27,9 @@ export default class HttpService {
             resolve(this.postResponse)
         })
     }
-    
+    setup() {
+        
+    }
 }
 
 export const httpService = new HttpService()
