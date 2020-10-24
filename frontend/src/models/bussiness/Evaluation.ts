@@ -15,5 +15,4 @@ export default class Evaluation {
         this.comment = entity.comment
     }
 
-
 }

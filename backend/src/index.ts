@@ -1,6 +1,5 @@
 import {createConnection} from 'typeorm'
 
-
 createConnection().then(connection => {
     const App = require('./App').App    
     const app = new App();

@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne } from "typeorm";
-import { Driver, Mechanic } from ".";
-
+import Driver from "./Driver"
+import Mechanic from "./Mechanic"
 @Entity()
 export default class Evaluation {
 
@@ -9,6 +9,9 @@ export default class Evaluation {
 
     @Column({ nullable: true })
     comment: string;
+
+    @Column({ nullable: false })
+    grade: number;
 
     @ManyToOne(type => Driver)
     @JoinColumn()
@@ -21,13 +24,12 @@ export default class Evaluation {
     @Column({ default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date;
 
-
-    public static createEntity(comment: string, driver: Driver, mechanic: Mechanic) {
-        const newEntity = new (Evaluation);
+    public static createEntity(comment: string, grade: number,  driver: Driver, mechanic: Mechanic) {
+        const newEntity = new Evaluation();
+        newEntity.grade = grade
         newEntity.comment = comment;
         newEntity.driver = driver;
         newEntity.mechanic = mechanic;
         return newEntity;
     }
-
 }
