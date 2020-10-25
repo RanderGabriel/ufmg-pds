@@ -10,7 +10,7 @@ class EvaluationController extends BaseController {
     constructor() {
         super();
         this.router.post('/create', this.create);
-        this.router.get('/get', this.get);
+        this.router.get('/driver', this.getByDriverID);
         this.router.get('/mechanic', this.getByMechanicId);
     }
 

@@ -4,7 +4,7 @@ import { Evaluation } from '@/models/bussiness';
 export default class EvaluationService {
 
     public async getByDriverId(id: number) {
-        const response = await httpService.get('/api/evaluation/get', {
+        const response = await httpService.get('/api/evaluation/driver', {
             id
         });
         return response.data.length ? response.data.map((e: Evaluation) => new Evaluation(e)) : [];

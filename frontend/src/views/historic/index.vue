@@ -1,6 +1,6 @@
 <template>
   <div class="home-mechanic">
-     <EvaluationList evaluations="evaluations" />
+     <EvaluationList :evaluations="evaluations" />
   </div>
 
 </template>
@@ -9,7 +9,7 @@
 
 import { defineComponent } from "vue";
 import services from "../../services";
-import EvaluationList from "../../components/EvaluationList";
+import EvaluationList from "../../components/EvaluationList.vue";
 
 export default defineComponent({
   name: "home-mechanic",
@@ -23,7 +23,8 @@ export default defineComponent({
   },
   async mounted() {
     // FIXME: O comando abixo tem que depender do profile que está logado e o id não pode ser hardcoded
-    this.evaluations = await services.evaluationService.getByDriverId(1);
+    this.evaluations = await services.evaluationService.getByMechanicId(1);
+    console.log(this.evaluations)
   },
 });
 </script>
