@@ -13,15 +13,17 @@
         </div>
         <div class="column">
           <p>Avaliações</p>
-          <button class="button is-primary" @click="openModal">open</button>
+          <button class="button is-rounded" @click="openModal">
+            <span class="mr-1"> {{ mechanicMeanEvaluation.toFixed(1) }} </span>
+            <font-awesome-icon
+                :style="{ color: 'yellow' }"
+                icon="star"
+            />
+          </button>
           <div class="modal" :class="{ 'is-active': isOpen }">
             <div class="modal-background" @click="closeModal"></div>
-            <div class="modal-content is-clipped modal-background">
-              <div class="box">
-                <div v-for="(evaluation, index) in evaluations" :key="index">
-                  <p>{{ evaluation.comment }}</p>
-                </div>
-              </div>
+            <div class="modal-content modal-background">
+              <EvaluationList :evaluations="evaluations" />
             </div>
             <button
               class="modal-close is-large"
@@ -60,12 +62,17 @@
 <script>
 import { defineComponent } from "vue";
 import services from "../../services";
+import EvaluationList from "../EvaluationList";
 
 export default defineComponent({
   name: "mechanic-found",
+  components: {
+    EvaluationList,
+  },
   data() {
     return {
       evaluations: [],
+      mechanicMeanEvaluation: 0,
       isOpen: false,
     };
   },
@@ -95,6 +102,10 @@ export default defineComponent({
     this.evaluations = await services.evaluationService.getByMechanicId(
       this.mechanic.id
     );
+    let sum = this.evaluations.reduce((acc, curr) => {
+      return acc + curr.grade
+    }, 0);
+    this.mechanicMeanEvaluation = sum / this.evaluations.length;
   },
 });
 </script>
