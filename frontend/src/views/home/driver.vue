@@ -13,8 +13,7 @@
       <WaitingMechanic v-if="state === states[1]" />
       <MechanicFound
         v-if="state === states[2]"
-        :mechanicName="mechanicFound.name"
-        :mechanicPhoneNumber="mechanicFound.phoneNumber"
+        :mechanic="mechanicFound"
         @mechanic-accepted="onAccept"
         @mechanic-rejected="onDeny"
       />
@@ -84,8 +83,8 @@ export default defineComponent({
       services.socketService.on(
         `acceptedSolicitation_${created.id}`,
         (data) => {
-          this.state = this.states[2];
           this.mechanicFound = data;
+          this.state = this.states[2];
         }
       );
     },

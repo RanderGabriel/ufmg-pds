@@ -2,7 +2,7 @@ export default class Evaluation {
 
     id: number;
     comment: string;
-    grade: number
+    grade: number;
     driver: any;
     mechanic: any;
     createdAt: Date;
@@ -10,6 +10,7 @@ export default class Evaluation {
     constructor(entity: Evaluation) {
         this.id = entity.id;
         this.driver = entity.driver;
+        this.mechanic = entity.mechanic;
         this.createdAt = entity.createdAt;
         this.grade = entity.grade;
         this.comment = entity.comment

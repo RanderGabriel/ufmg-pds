@@ -10,6 +10,7 @@ class EvaluationController extends BaseController {
     constructor() {
         super();
         this.router.post('/create', this.create);
+        this.router.get('/mechanic', this.getByMechanicId);
     }
 
     public async create(req: express.Request, res: express.Response) {
@@ -26,6 +27,22 @@ class EvaluationController extends BaseController {
             const responseData = await evaluationService.create(newEvaluation);
             res.send(ApiResponse.returnData(responseData));
         } catch (error) {
+            res.status(500).send(ApiResponse.returnError({
+                message: error,
+            }));
+        }
+    }
+
+    public async getByMechanicId(req: express.Request, res: express.Response) {
+        try {
+            const id = Number(req.query.id);
+            if(id === undefined){
+                res.send(ApiResponse.returnData([]));
+            }
+            const responseData = await evaluationService.getByMechanicId(id);
+            res.send(ApiResponse.returnData(responseData));
+        } catch (error) {
+            console.log(error)
             res.status(500).send(ApiResponse.returnError({
                 message: error,
             }));
