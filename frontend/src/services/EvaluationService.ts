@@ -11,8 +11,8 @@ export default class EvaluationService {
         return response.data.length ? response.data.map((e: Evaluation) => new Evaluation(e)) : [];
     }
 
-    public async create(comment: string, grade: number, mechanicId: number) {
-        const response = await httpService.post('/api/evaluation/create', { comment, grade, mechanicId });
+    public async create(comment: string, createdBy: string, grade: number, mechanicId: number) {
+        const response = await httpService.post('/api/evaluation/create', { comment, grade, mechanicId, createdBy });
         return response.data ? new Evaluation(response.data) : null;
     }
 

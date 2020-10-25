@@ -11,6 +11,9 @@ export default class Evaluation {
     comment: string;
 
     @Column({ nullable: false })
+    createdBy: string;
+
+    @Column({ nullable: false })
     grade: number;
 
     @ManyToOne(type => Driver)
@@ -24,10 +27,11 @@ export default class Evaluation {
     @Column({ default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date;
 
-    public static createEntity(comment: string, grade: number,  driver: Driver, mechanic: Mechanic) {
+    public static createEntity(comment: string, createdBy: string, grade: number,  driver: Driver, mechanic: Mechanic) {
         const newEntity = new Evaluation();
         newEntity.grade = grade
         newEntity.comment = comment;
+        newEntity.createdBy = createdBy;
         newEntity.driver = driver;
         newEntity.mechanic = mechanic;
         return newEntity;

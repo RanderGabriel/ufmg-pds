@@ -5,7 +5,7 @@
       <div v-for="(evaluation, index) in evaluations" :key="index">
         <article class="message mb-4">
           <div class="message-header">
-            <p>Por Usuário teste</p>
+            <p>Por {{ evaluation.createdBy }}</p>
             <div v-for="n in evaluation.grade" :key="n">
               <font-awesome-icon
                 :style="{ color: 'yellow' }"

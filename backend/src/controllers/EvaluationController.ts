@@ -15,14 +15,14 @@ class EvaluationController extends BaseController {
 
     public async create(req: express.Request, res: express.Response) {
         try {
-            const {comment, grade, mechanicId}  = req.body;
+            const {comment, grade, mechanicId, createdBy}  = req.body;
             const { user } = await accessService.getByToken(req.headers["authorization"], true);
             const driver = await driverService.getByUserId(user.id);
             if(!driver) {
                 throw new Error("Apenas motoristas podem criar avaliações");
             }
             const mechanic = await mechanicService.get(mechanicId)
-            const newEvaluation = Evaluation.createEntity(comment, grade, driver, mechanic);
+            const newEvaluation = Evaluation.createEntity(comment, createdBy, grade, driver, mechanic);
 
             const responseData = await evaluationService.create(newEvaluation);
             res.send(ApiResponse.returnData(responseData));

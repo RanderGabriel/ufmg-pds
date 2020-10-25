@@ -112,7 +112,7 @@ export default defineComponent({
     },
 
     async onRating(rating: {comment: string, grade: number}) {
-      await services.evaluationService.create(rating.comment, rating.grade, this.mechanicFound.id)
+      await services.evaluationService.create(rating.comment,  "motorista teste", rating.grade, this.mechanicFound.id,)
       this.state = this.states[0];
     },
 
