@@ -19,6 +19,19 @@ export default class EvaluationService extends DatabaseService<Evaluation> {
             throw error;
         }
     }
+
+
+    public async getByDriverId(id: number) : Promise<Evaluation []> {
+        try {
+            return await this.repo.find({
+                where: {
+                    driver: id 
+                }
+            });   
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 export const evaluationService = new EvaluationService();

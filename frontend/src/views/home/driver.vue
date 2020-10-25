@@ -112,6 +112,7 @@ export default defineComponent({
     },
 
     async onRating(rating: {comment: string, grade: number}) {
+      // FIXME: Precisamos acessar o nome do motorista aqui, por enquanto está mockado
       await services.evaluationService.create(rating.comment,  "motorista teste", rating.grade, this.mechanicFound.id,)
       this.state = this.states[0];
     },

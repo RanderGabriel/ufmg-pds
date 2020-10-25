@@ -10,6 +10,7 @@ class EvaluationController extends BaseController {
     constructor() {
         super();
         this.router.post('/create', this.create);
+        this.router.get('/get', this.get);
         this.router.get('/mechanic', this.getByMechanicId);
     }
 
@@ -40,6 +41,22 @@ class EvaluationController extends BaseController {
                 res.send(ApiResponse.returnData([]));
             }
             const responseData = await evaluationService.getByMechanicId(id);
+            res.send(ApiResponse.returnData(responseData));
+        } catch (error) {
+            console.log(error)
+            res.status(500).send(ApiResponse.returnError({
+                message: error,
+            }));
+        }
+    }
+
+    public async getByDriverID(req: express.Request, res: express.Response) {
+        try {
+            const id = Number(req.query.id);
+            if(id === undefined){
+                res.send(ApiResponse.returnData([]));
+            }
+            const responseData = await evaluationService.getByDriverId(id);
             res.send(ApiResponse.returnData(responseData));
         } catch (error) {
             console.log(error)

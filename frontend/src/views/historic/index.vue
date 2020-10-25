@@ -1,51 +1,29 @@
 <template>
   <div class="home-mechanic">
-      <div
-        v-for="solicitation in solicitationList"
-        :key="solicitation.id"
-        class="card"
-      >
-        <div class="card-content">
-          <div class="content">
-            <div>Data Inicial: {{ solicitation.createdAt.split('T')[0] }}</div>
-            <div>Data Final: {{ solicitation.finishedAt.split('T')[0] }}</div>
-            <div>Mensagem: {{ solicitation.message }}</div>
-            <div><Rating class="rating"/></div>
-          </div>
-        </div>
-
-        <footer class="card-footer">
-          
-        </footer>
-
-      </div>
+     <EvaluationList evaluations="evaluations" />
   </div>
 
 </template>
 
 <script lang="ts">
 
-import Rating from '@/components/Rating.vue'
 import { defineComponent } from "vue";
 import services from "../../services";
+import EvaluationList from "../../components/EvaluationList";
 
 export default defineComponent({
   name: "home-mechanic",
   components: {
-      Rating,
+      EvaluationList,
   },
   data() {
     return {
-      solicitationList: []
+      evaluations: []
     };
   },
   async mounted() {
-    const response = await services.solicitationService.getAll();
-    if (response.code === 200) {
-      this.solicitationList = response.data.filter((solicitation: any) => {
-        return solicitation.finishedAt !== null;
-      });
-    }
+    // FIXME: O comando abixo tem que depender do profile que está logado e o id não pode ser hardcoded
+    this.evaluations = await services.evaluationService.getByDriverId(1);
   },
 });
 </script>
