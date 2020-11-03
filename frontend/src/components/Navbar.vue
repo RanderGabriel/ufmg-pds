@@ -13,7 +13,7 @@
         </div>
 
         <div class="navbar-menu" :class="{'is-active': isExpanded}">
-            <div class="navbar-start">
+            <div class="navbar-start" v-if="state.isAuthenticated">
                 <router-link tag="button" to="/home" class="navbar-item">
                     Home
                 </router-link>
@@ -24,13 +24,13 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                        <router-link to="/signup" class="button is-primary">
+                        <router-link to="/signup" class="button is-primary" v-if="!state.isAuthenticated">
                             <strong>Sign up</strong>
                         </router-link>
-                        <router-link to="/login" class="button is-light">
+                        <router-link to="/login" class="button is-light" v-if="!state.isAuthenticated">
                             Log in
                         </router-link>
-                        <router-link tag="button" to="/logoff" class="button is-danger">
+                        <router-link tag="button" to="/logoff" class="button is-danger" v-if="state.isAuthenticated">
                             Log out
                         </router-link>
                     </div>
@@ -42,17 +42,19 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import * as store from '@/store';
 
 export default defineComponent({
     name: 'navbar',
     setup() {
-
+        let state = store.useState();
         let isExpanded = ref(false);
         function toggleMenu() {
             isExpanded.value = !isExpanded.value;
         }
 
         return {
+            state,
             isExpanded,
             toggleMenu,
         }

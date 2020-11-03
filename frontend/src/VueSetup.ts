@@ -1,5 +1,6 @@
 import { App, Component, createApp } from 'vue';
 import router from './router';
+import * as store from './store';
 
 import Navbar from '@/components/Navbar.vue';
 
@@ -11,10 +12,11 @@ export default class VueConfig {
         this.app = createApp(component);
         this.app.use(router);
 
+        this.app.provide(store.stateSymbol, store.createState());
+        this.app.provide(store.stateSymbol, store.createState());
+
         VueConfig.registerComponents();
         VueConfig.registerPlugins();
-        VueConfig.registerFilters();
-
         this.app.mount(root);
     }
 
@@ -27,7 +29,4 @@ export default class VueConfig {
         return;
     }
 
-    static registerFilters() {
-        return;
-    }
 }

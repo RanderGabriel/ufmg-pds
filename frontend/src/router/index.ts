@@ -11,7 +11,7 @@ import { authService } from '@/services/AuthService';
 const routes = [
     {
         path: '/404-not-found',
-        component: Error404
+        component: Error404,
     },
     {
         path: '/home',
@@ -41,7 +41,7 @@ const routes = [
     }
 ];
 
-const publicRoutes = [
+export const publicRoutes = [
     '/404-not-found',
     '/signup',
     '/login',

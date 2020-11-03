@@ -19,7 +19,6 @@ export default defineComponent({
         MechanicHome,
     },
     setup() {
-        console.log(this);
         const profile = services.userService.getCurrentUser()?.profile;
         return {
             profile,
@@ -34,7 +33,6 @@ export default defineComponent({
             console.log("REQUEST CREATED!!! ID: " + message.id);
         });
 
-        console.log("CREATED");
     },
     methods: {
         async greet() {

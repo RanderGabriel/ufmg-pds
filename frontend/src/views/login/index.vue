@@ -43,6 +43,7 @@
 import router from '@/router';
 import services from '@/services';
 import { defineComponent, ref } from 'vue';
+import * as store from '@/store';
 
 export default defineComponent({
     name: 'login',
@@ -50,6 +51,8 @@ export default defineComponent({
         services.authService.logoff();
     },
     setup() {
+        let state = store.useState();
+        state.isAuthenticated = false;
         const isLoading = ref(false);
         const formData = ref({
             email: '',
@@ -60,6 +63,7 @@ export default defineComponent({
             const { email, password } = formData.value;
             isLoading.value = true;
             await services.authService.login(email, password);
+            state.isAuthenticated = true;
             isLoading.value = false;
             router.push('/');
         }
