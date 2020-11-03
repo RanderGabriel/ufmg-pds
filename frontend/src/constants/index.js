@@ -1,3 +1,21 @@
+/*export const mapConfig = {
+  zoomControl: false,
+  mapTypeControl: false,
+  scaleControl: false,
+  streetViewControl: false,
+  rotateControl: false,
+  fullscreenControl: false,
+  gestureHandling: "cooperative",
+  backgroundColor: "#f1f1f1",
+  zoomControlOptions: {
+    style: "SMALL"
+  },
+  zoom: 17,
+  styles: [
+    
+  ]
+};*/
+
 import colorPalette from '@/constants/colorPalette'
 
 const { COLOR_POINT, COLOR_LANDSCAPE, COLOR_BORDERS, COLOR_WATER, COLOR_LINE, COLOR_POINT_FILL, COLOR_SELECTED_POINT } = colorPalette
