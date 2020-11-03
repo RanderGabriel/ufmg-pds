@@ -115,6 +115,37 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 
 ### Sprint Planning III
 
+## Estórias do usuário
+1. Como um motorista, quero cadastrar o endereço da minha solicitação.
+
+2. Como um motorista, quero que o mecânico veja minhas informações de contato somente após ambas as partes aceitarem o atendimento.
+
+3. Como um mecânico, quero que o motorista veja minhas informações de contato somente após ambas as partes aceitarem o atendimento.
+
+4. Como um mecânico, quero ver meu perfil no sistema.
+
+## Outras Tarefas
+5. Corrigir erros no websocket (Mecanico aceita a solicitação, mas não atualiza para o motorista)
+
+6. Melhorar interação com os mapas
+
+7. Terminar o sistema de avaliação. (texto + nota)
+
+8. Colocar timeouts nas interações entre motoristas e mecânicos
+
+9. Criar validação do Cadastro e Login
+
+10. Mostrar estatísticas de atendimentos quando não tiver solicitações no mecânicos
+
+11. Otimizar a navbar
+
+12. Otimizar front-end
+
+13. Criar global state para a aplicação
+
+14. Criar filtros para não exibir todas as solicitações para todos os mecânicos
+
+
 ### Arquitetura
 - Diagrama de Pacotes
 ![alt text](https://uploaddeimagens.com.br/images/002/536/543/full/DiagramadePacotesArquitetura.png)
