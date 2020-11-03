@@ -1,8 +1,9 @@
 <script lang="ts">
     // @ts-ignore
     import { POINT_MARKER_ICON_CONFIG } from '@/constants'
+    import { defineComponent } from 'vue';
 
-    export default {
+    export default defineComponent({
         props: {
             google: {
                 type: Object,
