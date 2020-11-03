@@ -23,6 +23,9 @@ apiRouter.use("/driver", DriverRouter);
 import SolicitationController from "./SolicitationController";
 apiRouter.use("/solicitation", SolicitationController);
 
+import EvaluationController from "./EvaluationController";
+apiRouter.use("/evaluation", EvaluationController);
+
 router.use('/api', apiRouter);
 
 export default router;

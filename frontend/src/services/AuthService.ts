@@ -16,6 +16,7 @@ export default class AuthService {
                     ...response.data.user, profile: response.data.user.profile.name
                 })
                 userService.saveUser(user);
+                httpService.setup();
                 return user;
             }
         }

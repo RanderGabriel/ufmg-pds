@@ -4,9 +4,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted } from 'vue';
+import { httpService } from './services/HttpService';
 
 export default defineComponent({
     name: 'App',
+    setup() {
+        onMounted(() => {
+            httpService.setup();
+        });
+    },
 });
 </script>

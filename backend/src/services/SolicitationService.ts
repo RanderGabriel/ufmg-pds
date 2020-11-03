@@ -11,7 +11,10 @@ export default class SolicitationService extends DatabaseService<Solicitation> {
     async actives() {
         try {
             return await this.repo.find({
-                where: { finishedAt: null },
+                where: {
+                    finishedAt: null,
+                    mechanic: null
+                },
                 relations: ['driver', 'driver.user']
             });
         } catch (error) {

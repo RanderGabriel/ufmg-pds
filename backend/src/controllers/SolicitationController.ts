@@ -60,21 +60,22 @@ class SolicitationController extends BaseController {
             const { message } = req.body;
             const { user } = await accessService.getByToken(req.headers["authorization"], true);
             const driver = await driverService.getByUserId(user.id);
-
+            if(!driver) {
+                throw new Error("Apenas motoristas podem criar solicitações");
+            }
             const newSolicitation = Solicitation.createEntity(message, driver);
 
             const responseData = await solicitationService.create(newSolicitation);
             WebsocketService.emit("newSolicitation", { solicitation: responseData });
             res.send(ApiResponse.returnData(responseData));
         } catch (error) {
-            res.send(ApiResponse.returnError({
+            res.status(500).send(ApiResponse.returnError({
                 message: error,
             }));
         }
     }
 
     public async accept(req: express.Request, res: express.Response) {
-        //TODO: Implementar aceite da solicitação pelo mecânico (coloquei aqui só pra conseguir implementar a parte do motorista)
         try {
             const { id } = req.body;
             const { user } = await accessService.getByToken(req.headers["authorization"], true);
@@ -83,7 +84,6 @@ class SolicitationController extends BaseController {
                 throw new Error("Somente mecânicos podem aceitar solicitações");
             }
             // TODO: Rever mecanismo de transações.
-            // Esse é o único ponto que eu imagino que seja necessário, mas precisamos rever
             const solicitation = await solicitationService.get(id);
             if(solicitation.mechanic == null) {
                 solicitation.mechanic = mechanic;
@@ -91,7 +91,8 @@ class SolicitationController extends BaseController {
             } else {
                 throw new Error("Essa solicitação já foi aceita por algum mecânico");
             }
-            WebsocketService.emit("acceptedSolicitation_" + req.body.id, {
+            
+            WebsocketService.emit("acceptedSolicitation_" + id, {
                 // Dados do mecânico
                 name: mechanic.user.name,
                 id: mechanic.id,
@@ -101,7 +102,7 @@ class SolicitationController extends BaseController {
                 id: req.body.id
             }))
         } catch (err) {
-            res.send(ApiResponse.returnError({
+            res.status(500).send(ApiResponse.returnError({
                 message: err.message
             }))
         }
@@ -130,7 +131,7 @@ class SolicitationController extends BaseController {
             });
             res.send(ApiResponse.returnData(null));
         } catch (err) {
-            res.send(ApiResponse.returnError(new ApiError(err.message)));
+            res.status(500).send(ApiResponse.returnError(new ApiError(err.message)));
         }
     }
 
@@ -158,7 +159,7 @@ class SolicitationController extends BaseController {
             });
             res.send(ApiResponse.returnData(null));
         } catch (err) {
-            res.send(ApiResponse.returnError(new ApiError(err.message)));
+            res.status(500).send(ApiResponse.returnError(new ApiError(err.message)));
         }
     }
 
@@ -168,6 +169,9 @@ class SolicitationController extends BaseController {
             const solicitation = await solicitationService.get(Number(id));
             solicitation.finishedAt = new Date();
             const result = await solicitationService.update(solicitation);
+            WebsocketService.emit("finishedSolicitation_" + req.body.id, {
+               time: solicitation.finishedAt
+            });
             res.send(ApiResponse.returnData(null));
         } catch (err) {
             res.send(ApiResponse.returnError(new ApiError(err.message)));

@@ -1,49 +1,99 @@
 <template>
-  <form>
-    <rating :items="items" legend="" :value="value" @change="update"></rating>
-  </form>
+  <div class="rating-container">
+    <h2 class="title">Avaliação</h2>
+    <div class="level is-mobile">
+      <div
+        class="start-container"
+        v-for="(starState, index) in startsState"
+        :key="index"
+      >
+        <font-awesome-icon
+          :class="{ actived: starState }"
+          icon="star"
+          size="3x"
+          @mouseenter="activeStar(index)"
+          @mouseleave="deactivateStar"
+          @click="rating(index)"
+        />
+      </div>
+    </div>
+
+    <textarea
+      v-model="comment"
+      class="textarea"
+      placeholder="Comentário (Opcional)"
+    ></textarea>
+    <div class="mt-4 mb-4 buttons">
+      <button
+        class="button is-black is-rounded is-fullwidth"
+        :disabled="grade === -1"
+        @click="submitRating"
+      >
+        Enviar
+      </button>
+      <button class="button is-rounded is-fullwidth" @click="skip">Pular</button>
+    </div>
+  </div>
 </template>
  
 <script>
-import Rating from 'vue-bulma-rating'
- 
 export default {
-  components: {
-    Rating
-  },
- 
-  data () {
+  components: {},
+
+  data() {
     return {
-      value: 0,
-      items: [
-        {
-          title: '5 Stars',
-          value: 5
-        },
-        {
-          title: '4 Stars',
-          value: 4
-        },
-        {
-          title: '3 Stars',
-          value: 3
-        },
-        {
-          title: '2 Stars',
-          value: 2
-        },
-        {
-          title: '1 Star',
-          value: 1
-        }
-      ]
+      grade: -1,
+      startsState: [false, false, false, false, false],
+      comment: ""
+    };
+  },
+
+  methods: {
+    activeStar(index) {
+      if (this.grade === -1) {
+        this.startsState = [false, false, false, false, false].fill(
+          true,
+          0,
+          index + 1
+        );
+      }
+    },
+
+    deactivateStar() {
+      if (this.grade === -1) {
+        this.startsState = [false, false, false, false, false];
+      }
+    },
+
+    rating(index) {
+      this.grade = index + 1;
+      this.startsState = [false, false, false, false, false].fill(
+        true,
+        0,
+        index + 1
+      );
+    },
+
+    submitRating(){
+      this.$emit('rating', {
+        comment: this.comment,
+        grade: this.grade
+      })
+    },
+
+    skip() {
+      this.$emit('skip');
     }
   },
- 
-  methods: {
-    update (val) {
-      this.value = val
-    }
-  }
-}
+};
 </script>
+
+<style>
+.actived {
+  color: yellow;
+}
+.start-container {
+  display: flex;
+  flex-direction: row;
+}
+</style>

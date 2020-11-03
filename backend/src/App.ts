@@ -27,7 +27,8 @@ export class App {
         this.app.use(controllers);
     }
 
-    private configureSocket() {
+    public configureSocket() {
+        this.io = socketIO.listen(this.server);
         this.app.get('/websocket', (req: express.Request, res: express.Response) => {
             const message = String(req.query.message);
             this.io.emit('globalAlert', message);
@@ -59,7 +60,6 @@ export class App {
 
     public start(port: number = 5000) {
         this.server = this.app.listen(5000);
-        this.io = socketIO.listen(this.server);
         this.configureSocket();
         this.checkProfiles();
     } 
