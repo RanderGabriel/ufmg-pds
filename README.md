@@ -115,7 +115,7 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 
 ### Sprint Planning III
 
-## Estórias do usuário
+#### Estórias do usuário
 1. Como um motorista, quero cadastrar o endereço da minha solicitação.
 
 2. Como um motorista, quero que o mecânico veja minhas informações de contato somente após ambas as partes aceitarem o atendimento.
@@ -124,7 +124,7 @@ Sistema que conecta, em tempo real, mecânicos a motoristas que precisam de um a
 
 4. Como um mecânico, quero ver meu perfil no sistema.
 
-## Outras Tarefas
+#### Outras Tarefas
 5. Corrigir erros no websocket (Mecanico aceita a solicitação, mas não atualiza para o motorista)
 
 6. Melhorar interação com os mapas
