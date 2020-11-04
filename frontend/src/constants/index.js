@@ -31,13 +31,13 @@ const COLORS = {
 }
 
 const POINT_MARKER_ICON_CONFIG = {
-  path: 'M 0, 0 m -5, 0 a 5,5 0 1,0 10,0 a 5,5 0 1,0 -10,0',
-  strokeOpacity: 0.7,
-  strokeWeight: 4,
+  //path: 'M 0, 0 m -5, 0 a 5,5 0 1,0 10,0 a 5,5 0 1,0 -10,0',
+  //strokeOpacity: 0.7,
+  //strokeWeight: 4,
   strokeColor: COLORS.POINT,
   fillColor: COLORS.POINT_FILL,
-  fillOpacity: 0.7,
-  scale: 1
+  //fillOpacity: 0.7,
+  //scale: 1
 }
 
 const SELECTED_POINT_MARKER_ICON_CONFIG = {
