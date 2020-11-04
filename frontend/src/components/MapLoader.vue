@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="google-map" ref="googleMap"></div>
-    <template v-if="!!this.google && !!this.map">
+    <template v-if="Boolean(this.google) && Boolean(this.map)">
       <slot
         :google="google"
         :map="map"
