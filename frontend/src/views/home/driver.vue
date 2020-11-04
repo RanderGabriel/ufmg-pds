@@ -56,7 +56,7 @@ import MechanicFound from "@/components/driver/MechanicFound.vue";
 import Rating from "@/components/Rating.vue";
 
 import services from "../../services";
-import { mapConfig } from "@/constants";
+import { mapConfig } from "../../constants";
 import { defineComponent } from "vue";
 
 export default defineComponent({
