@@ -4,7 +4,24 @@
       class="map"
       :mapConfig="mapConfig"
       apiKey="AIzaSyAk6DVhHF0mAdjhSVX5ymZO2Kdj-iCE-q4"
-    />
+    >
+      <template v-slot="{ google, map }">
+        <MapMarker
+          v-for="marker in markers"
+          :key="marker.id"
+          :marker="marker"
+          :google="google"
+          :map="map"
+        />
+        <MapLine
+          v-for="line in lines"
+          :key="line.id"
+          :path="line.path"
+          :google="google"
+          :map="map"
+        />
+      </template>
+    </MapLoader>
     <div class="is-round control box p-8 m-4">
       <DriverInput
         v-if="state === states[0]"
@@ -28,7 +45,10 @@
 </template>
 
 <script lang="ts">
+
 import MapLoader from "@/components/MapLoader.vue";
+import MapMarker from "@/components/MapMarker.vue";
+import MapLine from "@/components/MapLine.vue";
 import DriverInput from "@/components/driver/DriverInput.vue";
 import WaitingMechanic from "@/components/driver/WaitingMechanic.vue";
 import MechanicOnCourse from "@/components/driver/MechanicOnCourse.vue";
@@ -43,6 +63,8 @@ export default defineComponent({
   name: "home-driver",
   components: {
     MapLoader,
+    MapMarker,
+    MapLine,
     DriverInput,
     WaitingMechanic,
     MechanicOnCourse,
@@ -54,7 +76,8 @@ export default defineComponent({
       return {
         ...mapConfig,
         zoom: 14,
-        center: { lat: -19.8514378, lng: -43.9817617 },
+        center: { lat: -19.8691265, lng: -43.9647344 },
+        //center: this.markers[0].position
       };
     },
   },
@@ -71,6 +94,14 @@ export default defineComponent({
         name: "",
         phoneNumber: "",
       },
+      markers: [
+        { id: 'a', position: { lat: -19.8691265, lng: -43.9647344 } },
+        //{ id: 'b', position: { lat: -19.8542844, lng: -43.9778222 } },
+      ],
+      lines: [
+        //{ id: '1', path: [{ lat: -19.8691265, lng: -43.9647344 }, { lat: -19.8542844, lng: -43.9778222 }] },
+        //{ id: '2', path: [{ lat: 5, lng: 99 }, { lat: 6, lng: 97 }] }
+      ],
     };
   },
   methods: {
