@@ -95,8 +95,11 @@ export default defineComponent({
         phoneNumber: "",
       },
       markers: [
-        { id: 'a', position: { lat: -19.8691265, lng: -43.9647344 } },
-        //{ id: 'b', position: { lat: -19.8542844, lng: -43.9778222 } },
+        { id: 'machanic1', position: { lat: -19.8691265, lng: -43.9647344 } },
+        { id: 'mechanic2', position: { lat: -19.8747162, lng: -43.98012 } },
+        { id: 'mechanic3', position: { lat: -19.87148, lng: -43.9814718 } },
+        { id: 'mechanic4', position: { lat: -19.8502524, lng: -43.9637101 } },
+        { id: 'mechanic5', position: { lat: -19.8571568, lng: -43.9628115 } },
       ],
       lines: [
         //{ id: '1', path: [{ lat: -19.8691265, lng: -43.9647344 }, { lat: -19.8542844, lng: -43.9778222 }] },
